@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: administrator
+      POSTGRES_PASSWORD: apipdv2024
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  api:
+    container_name: api-pdv
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    command: npm run start:dev
+    depends_on:
+      - postgres
+volumes:
+  postgres:
