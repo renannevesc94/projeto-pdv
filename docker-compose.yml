@@ -4,11 +4,14 @@ services:
   postgres:
     image: postgres:latest
     restart: always
+
     environment:
-      POSTGRES_USER: administrator
+      POSTGRES_USER: admin
       POSTGRES_PASSWORD: apipdv2024
+
     volumes:
       - postgres:/var/lib/postgresql/data
+
     ports:
       - '5432:5432'
 
