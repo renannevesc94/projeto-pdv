@@ -25,7 +25,9 @@ services:
     volumes:
       - .:/usr/app
       - /usr/app/node_modules
+
     command: npm run start:dev
+
     depends_on:
       - postgres
 volumes:
