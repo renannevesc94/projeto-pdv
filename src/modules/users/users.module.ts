@@ -9,6 +9,8 @@ import { PrismaCreateuserRepository } from './create-user/repositories/prisma-cr
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { PrismaGetAllUsersRepository } from './get-all/repositories/prisma.get-all-users.repository';
 import { IGetAllRepository } from './get-all/repositories/interface-get-all.repository';
+import { IDeleteUserRepository } from './delete-user/repositories/interface-delete-user.repository';
+import { PrismaDeleteUserRepository } from './delete-user/repositories/prisma-delete-user.repository';
 
 @Module({
   providers: [
@@ -24,6 +26,10 @@ import { IGetAllRepository } from './get-all/repositories/interface-get-all.repo
     {
       provide: IGetAllRepository,
       useClass: PrismaGetAllUsersRepository,
+    },
+    {
+      provide: IDeleteUserRepository,
+      useClass: PrismaDeleteUserRepository,
     },
   ],
   imports: [],

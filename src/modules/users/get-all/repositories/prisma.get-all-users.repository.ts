@@ -9,6 +9,7 @@ export class PrismaGetAllUsersRepository implements IGetAllRepository {
 
   async getAll() {
     const users = await this.prisma.user.findMany();
+
     return users.map(
       (user) =>
         new User(

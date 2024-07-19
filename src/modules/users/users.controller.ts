@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   UsePipes,
   ValidationPipe,
@@ -11,12 +13,14 @@ import { CreateUserDto } from './create-user/dto/create-user-dto';
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { GetAllUsersService } from './get-all/get-all-users.service';
+import { DeleteUserService } from './delete-user/delete-user.service';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private createUserService: CreateUserService,
     private getAllUsersService: GetAllUsersService,
+    private deleteUserService: DeleteUserService,
   ) {}
 
   @Post()
@@ -29,5 +33,10 @@ export class UsersController {
   @Get()
   async getAll() {
     return await this.getAllUsersService.getAll();
+  }
+
+  @Delete(':email')
+  async delete(@Param('email') email: string) {
+    return await this.deleteUserService.delete(email);
   }
 }
