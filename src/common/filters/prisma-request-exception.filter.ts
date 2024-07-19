@@ -23,6 +23,11 @@ export class PrismaRequestExceptionFilter implements ExceptionFilter {
           404,
         );
         break;
+      case 'P2021':
+        customException = new UniqueConstraintException(
+          `The table ${exception.meta.table} does not exist in the current database.`,
+        );
+        break;
       default:
         customException = new UniqueConstraintException(
           `Unknown error in database context`,
