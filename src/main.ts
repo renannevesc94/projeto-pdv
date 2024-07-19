@@ -1,12 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { PrismaExceptionFilter } from './common/filters/prisma-exception.filter';
+import { PrismaRequestExceptionFilter } from './common/filters/prisma-request-exception.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { PrismaInitiazilationExceptionFilter } from './common/filters/prisma-initiazilation-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalFilters(new PrismaExceptionFilter());
+  app.useGlobalFilters(
+    new PrismaRequestExceptionFilter(),
+    new PrismaInitiazilationExceptionFilter(),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('API PDV')
