@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -14,6 +15,8 @@ import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { GetAllUsersService } from './get-all/get-all-users.service';
 import { DeleteUserService } from './delete-user/delete-user.service';
+import { UpdateUserService } from './update-user/update-user.service';
+import { UpdateUserDto } from './update-user/dto/update-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -21,6 +24,7 @@ export class UsersController {
     private createUserService: CreateUserService,
     private getAllUsersService: GetAllUsersService,
     private deleteUserService: DeleteUserService,
+    private updateUserService: UpdateUserService,
   ) {}
 
   @Post()
@@ -39,5 +43,14 @@ export class UsersController {
   @UsePipes(new TrimBodyPipe())
   async delete(@Param('email') email: string) {
     return await this.deleteUserService.delete(email);
+  }
+
+  @Put(':email')
+  @UsePipes(new TrimBodyPipe(), new ValidationPipe())
+  async update(
+    @Param('email') email: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return await this.updateUserService.update(email, updateUserDto);
   }
 }
