@@ -1,10 +1,13 @@
 import { ArgumentMetadata, PipeTransform } from '@nestjs/common';
 
 export class TrimBodyPipe implements PipeTransform {
-  transform(body: any, metadata: ArgumentMetadata) {
-    for (const key in body) {
-      body[key] = body[key].trim();
+  transform(data: any, metadata: ArgumentMetadata) {
+    if (metadata.type === 'body') {
+      for (const key in data) {
+        data[key] = data[key].trim();
+      }
+      return data;
     }
-    return body;
+    return data.trim();
   }
 }

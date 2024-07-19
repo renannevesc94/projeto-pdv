@@ -36,6 +36,7 @@ export class UsersController {
   }
 
   @Delete(':email')
+  @UsePipes(new TrimBodyPipe())
   async delete(@Param('email') email: string) {
     return await this.deleteUserService.delete(email);
   }
