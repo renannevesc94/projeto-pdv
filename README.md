@@ -30,13 +30,6 @@ Certifique-se de ter o Docker e Docker Compose instalados em sua máquina. Se ai
 
 Para rodar o projeto utilizando Docker Compose, siga os passos abaixo:
 
-#### Pré-requisitos
-
-Certifique-se de ter o Docker e Docker Compose instalados em sua máquina. Se ainda não tiver, você pode instalar seguindo as instruções nos links abaixo:
-
-- [Instalar Docker](https://docs.docker.com/get-docker/)
-- [Instalar Docker Compose](https://docs.docker.com/compose/install/)
-
 #### Passos para Rodar
 
 1. **Clone o Repositório:**
