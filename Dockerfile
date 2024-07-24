@@ -1,4 +1,5 @@
-FROM node:alpine AS development
+FROM node:20.15.1 AS development
+
 
 WORKDIR /usr/app
 
@@ -10,6 +11,6 @@ RUN npx prisma generate
 
 RUN npm run build
 
-CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:dev"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run start:debug"]
 
 
