@@ -14,6 +14,7 @@ export class PrismaRequestExceptionFilter implements ExceptionFilter {
       case 'P2002':
         customException = new UniqueConstraintException(
           `Unique constraint failed on the ${exception.meta.target}`,
+          409,
         );
         break;
 
