@@ -13,7 +13,7 @@ export class PrismaRequestExceptionFilter implements ExceptionFilter {
     switch (exception.code) {
       case 'P2002':
         customException = new UniqueConstraintException(
-          `Unique constraint failed on the ${exception.meta.target}`,
+          `${exception.meta.target} already exists`,
           409,
         );
         break;
@@ -31,10 +31,7 @@ export class PrismaRequestExceptionFilter implements ExceptionFilter {
         break;
 
       case 'P2025':
-        customException = new UniqueConstraintException(
-          `${exception.meta.cause}`,
-          404,
-        );
+        customException = new UniqueConstraintException(`Data not found`, 404);
         break;
       default:
         customException = new UniqueConstraintException(
