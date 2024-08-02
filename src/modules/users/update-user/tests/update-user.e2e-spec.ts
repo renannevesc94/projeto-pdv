@@ -1,20 +1,12 @@
-import { INestApplication } from '@nestjs/common';
-import { createTestApp } from '../../../../../tests/helpers/create-test-app';
 import * as request from 'supertest';
+import { app } from 'tests/helpers/create-test-app';
 
 describe('Update User Tests (e2e)', () => {
-  let app: INestApplication;
-  beforeEach(async () => {
-    app = await createTestApp();
-  });
-
   it('(PUT) should return success and 200 status code when success updating a user', () => {
     return request(app.getHttpServer())
-      .put('/users/test@test.com')
+      .put('/users/supervisor@projetopdv.com')
       .send({
         password: 'newpassword2024',
-        name: 'person',
-        role: 'ADMINISTRADOR',
       })
       .expect(200)
       .expect((res) => {
