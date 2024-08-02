@@ -6,7 +6,7 @@ import { PrismaClientInitializationError } from '@prisma/client/runtime/library'
 export class PrismaService extends PrismaClient implements OnModuleInit {
   async onModuleInit() {
     await this.$connect()
-      .then(() => console.log('Database is connected'))
+      .then(() => {})
       .catch((err: PrismaClientInitializationError) =>
         console.log(err.message + '\n Error Code: ' + err.errorCode),
       );
