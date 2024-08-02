@@ -1,16 +1,10 @@
-import { createTestApp } from '../../../../../tests/helpers/create-test-app';
 import * as request from 'supertest';
-import { INestApplication } from '@nestjs/common';
+import { app } from 'tests/helpers/create-test-app';
 
 describe('Delete User Tests (e2e)', () => {
-  let app: INestApplication;
-  beforeEach(async () => {
-    app = await createTestApp();
-  });
-
   it('(DELETE) should return success and 200 status code when success deleting a user', () => {
     return request(app.getHttpServer())
-      .delete('/users/test@test.com')
+      .delete('/users/operador@projetopdv.com')
       .expect(200);
   });
 
