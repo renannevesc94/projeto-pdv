@@ -1,14 +1,7 @@
-import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { createTestApp } from '../../../../../tests/helpers/create-test-app';
+import { app } from 'tests/helpers/create-test-app';
 
 describe('Create User Tests (e2e)', () => {
-  let app: INestApplication;
-
-  beforeEach(async () => {
-    app = await createTestApp();
-  });
-
   it('(POST) should return error and 400 status code when sending incomplete or incorrect data in the body', () => {
     return request(app.getHttpServer())
       .post('/users')
@@ -28,7 +21,7 @@ describe('Create User Tests (e2e)', () => {
       .post('/users')
       .send({
         email: 'test@test.com',
-        password: 'test1234test',
+        password: '123456*mudar',
         name: 'test',
         role: 'ADMINISTRADOR',
       })
@@ -42,7 +35,7 @@ describe('Create User Tests (e2e)', () => {
     return request(app.getHttpServer())
       .post('/users')
       .send({
-        email: 'test@test.com',
+        email: 'admin@projetopdv.com',
         password: 'test1234test',
         name: 'test',
         role: 'ADMINISTRADOR',
