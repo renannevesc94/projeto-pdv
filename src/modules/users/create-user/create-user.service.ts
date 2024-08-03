@@ -9,7 +9,7 @@ export class CreateUserService {
   constructor(readonly createUserRepository: ICreateUserRepository) {}
 
   async create(createUserDto: CreateUserDto) {
-    const hashedPassword = await bcrypt.hash('12346578', 10);
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     createUserDto.password = hashedPassword;
     return await this.createUserRepository.create(createUserDto);
   }
