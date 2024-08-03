@@ -6,11 +6,11 @@ describe('Update User Tests (e2e)', () => {
     return request(app.getHttpServer())
       .put('/users/supervisor@projetopdv.com')
       .send({
-        password: 'newpassword2024',
+        name: 'Name Test',
       })
       .expect(200)
       .expect((res) => {
-        expect(res.body).toHaveProperty('password', 'newpassword2024');
+        expect(res.body).toHaveProperty('name', 'Name Test');
       });
   });
 
