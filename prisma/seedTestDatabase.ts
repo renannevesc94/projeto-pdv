@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Roles } from 'src/modules/users/user.entity';
+import * as bycrypt from 'bcrypt';
 
 export async function seedTestDatabase() {
   const prisma = new PrismaClient();
@@ -7,21 +8,21 @@ export async function seedTestDatabase() {
     {
       name: 'Admin',
       email: 'admin@projetopdv.com',
-      password: '12345678',
+      password: bycrypt.hashSync('12345678', 10),
       role: 'ADMINISTRADOR',
     },
 
     {
       name: 'Supervisor',
       email: 'supervisor@projetopdv.com',
-      password: '12345678',
+      password: bycrypt.hashSync('12345678', 10),
       role: 'SUPERVISOR',
     },
 
     {
       name: 'Operador',
       email: 'operador@projetopdv.com',
-      password: '12345678',
+      password: bycrypt.hashSync('12345678', 10),
       role: 'OPERADOR',
     },
   ];
