@@ -13,6 +13,7 @@ import { IDeleteUserRepository } from './delete-user/repositories/interface-dele
 import { PrismaDeleteUserRepository } from './delete-user/repositories/prisma-delete-user.repository';
 import { IUpdateUserRepository } from './update-user/repositories/interface-update-user.repository';
 import { UpdateUserRepository } from './update-user/repositories/prisma-update-user.repository';
+import { JwtStrategy } from 'src/common/strategies/jwt.strategy';
 
 @Module({
   providers: [
@@ -21,6 +22,7 @@ import { UpdateUserRepository } from './update-user/repositories/prisma-update-u
     GetAllUsersService,
     DeleteUserService,
     PrismaService,
+    JwtStrategy,
     {
       provide: ICreateUserRepository,
       useClass: PrismaCreateuserRepository,

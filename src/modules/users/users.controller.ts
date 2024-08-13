@@ -35,8 +35,8 @@ export class UsersController {
   }
 
   @Get()
-  async getAll() {
-    return await this.getAllUsersService.getAll();
+  async findAll() {
+    return await this.getAllUsersService.findAll();
   }
 
   @Delete(':email')
