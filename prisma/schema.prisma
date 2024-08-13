@@ -28,3 +28,40 @@ enum Role {
   SUPERVISOR
   ADMINISTRADOR
 }
+
+model Products {
+  id          String   @id @default(uuid())
+  description String
+  ean         String   @unique
+  category    Category @relation(fields: [categoryId], references: [id])
+  unit        String
+  cost        Float
+  price       Float
+  stock       Float
+  status      Boolean
+  tags        String
+  min_stock   Float
+  supplier    Supplier @relation(fields: [supplierId], references: [id])
+  updated_at  DateTime @updatedAt
+  categoryId  Int
+  supplierId  Int
+
+  @@map("products")
+}
+
+model Category {
+  id          Int        @id @default(autoincrement())
+  description String
+  Products    Products[]
+
+  @@map("category")
+}
+
+model Supplier {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  Products    Products[]
+
+  @@map("supplier")
+}
