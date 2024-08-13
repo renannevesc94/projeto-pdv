@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IDeleteCategoryRepository } from './repositories/interface-delete-category.repository';
 
 @Injectable()
-export class DeleteCategorService {
+export class DeleteCategoryService {
   constructor(
     private readonly deleteCategoryRepository: IDeleteCategoryRepository,
   ) {}

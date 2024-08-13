@@ -10,7 +10,7 @@ import { IFindAllCategoriesRepository } from './find-all/repositories/interface-
 import { UpdateCategoryService } from './update-category/update-category.service';
 import { IUpdateCategoryRepository } from './update-category/repository/interface-update-category.repository';
 import { PrismaUpdateCategoryRepository } from './update-category/repository/prisma-update-category.repository';
-import { DeleteCategorService } from './delete-category/delete-category.service';
+import { DeleteCategoryService } from './delete-category/delete-category.service';
 import { IDeleteCategoryRepository } from './delete-category/repositories/interface-delete-category.repository';
 import { PrismaDeleteCategoryRepository } from './delete-category/repositories/prisma-delete-category.repository';
 
@@ -21,7 +21,7 @@ import { PrismaDeleteCategoryRepository } from './delete-category/repositories/p
     CreateCategoriesService,
     FindAllCategoriesService,
     UpdateCategoryService,
-    DeleteCategorService,
+    DeleteCategoryService,
 
     {
       provide: ICreateCategoryRepository,
