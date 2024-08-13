@@ -1,5 +1,7 @@
-import { CategoryDto } from '../dto/category.dto';
+import { CreateCategoryDto } from '../dto/create-category.dto';
 
 export abstract class ICreateCategoryRepository {
-  abstract create(createCategoryDto: CategoryDto): Promise<CategoryDto>;
+  abstract create(
+    createCategoryDto: CreateCategoryDto,
+  ): Promise<CreateCategoryDto>;
 }

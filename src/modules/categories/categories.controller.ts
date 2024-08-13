@@ -7,14 +7,16 @@ import {
   Patch,
   Param,
   Delete,
+  ValidationPipe,
 } from '@nestjs/common';
 
-import { CategoryDto } from './create-category/dto/category.dto';
+import { CreateCategoryDto } from './create-category/dto/create-category.dto';
 import { CreateCategoriesService } from './create-category/create-category.service';
 import { FindAllCategoriesService } from './find-all/get-all-categories.service';
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
 import { UpdateCategoryService } from './update-category/update-category.service';
-import { DeleteCategorService } from './delete-category/delete-category.service';
+import { DeleteCategoryService } from './delete-category/delete-category.service';
+import { UpdateCategoryDto } from './update-category/dto/update-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -22,12 +24,12 @@ export class CategoriesController {
     private readonly createCategoriesService: CreateCategoriesService,
     private readonly findAllCategoriesService: FindAllCategoriesService,
     private readonly updateCategoriesService: UpdateCategoryService,
-    private readonly deleteCategoryService: DeleteCategorService,
+    private readonly deleteCategoryService: DeleteCategoryService,
   ) {}
 
   @Post()
-  @UsePipes(new TrimBodyPipe())
-  create(@Body() createCategoryDto: CategoryDto) {
+  @UsePipes(new TrimBodyPipe(), new ValidationPipe())
+  create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.createCategoriesService.create(createCategoryDto);
   }
 
@@ -38,8 +40,11 @@ export class CategoriesController {
 
   @Patch(':id')
   @UsePipes(new TrimBodyPipe())
-  update(@Param('id') id: string, @Body() desciption: string) {
-    return this.updateCategoriesService.update(+id, desciption);
+  update(
+    @Param('id') id: string,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+  ) {
+    return this.updateCategoriesService.update(updateCategoryDto);
   }
 
   @Delete(':id')
