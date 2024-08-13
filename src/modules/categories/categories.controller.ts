@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Body,
+  UsePipes,
   Patch,
   Param,
   Delete,
@@ -10,36 +11,39 @@ import {
 
 import { CategoryDto } from './create-category/dto/category.dto';
 import { CreateCategoriesService } from './create-category/create-category.service';
+import { FindAllCategoriesService } from './find-all/get-all-categories.service';
+import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
+import { UpdateCategoryService } from './update-category/update-category.service';
+import { DeleteCategorService } from './delete-category/delete-category.service';
 
 @Controller('categories')
 export class CategoriesController {
   constructor(
     private readonly createCategoriesService: CreateCategoriesService,
+    private readonly findAllCategoriesService: FindAllCategoriesService,
+    private readonly updateCategoriesService: UpdateCategoryService,
+    private readonly deleteCategoryService: DeleteCategorService,
   ) {}
 
   @Post()
+  @UsePipes(new TrimBodyPipe())
   create(@Body() createCategoryDto: CategoryDto) {
     return this.createCategoriesService.create(createCategoryDto);
   }
 
   @Get()
   findAll() {
-    return this.createCategoriesService.findAll();
-  }
-
-  /* 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.createCategoriesService.findOne(+id);
+    return this.findAllCategoriesService.findAll();
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoryDto: CategoryDto) {
-    return this.createCategoriesService.update(+id, updateCategoryDto);
+  @UsePipes(new TrimBodyPipe())
+  update(@Param('id') id: string, @Body() desciption: string) {
+    return this.updateCategoriesService.update(+id, desciption);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.createCategoriesService.remove(+id);
-  } */
+    return this.deleteCategoryService.delete(+id);
+  }
 }
