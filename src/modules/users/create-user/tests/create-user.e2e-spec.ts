@@ -1,10 +1,11 @@
 import * as request from 'supertest';
-import { app } from 'tests/helpers/create-test-app';
+import { app, token } from 'tests/helpers/create-test-app';
 
 describe('Create User Tests (e2e)', () => {
   it('(POST) should return error and 400 status code when sending incomplete or incorrect data in the body', () => {
     return request(app.getHttpServer())
       .post('/users')
+      .set('Authorization', `${token}`)
       .send({
         email: 'test@test.com',
         password: 'test1234test',
@@ -19,6 +20,7 @@ describe('Create User Tests (e2e)', () => {
   it('(POST) should return success and 201 status code when sending correct data in the body', () => {
     return request(app.getHttpServer())
       .post('/users')
+      .set('Authorization', `${token}`)
       .send({
         email: 'test@test.com',
         password: '123456*mudar',
@@ -34,6 +36,7 @@ describe('Create User Tests (e2e)', () => {
   it('(POST) should return error and 409 status code when sending an email that already exists', () => {
     return request(app.getHttpServer())
       .post('/users')
+      .set('Authorization', `${token}`)
       .send({
         email: 'admin@projetopdv.com',
         password: 'test1234test',
