@@ -2,6 +2,7 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 import { CreateCategoryDto } from '../dto/create-category.dto';
 import { ICreateCategoryRepository } from './interface-create-category.repository';
 import { Injectable } from '@nestjs/common';
+import { Category } from '../../category.entity';
 
 @Injectable()
 export class PrismaCreateCategoryRepository
@@ -9,9 +10,13 @@ export class PrismaCreateCategoryRepository
 {
   constructor(private prisma: PrismaService) {}
 
-  async create(
-    createCategoryDto: CreateCategoryDto,
-  ): Promise<CreateCategoryDto> {
+  async findByDescription(description: string): Promise<Category | null> {
+    return await this.prisma.category.findFirst({
+      where: { description },
+    });
+  }
+
+  async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
     return await this.prisma.category.create({
       data: createCategoryDto,
     });
