@@ -28,7 +28,6 @@ export async function seedTestDatabase() {
   ];
 
   await prisma.user.deleteMany();
-  await prisma.category.deleteMany();
   for (const user of users) {
     await prisma.user.upsert({
       where: { email: user.email },
@@ -45,4 +44,6 @@ export async function seedTestDatabase() {
       },
     });
   }
+
+  await prisma.category.deleteMany();
 }
