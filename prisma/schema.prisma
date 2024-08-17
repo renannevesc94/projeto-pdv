@@ -51,7 +51,7 @@ model Products {
 
 model Category {
   id          Int        @id @default(autoincrement())
-  description String
+  description String     @unique
   Products    Products[]
 
   @@map("category")
