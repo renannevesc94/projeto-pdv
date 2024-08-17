@@ -45,5 +45,26 @@ export async function seedTestDatabase() {
     });
   }
 
+  const categories = [
+    {
+      description: 'Category 1',
+    },
+    {
+      description: 'Category 2',
+    },
+  ];
   await prisma.category.deleteMany();
+  await prisma.$executeRaw`ALTER SEQUENCE category_id_seq RESTART WITH 1`;
+
+  for (const category of categories) {
+    await prisma.category.upsert({
+      where: { description: category.description },
+      update: {
+        description: category.description,
+      },
+      create: {
+        description: category.description,
+      },
+    });
+  }
 }
