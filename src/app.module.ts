@@ -4,9 +4,16 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { CategoriesModule } from './modules/categories/categories.module';
+import { SupplierModule } from './modules/suppliers/supplier.module';
 
 @Module({
-  imports: [CommomModule, UsersModule, AuthModule, CategoriesModule],
+  imports: [
+    CommomModule,
+    UsersModule,
+    AuthModule,
+    CategoriesModule,
+    SupplierModule,
+  ],
   providers: [
     {
       provide: 'APP_GUARD',
