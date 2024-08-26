@@ -8,6 +8,8 @@ import {
   Param,
   Delete,
   ValidationPipe,
+  ParseIntPipe,
+  HttpCode,
 } from '@nestjs/common';
 
 import { CreateCategoryDto } from './create-category/dto/create-category.dto';
@@ -39,16 +41,17 @@ export class CategoriesController {
   }
 
   @Patch(':id')
+  @HttpCode(201)
   @UsePipes(new TrimBodyPipe())
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.updateCategoriesService.update(updateCategoryDto);
+    return this.updateCategoriesService.update(id, updateCategoryDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.deleteCategoryService.delete(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.deleteCategoryService.delete(id);
   }
 }
