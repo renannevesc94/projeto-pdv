@@ -6,7 +6,6 @@ import { DeleteUserService } from './delete-user/delete-user.service';
 import { UsersController } from './users.controller';
 import { ICreateUserRepository } from './create-user/repositories/interface-create-user.repository';
 import { PrismaCreateuserRepository } from './create-user/repositories/prisma-create-user';
-import { PrismaService } from 'src/common/prisma/prisma.service';
 import { PrismaGetAllUsersRepository } from './get-all/repositories/prisma.get-all-users.repository';
 import { IGetAllRepository } from './get-all/repositories/interface-get-all.repository';
 import { IDeleteUserRepository } from './delete-user/repositories/interface-delete-user.repository';
@@ -21,7 +20,6 @@ import { JwtStrategy } from 'src/common/strategies/jwt.strategy';
     UpdateUserService,
     GetAllUsersService,
     DeleteUserService,
-    PrismaService,
     JwtStrategy,
     {
       provide: ICreateUserRepository,

@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ProductsController } from './products.controller';
-import { PrismaService } from 'src/common/prisma/prisma.service';
 import { CreateProductService } from './create-product/create-product.service';
 import { IcreateProductRepository } from './create-product/repositories/interface-create-product.repository';
 import { PrismaCreateProductRepository } from './create-product/repositories/prisma-create-product.repository';
@@ -21,7 +20,7 @@ import { PrismaDeleteProductRepository } from './delete-product/repositories/pri
     FindAllProductsService,
     UpdateProductService,
     DeleteProductService,
-    PrismaService,
+
     {
       provide: IcreateProductRepository,
       useClass: PrismaCreateProductRepository,

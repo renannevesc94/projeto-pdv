@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { PrismaService } from './prisma/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
+@Global()
 @Module({
   imports: [
     JwtModule.register({
@@ -11,6 +12,6 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
     }),
   ],
   providers: [PrismaService, JwtStrategy, JwtAuthGuard],
-  exports: [PrismaService, JwtAuthGuard],
+  exports: [PrismaService, JwtAuthGuard, JwtStrategy],
 })
-export class CommomModule {}
+export class CommonModule {}

@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SupplierController } from './supplier.controller';
 import { CreateSupplierService } from './create-supplier/create-supplier.service';
-import { PrismaService } from 'src/common/prisma/prisma.service';
 import { ICreateSupplierRepository } from './create-supplier/repositories/interface-create-supplier.repository';
 import { PrismaCreateSupplierRepository } from './create-supplier/repositories/prisma-create-supplier.repository';
 import { FindAllSuppliersService } from './find-all/find-all-suppliers.service';
@@ -21,7 +20,7 @@ import { IUpdateSupplierRepository } from './update-supplier/repositories/interf
     FindAllSuppliersService,
     DeleteSupplierService,
     UpdateSupplierService,
-    PrismaService,
+
     {
       provide: ICreateSupplierRepository,
       useClass: PrismaCreateSupplierRepository,

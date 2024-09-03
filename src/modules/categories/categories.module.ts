@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CreateCategoriesService } from './create-category/create-category.service';
 import { CategoriesController } from './categories.controller';
-import { PrismaService } from 'src/common/prisma/prisma.service';
 import { PrismaCreateCategoryRepository } from './create-category/repositories/prisma-create-category.repository';
 import { ICreateCategoryRepository } from './create-category/repositories/interface-create-category.repository';
 import { PrismaFindAllCategoriesRepository } from './find-all/repositories/prisma-find-all-categories.repository';
@@ -17,7 +16,6 @@ import { PrismaDeleteCategoryRepository } from './delete-category/repositories/p
 @Module({
   controllers: [CategoriesController],
   providers: [
-    PrismaService,
     CreateCategoriesService,
     FindAllCategoriesService,
     UpdateCategoryService,
