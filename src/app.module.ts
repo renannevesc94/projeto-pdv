@@ -5,6 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { SupplierModule } from './modules/suppliers/supplier.module';
+import { ProductsModule } from './modules/products/products.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { SupplierModule } from './modules/suppliers/supplier.module';
     AuthModule,
     CategoriesModule,
     SupplierModule,
+    ProductsModule,
   ],
   providers: [
     {
