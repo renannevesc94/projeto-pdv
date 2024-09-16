@@ -9,6 +9,6 @@ export class PrismaDeleteCategoryRepository
 {
   constructor(private prisma: PrismaService) {}
   async delete(id: number): Promise<Category> {
-    return await this.prisma.category.delete({ where: { id } });
+    return await this.prisma.categories.delete({ where: { id } });
   }
 }

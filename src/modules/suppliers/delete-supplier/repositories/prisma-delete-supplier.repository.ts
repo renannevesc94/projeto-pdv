@@ -9,7 +9,7 @@ export class PrismaDeleteSupplierRepository
   constructor(private prisma: PrismaService) {}
 
   async delete(id: number) {
-    return this.prisma.supplier.delete({
+    return this.prisma.suppliers.delete({
       where: { id },
     });
   }

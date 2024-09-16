@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common';
 export class PrismaDeleteUserRepository implements IDeleteUserRepository {
   constructor(private prisma: PrismaService) {}
   async delete(email: string): Promise<User> {
-    const deletedUser = await this.prisma.user.delete({ where: { email } });
+    const deletedUser = await this.prisma.users.delete({ where: { email } });
     return new User(
       deletedUser.id,
       deletedUser.name,

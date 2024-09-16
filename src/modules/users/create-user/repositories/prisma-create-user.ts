@@ -9,7 +9,7 @@ export class PrismaCreateuserRepository implements ICreateUserRepository {
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const createdUser = await this.prisma.user.create({
+    const createdUser = await this.prisma.users.create({
       data: {
         ...createUserDto,
       },

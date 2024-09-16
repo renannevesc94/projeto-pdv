@@ -11,13 +11,13 @@ export class PrismaCreateCategoryRepository
   constructor(private prisma: PrismaService) {}
 
   async findByDescription(description: string): Promise<Category | null> {
-    return await this.prisma.category.findFirst({
+    return await this.prisma.categories.findFirst({
       where: { description },
     });
   }
 
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
-    return await this.prisma.category.create({
+    return await this.prisma.categories.create({
       data: createCategoryDto,
     });
   }

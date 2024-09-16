@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common';
 export class PrismaLoginRepository implements ILoginRepository {
   constructor(private readonly prisma: PrismaService) {}
   async getByEmail(email: string): Promise<User | null> {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.users.findUnique({
       where: { email: email },
     });
 

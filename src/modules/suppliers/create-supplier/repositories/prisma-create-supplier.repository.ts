@@ -11,7 +11,7 @@ export class PrismaCreateSupplierRepository
   constructor(private prisma: PrismaService) {}
   create(createSupplierDto: CreateSupplierDto): Promise<Supplier> {
     const { name, description } = createSupplierDto;
-    return this.prisma.supplier.create({
+    return this.prisma.suppliers.create({
       data: {
         name,
         description,

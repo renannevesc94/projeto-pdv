@@ -10,6 +10,6 @@ export class PrismaFindAllCategoriesRepository
   constructor(private prisma: PrismaService) {}
 
   async findAll(): Promise<Category[]> {
-    return await this.prisma.category.findMany();
+    return await this.prisma.categories.findMany();
   }
 }

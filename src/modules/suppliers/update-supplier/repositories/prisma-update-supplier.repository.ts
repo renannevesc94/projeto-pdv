@@ -14,7 +14,7 @@ export class PrismaUpdateSupplierRepository
     id: number,
     updateSupplierDto: UpdateSupplierDto,
   ): Promise<Supplier> {
-    return await this.prisma.supplier.update({
+    return await this.prisma.suppliers.update({
       where: { id },
       data: updateSupplierDto,
     });

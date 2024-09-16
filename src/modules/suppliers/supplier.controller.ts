@@ -16,7 +16,7 @@ import { FindAllSuppliersService } from './find-all/find-all-suppliers.service';
 import { DeleteSupplierService } from './delete-supplier/delete-supplier.service';
 import { UpdateSupplierService } from './update-supplier/update-supplier.service';
 
-@Controller('supplier')
+@Controller('suppliers')
 export class SupplierController {
   constructor(
     private readonly createSupplierService: CreateSupplierService,

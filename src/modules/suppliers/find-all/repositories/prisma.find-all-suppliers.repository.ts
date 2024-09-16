@@ -9,7 +9,7 @@ export class PrismaFindAllSuppliersRepository
 {
   constructor(private prisma: PrismaService) {}
   async findAll(): Promise<Supplier[]> {
-    const suppliers = await this.prisma.supplier.findMany();
+    const suppliers = await this.prisma.suppliers.findMany();
     return suppliers;
   }
 }
