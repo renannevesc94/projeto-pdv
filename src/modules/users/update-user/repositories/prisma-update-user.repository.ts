@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common';
 export class UpdateUserRepository implements IUpdateUserRepository {
   constructor(private readonly prisma: PrismaService) {}
   async update(email: string, updateUserDto: UpdateUserDto) {
-    const updatedUser = await this.prisma.user.update({
+    const updatedUser = await this.prisma.users.update({
       where: {
         email,
       },

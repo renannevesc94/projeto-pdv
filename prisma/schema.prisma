@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Users {
   id       String @id @default(uuid())
   name     String
   email    String @unique
@@ -30,10 +30,10 @@ enum Role {
 }
 
 model Products {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   description String
-  ean         String   @unique
-  category    Category @relation(fields: [categoryId], references: [id])
+  ean         String     @unique
+  category    Categories @relation(fields: [categoryId], references: [id])
   unit        String
   cost        Float
   price       Float
@@ -41,27 +41,29 @@ model Products {
   status      Boolean
   tags        String
   min_stock   Float
-  supplier    Supplier @relation(fields: [supplierId], references: [id])
-  updated_at  DateTime @updatedAt
+  supplier    Suppliers  @relation(fields: [supplierId], references: [id])
+  updated_at  DateTime   @default(now()) @updatedAt
+  created_at  DateTime   @default(now())
   categoryId  Int
   supplierId  Int
+  imageUrl    String
 
   @@map("products")
 }
 
-model Category {
+model Categories {
   id          Int        @id @default(autoincrement())
   description String     @unique
   Products    Products[]
 
-  @@map("category")
+  @@map("categories")
 }
 
-model Supplier {
+model Suppliers {
   id          Int        @id @default(autoincrement())
-  name        String
+  name        String     @unique
   description String
   Products    Products[]
 
-  @@map("supplier")
+  @@map("suppliers")
 }
