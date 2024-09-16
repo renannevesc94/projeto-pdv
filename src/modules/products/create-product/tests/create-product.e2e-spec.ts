@@ -1,5 +1,5 @@
 import * as request from 'supertest';
-import { app, token } from 'tests/helpers/create-test-app';
+import { app, token, prisma } from 'tests/helpers/create-test-app';
 
 const productData = {
   description: 'Product Test',
@@ -32,6 +32,16 @@ describe('Create Product Tests (e2e)', () => {
     return request(app.getHttpServer())
       .post('/products')
       .set('Authorization', `${token}`)
-      .send({ productData });
+      .send(productData)
+      .expect(201)
+      .expect((res) => {
+        expect(res.body.ean).toEqual(productData.ean);
+      });
+  });
+
+  beforeAll(async () => {
+    await prisma.products.delete({
+      where: { ean: productData.ean },
+    });
   });
 });
