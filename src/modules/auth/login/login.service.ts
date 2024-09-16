@@ -27,6 +27,9 @@ export class LoginService {
   }
 
   async login(user: User) {
+    if (!user) {
+      throw new UnauthorizedException('Acess permission denied');
+    }
     const payload = { userId: user.id, role: user.role };
     const jwtToken = this.jwtService.sign(payload, {
       expiresIn: '1d',
