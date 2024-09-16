@@ -1,13 +1,14 @@
 import * as request from 'supertest';
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { seedTestDatabase } from 'prisma/seedTestDatabase';
 import { AppModule } from 'src/app.module';
 import { PrismaInitiazilationExceptionFilter } from 'src/common/filters/prisma-initiazilation-exception.filter';
 import { PrismaRequestExceptionFilter } from 'src/common/filters/prisma-request-exception.filter';
+import { PrismaService } from 'src/common/prisma/prisma.service';
 
 let app: INestApplication;
 let token: string;
+let prisma: PrismaService;
 
 export const createTestApp = async (): Promise<INestApplication> => {
   const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -19,7 +20,6 @@ export const createTestApp = async (): Promise<INestApplication> => {
     new PrismaRequestExceptionFilter(),
     new PrismaInitiazilationExceptionFilter(),
   );
-
   await appInstance.init();
   return appInstance;
 };
@@ -28,22 +28,21 @@ const login = async () => {
   const loginReponse = await request(app.getHttpServer())
     .post('/auth/login')
     .send({
-      email: 'supervisor@projetopdv.com',
+      email: 'admin@projetopdv.com',
       password: '12345678',
     });
-
-  return loginReponse.headers.authorization;
+  const result = loginReponse.headers.authorization;
+  return result;
 };
 
 beforeAll(async () => {
   app = await createTestApp();
+  prisma = app.get<PrismaService>(PrismaService);
   token = await login();
-
-  await seedTestDatabase();
 });
 
 afterAll(async () => {
   await app.close();
 });
 
-export { app, token };
+export { app, token, prisma };

@@ -4,7 +4,7 @@ import { app, token } from 'tests/helpers/create-test-app';
 describe('Update User Tests (e2e)', () => {
   it('(PUT) should return success and 200 status code when success updating a user', () => {
     return request(app.getHttpServer())
-      .put('/users/supervisor@projetopdv.com')
+      .put('/users/admin@projetopdv.com')
       .set('Authorization', `${token}`)
       .send({
         name: 'Name Test',

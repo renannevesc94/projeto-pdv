@@ -39,7 +39,7 @@ describe('PrismaCreateuserRepository', () => {
 
     await repository.create(createUserDto);
 
-    expect(prismaService.user.create).toHaveBeenCalledWith({
+    expect(prismaService.users.create).toHaveBeenCalledWith({
       data: createUserDto,
     });
   });
@@ -60,7 +60,7 @@ describe('PrismaCreateuserRepository', () => {
       role: 'ADMINISTRATOR' as Roles,
     };
 
-    jest.spyOn(prismaService.user, 'create').mockResolvedValue(createdUser);
+    jest.spyOn(prismaService.users, 'create').mockResolvedValue(createdUser);
 
     const result = await repository.create(createUserDto);
 

@@ -1,70 +1,53 @@
 import { PrismaClient } from '@prisma/client';
 import { Roles } from 'src/modules/users/user.entity';
-import * as bycrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
-export async function seedTestDatabase() {
-  const prisma = new PrismaClient();
-  const users = [
-    {
-      name: 'Admin',
-      email: 'admin@projetopdv.com',
-      password: bycrypt.hashSync('12345678', 10),
-      role: 'ADMINISTRADOR',
-    },
+const prisma = new PrismaClient();
 
-    {
-      name: 'Supervisor',
-      email: 'supervisor@projetopdv.com',
-      password: bycrypt.hashSync('12345678', 10),
-      role: 'SUPERVISOR',
-    },
+async function seedTestDatabase() {
+  await prisma.$executeRaw`TRUNCATE TABLE users, products, categories, suppliers RESTART IDENTITY CASCADE`;
 
-    {
-      name: 'Operador',
-      email: 'operador@projetopdv.com',
-      password: bycrypt.hashSync('12345678', 10),
-      role: 'OPERADOR',
-    },
-  ];
+  const user = {
+    name: 'admin',
+    email: 'admin@projetopdv.com',
+    password: bcrypt.hashSync('12345678', 10),
+    role: 'ADMINISTRADOR' as Roles,
+  };
 
-  await prisma.user.deleteMany();
-  for (const user of users) {
-    await prisma.user.upsert({
-      where: { email: user.email },
-      update: {
-        name: user.name,
-        password: user.password,
-        role: user.role as Roles,
-      },
-      create: {
-        name: user.name,
-        email: user.email,
-        password: user.password,
-        role: user.role as Roles,
-      },
-    });
-  }
+  const categories = {
+    description: 'Category Test',
+  };
 
-  const categories = [
-    {
-      description: 'Category 1',
-    },
-    {
-      description: 'Category 2',
-    },
-  ];
-  await prisma.category.deleteMany();
-  await prisma.$executeRaw`ALTER SEQUENCE category_id_seq RESTART WITH 1`;
+  const suppliers = {
+    name: 'Supplier Test',
+    description: 'Supplier Test Description',
+  };
 
-  for (const category of categories) {
-    await prisma.category.upsert({
-      where: { description: category.description },
-      update: {
-        description: category.description,
-      },
-      create: {
-        description: category.description,
-      },
-    });
-  }
+  await prisma.categories.upsert({
+    where: { description: categories.description },
+    update: {},
+    create: categories,
+  });
+
+  await prisma.suppliers.upsert({
+    where: { name: suppliers.name },
+    update: {},
+    create: suppliers,
+  });
+
+  await prisma.users.upsert({
+    where: { email: user.email },
+    update: {},
+    create: user,
+  });
 }
+
+seedTestDatabase()
+  .then(() => console.log('Database successfully seeded'))
+  .catch((err) => {
+    console.log(err);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

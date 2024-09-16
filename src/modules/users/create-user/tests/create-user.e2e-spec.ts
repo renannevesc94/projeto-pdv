@@ -1,9 +1,17 @@
 import * as request from 'supertest';
-import { app, token } from 'tests/helpers/create-test-app';
+import { app, token, prisma } from 'tests/helpers/create-test-app';
+import { Roles } from '../../user.entity';
+
+const userData = {
+  email: 'admin@admin.com',
+  password: '12345678',
+  name: 'João',
+  role: 'ADMINISTRADOR' as Roles,
+};
 
 describe('Create User Tests (e2e)', () => {
-  it('(POST) should return error and 400 status code when sending incomplete or incorrect data in the body', () => {
-    return request(app.getHttpServer())
+  it('(POST) should return error and 400 status code when sending incomplete or incorrect data in the body', async () => {
+    return await request(app.getHttpServer())
       .post('/users')
       .set('Authorization', `${token}`)
       .send({
@@ -17,35 +25,33 @@ describe('Create User Tests (e2e)', () => {
       });
   });
 
-  it('(POST) should return success and 201 status code when sending correct data in the body', () => {
-    return request(app.getHttpServer())
+  it('(POST) should return success and 201 status code when sending correct data in the body', async () => {
+    return await request(app.getHttpServer())
       .post('/users')
       .set('Authorization', `${token}`)
-      .send({
-        email: 'test@test.com',
-        password: '123456*mudar',
-        name: 'test',
-        role: 'ADMINISTRADOR',
-      })
+      .send(userData)
       .expect(201)
       .expect((res) => {
-        expect(res.body).toHaveProperty('email', 'test@test.com');
+        expect(res.body).toHaveProperty('email', 'admin@admin.com');
       });
   });
 
-  it('(POST) should return error and 409 status code when sending an email that already exists', () => {
-    return request(app.getHttpServer())
+  it('(POST) should return error and 409 status code when sending an email that already exists', async () => {
+    return await request(app.getHttpServer())
       .post('/users')
       .set('Authorization', `${token}`)
-      .send({
-        email: 'admin@projetopdv.com',
-        password: 'test1234test',
-        name: 'test',
-        role: 'ADMINISTRADOR',
-      })
+      .send(userData)
       .expect(409)
       .expect((res) => {
         expect(res.body.message).toEqual('email already exists');
       });
+  });
+
+  afterAll(async () => {
+    await prisma.users.delete({
+      where: {
+        email: 'admin@admin.com',
+      },
+    });
   });
 });

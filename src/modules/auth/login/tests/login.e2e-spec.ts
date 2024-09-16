@@ -6,7 +6,7 @@ describe('Auth module tests', () => {
     return request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        email: 'supervisor@projetopdv.com',
+        email: 'admin@projetopdv.com',
         password: '12345678',
       })
       .expect(200);
@@ -16,7 +16,7 @@ describe('Auth module tests', () => {
     return request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        email: 'supervisor@projetopdv.com',
+        email: 'admin@projetopdv.com',
         password: 'invalid-password',
       })
       .expect(401);
