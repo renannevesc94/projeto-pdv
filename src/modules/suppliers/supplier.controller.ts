@@ -15,6 +15,7 @@ import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
 import { FindAllSuppliersService } from './find-all/find-all-suppliers.service';
 import { DeleteSupplierService } from './delete-supplier/delete-supplier.service';
 import { UpdateSupplierService } from './update-supplier/update-supplier.service';
+import { UpdateSupplierDto } from './update-supplier/dto/UppdateSupplier.dto';
 
 @Controller('suppliers')
 export class SupplierController {
@@ -43,8 +44,17 @@ export class SupplierController {
   }
 
   @Patch(':id')
-  @UsePipes(new TrimBodyPipe(), new ValidationPipe())
-  async update(@Param('id') id: number, @Body() updateSupplierDto: any) {
+  @UsePipes(
+    new TrimBodyPipe(),
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  )
+  async update(
+    @Param('id') id: number,
+    @Body() updateSupplierDto: UpdateSupplierDto,
+  ) {
     return await this.updateSupplierService.update(+id, updateSupplierDto);
   }
 }
