@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function seedTestDatabase() {
-  await prisma.$executeRaw`TRUNCATE TABLE users, products, categories, suppliers RESTART IDENTITY CASCADE`;
+  await prisma.$executeRaw`TRUNCATE TABLE users, sales ,sales_items, products, categories, suppliers RESTART IDENTITY CASCADE`;
 
   const user = {
     name: 'admin',
@@ -21,6 +21,21 @@ async function seedTestDatabase() {
   const suppliers = {
     name: 'Supplier Test',
     description: 'Supplier Test Description',
+  };
+
+  const product = {
+    description: 'Product Test',
+    ean: '9874563210123',
+    unit: 'unit',
+    cost: 10.5,
+    price: 15,
+    stock: 100,
+    status: true,
+    tags: 'test,product',
+    min_stock: 5,
+    categoryId: 1,
+    supplierId: 1,
+    imageUrl: 'https://example.com/product-image.jpg',
   };
 
   await prisma.categories.upsert({
@@ -39,6 +54,12 @@ async function seedTestDatabase() {
     where: { email: user.email },
     update: {},
     create: user,
+  });
+
+  await prisma.products.upsert({
+    where: { ean: product.ean },
+    update: {},
+    create: product,
   });
 }
 

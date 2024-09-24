@@ -14,11 +14,12 @@ datasource db {
 }
 
 model Users {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   name     String
-  email    String @unique
+  email    String  @unique
   password String
-  role     Role   @default(OPERADOR)
+  role     Role    @default(OPERADOR)
+  Sales    Sales[]
 
   @@map("users")
 }
@@ -30,10 +31,10 @@ enum Role {
 }
 
 model Products {
-  id          String     @id @default(uuid())
+  id          String       @id @default(uuid())
   description String
-  ean         String     @unique
-  category    Categories @relation(fields: [categoryId], references: [id])
+  ean         String       @unique
+  category    Categories   @relation(fields: [categoryId], references: [id])
   unit        String
   cost        Float
   price       Float
@@ -41,12 +42,13 @@ model Products {
   status      Boolean
   tags        String
   min_stock   Float
-  supplier    Suppliers  @relation(fields: [supplierId], references: [id])
-  updated_at  DateTime   @default(now()) @updatedAt
-  created_at  DateTime   @default(now())
+  supplier    Suppliers    @relation(fields: [supplierId], references: [id])
+  updated_at  DateTime     @default(now()) @updatedAt
+  created_at  DateTime     @default(now())
   categoryId  Int
   supplierId  Int
   imageUrl    String
+  SalesItems  SalesItems[]
 
   @@map("products")
 }
@@ -66,4 +68,37 @@ model Suppliers {
   Products    Products[]
 
   @@map("suppliers")
+}
+
+model Sales {
+  id            Int          @id @default(autoincrement())
+  user          Users        @relation(fields: [usersId], references: [id])
+  usersId       String
+  SalesItems    SalesItems[]
+  total         Float?
+  paymentMethod String?
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @default(now()) @updatedAt
+  status        StatusSale   @default(OPEN)
+
+  @@map("sales")
+}
+
+enum StatusSale {
+  OPEN
+  CLOSED
+  CANCELED
+}
+
+model SalesItems {
+  id         String   @id @default(uuid())
+  sales      Sales    @relation(fields: [salesId], references: [id])
+  salesId    Int
+  products   Products @relation(fields: [productsId], references: [id])
+  quantity   Float
+  unitPrice  Float
+  totalPrice Float
+  productsId String
+
+  @@map("sales_items")
 }
