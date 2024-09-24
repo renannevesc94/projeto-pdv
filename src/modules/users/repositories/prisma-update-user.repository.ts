@@ -1,0 +1,22 @@
+import { PrismaService } from 'src/common/prisma/prisma.service';
+import { IUpdateUserRepository } from './interface-update-user.repository';
+
+import { Injectable } from '@nestjs/common';
+import { UpdateUserDto } from '../dto/update-user.dto';
+
+@Injectable()
+export class UpdateUserRepository implements IUpdateUserRepository {
+  constructor(private readonly prisma: PrismaService) {}
+  async update(email: string, updateUserDto: UpdateUserDto) {
+    const updatedUser = await this.prisma.users.update({
+      where: {
+        email,
+      },
+      data: {
+        ...updateUserDto,
+      },
+    });
+
+    return updatedUser;
+  }
+}

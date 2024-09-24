@@ -11,13 +11,13 @@ import {
   HttpCode,
 } from '@nestjs/common';
 
-import { CreateCategoryDto } from './create-category/dto/create-category.dto';
-import { CreateCategoriesService } from './create-category/create-category.service';
-import { FindAllCategoriesService } from './find-all/get-all-categories.service';
+import { CreateCategoryDto } from './dto/create-category.dto';
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
-import { UpdateCategoryService } from './update-category/update-category.service';
-import { DeleteCategoryService } from './delete-category/delete-category.service';
-import { UpdateCategoryDto } from './update-category/dto/update-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CreateCategoriesService } from './services/create-category.service';
+import { FindAllCategoriesService } from './services/get-all-categories.service';
+import { UpdateCategoryService } from './services/update-category.service';
+import { DeleteCategoryService } from './services/delete-category.service';
 
 @Controller('categories')
 export class CategoriesController {

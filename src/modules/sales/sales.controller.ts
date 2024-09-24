@@ -7,9 +7,10 @@ import {
   Request,
   UsePipes,
 } from '@nestjs/common';
-import { SaleItemDto } from './sale-items/dto/sale-item.dto';
-import { SaleItemsService } from './sale-items/sale-items.service';
+
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
+import { SaleItemsService } from './services/sale-items.service';
+import { SaleItemDto } from './dto/sale-item.dto';
 
 @Controller('sales')
 export class SalesController {

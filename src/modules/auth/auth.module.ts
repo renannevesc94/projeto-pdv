@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
-import { LoginService } from './login/login.service';
-import { ILoginRepository } from './login/repositories/interface-login.repository';
-import { PrismaLoginRepository } from './login/repositories/prisma-login.repository';
+import { LoginService } from './services/login.service';
+import { ILoginRepository } from './repositories/interface-login.repository';
+import { PrismaLoginRepository } from './repositories/prisma-login.repository';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from './login/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
+import { LocalStrategy } from './guards/local.strategy';
 
 @Module({
   imports: [

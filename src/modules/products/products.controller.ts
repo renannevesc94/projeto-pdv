@@ -8,14 +8,14 @@ import {
   Post,
   UsePipes,
 } from '@nestjs/common';
-import { CreateProductService } from './create-product/create-product.service';
-import { CreateProductDto } from './create-product/dto/CreateProduct.dto';
+import { CreateProductDto } from './dto/CreateProduct.dto';
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
-import { FindAllProductsService } from './find-all-products/find-all-products.service';
-import { UpdateProductService } from './update-product/update-product.service';
 import { UUID } from 'crypto';
-import { UpdateProductDto } from './update-product/dto/UpdateProductDto';
-import { DeleteProductService } from './delete-product/delete-product.service';
+import { UpdateProductDto } from './dto/UpdateProductDto';
+import { CreateProductService } from './services/create-product.service';
+import { FindAllProductsService } from './services/find-all-products.service';
+import { UpdateProductService } from './services/update-product.service';
+import { DeleteProductService } from './services/delete-product.service';
 
 @Controller('products')
 export class ProductsController {

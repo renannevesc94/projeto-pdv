@@ -8,13 +8,13 @@ import {
   Post,
   UsePipes,
 } from '@nestjs/common';
-import { CreateSupplierService } from './create-supplier/create-supplier.service';
-import { CreateSupplierDto } from './create-supplier/dto/create-supplier.dto';
+import { CreateSupplierService } from './services/create-supplier.service';
+import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
-import { FindAllSuppliersService } from './find-all/find-all-suppliers.service';
-import { DeleteSupplierService } from './delete-supplier/delete-supplier.service';
-import { UpdateSupplierService } from './update-supplier/update-supplier.service';
-import { UpdateSupplierDto } from './update-supplier/dto/UppdateSupplier.dto';
+import { UpdateSupplierDto } from './dto/UppdateSupplier.dto';
+import { FindAllSuppliersService } from './services/find-all-suppliers.service';
+import { DeleteSupplierService } from './services/delete-supplier.service';
+import { UpdateSupplierService } from './services/update-supplier.service';
 
 @Controller('suppliers')
 export class SupplierController {

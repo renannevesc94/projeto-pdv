@@ -8,14 +8,14 @@ import {
   Put,
   UsePipes,
 } from '@nestjs/common';
-import { CreateUserService } from './create-user/create-user.service';
-import { CreateUserDto } from './create-user/dto/create-user-dto';
+import { CreateUserDto } from './dto/create-user-dto';
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
 import { ApiCreatedResponse } from '@nestjs/swagger';
-import { GetAllUsersService } from './get-all/get-all-users.service';
-import { DeleteUserService } from './delete-user/delete-user.service';
-import { UpdateUserService } from './update-user/update-user.service';
-import { UpdateUserDto } from './update-user/dto/update-user.dto';
+import { DeleteUserService } from './services/delete-user.service';
+import { UpdateUserService } from './services/update-user.service';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { GetAllUsersService } from './services/get-all-users.service';
+import { CreateUserService } from './services/create-user.service';
 
 @Controller('users')
 export class UsersController {

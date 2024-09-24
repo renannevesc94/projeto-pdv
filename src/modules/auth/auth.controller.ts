@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 
 import { ApiResponse } from '@nestjs/swagger';
-import { LoginService } from './login/login.service';
-import { LocalAuthGuard } from './login/local-auth.guard';
+import { LoginService } from './services/login.service';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Response } from 'express';
 import { SkipAuth } from 'src/common/decorators/skipAuth.decorator';
 
