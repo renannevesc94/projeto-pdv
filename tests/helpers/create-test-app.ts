@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from 'src/app.module';
 import { PrismaInitiazilationExceptionFilter } from 'src/common/filters/prisma-initiazilation-exception.filter';
-import { PrismaRequestExceptionFilter } from 'src/common/filters/prisma-request-exception.filter';
+import { PrismaRequestExceptionFilter } from 'src/common/filters/prisma-exception.filter';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 
 let app: INestApplication;

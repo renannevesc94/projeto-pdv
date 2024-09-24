@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { PrismaRequestExceptionFilter } from './common/filters/prisma-request-exception.filter';
+import { PrismaRequestExceptionFilter } from './common/filters/prisma-exception.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { PrismaInitiazilationExceptionFilter } from './common/filters/prisma-initiazilation-exception.filter';
 
