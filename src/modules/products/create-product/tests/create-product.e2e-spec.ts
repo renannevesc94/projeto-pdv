@@ -17,8 +17,8 @@ const productData = {
 };
 
 describe('Create Product Tests (e2e)', () => {
-  it('(POST) should return error and 400 status code when sending incomplete or incorrect data in the body', () => {
-    return request(app.getHttpServer())
+  it('(POST) should return error and 400 status code when sending incomplete or incorrect data in the body', async () => {
+    return await request(app.getHttpServer())
       .post('/products')
       .set('Authorization', `${token}`)
       .send({})
@@ -28,8 +28,8 @@ describe('Create Product Tests (e2e)', () => {
       });
   });
 
-  it('POST should return success and 201 status code when sending correct data in the body', () => {
-    return request(app.getHttpServer())
+  it('POST should return success and 201 status code when sending correct data in the body', async () => {
+    return await request(app.getHttpServer())
       .post('/products')
       .set('Authorization', `${token}`)
       .send(productData)
@@ -39,7 +39,7 @@ describe('Create Product Tests (e2e)', () => {
       });
   });
 
-  beforeAll(async () => {
+  afterAll(async () => {
     await prisma.products.delete({
       where: { ean: productData.ean },
     });
