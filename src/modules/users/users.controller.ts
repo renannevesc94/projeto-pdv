@@ -7,7 +7,6 @@ import {
   Post,
   Put,
   UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CreateUserService } from './create-user/create-user.service';
 import { CreateUserDto } from './create-user/dto/create-user-dto';
@@ -29,7 +28,7 @@ export class UsersController {
 
   @Post()
   @ApiCreatedResponse({ description: 'User created sucessfully' })
-  @UsePipes(new TrimBodyPipe(), new ValidationPipe())
+  @UsePipes(new TrimBodyPipe())
   async create(@Body() createUserDto: CreateUserDto) {
     return await this.createUserService.create(createUserDto);
   }
@@ -46,7 +45,7 @@ export class UsersController {
   }
 
   @Put(':email')
-  @UsePipes(new TrimBodyPipe(), new ValidationPipe())
+  @UsePipes(new TrimBodyPipe())
   async update(
     @Param('email') email: string,
     @Body() updateUserDto: UpdateUserDto,

@@ -7,7 +7,6 @@ import {
   Patch,
   Param,
   Delete,
-  ValidationPipe,
   ParseIntPipe,
   HttpCode,
 } from '@nestjs/common';
@@ -30,7 +29,7 @@ export class CategoriesController {
   ) {}
 
   @Post()
-  @UsePipes(new TrimBodyPipe(), new ValidationPipe())
+  @UsePipes(new TrimBodyPipe())
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.createCategoriesService.create(createCategoryDto);
   }

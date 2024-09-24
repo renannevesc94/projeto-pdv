@@ -7,7 +7,6 @@ import {
   Patch,
   Post,
   UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CreateSupplierService } from './create-supplier/create-supplier.service';
 import { CreateSupplierDto } from './create-supplier/dto/create-supplier.dto';
@@ -27,7 +26,7 @@ export class SupplierController {
   ) {}
 
   @Post()
-  @UsePipes(new TrimBodyPipe(), new ValidationPipe())
+  @UsePipes(new TrimBodyPipe())
   async create(@Body() createSupplierDto: CreateSupplierDto) {
     return await this.createSupplierService.create(createSupplierDto);
   }
@@ -38,19 +37,13 @@ export class SupplierController {
   }
 
   @Delete(':id')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new TrimBodyPipe())
   async delete(@Param('id') id: number) {
     return await this.deleteSupplierService.delete(+id);
   }
 
   @Patch(':id')
-  @UsePipes(
-    new TrimBodyPipe(),
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-    }),
-  )
+  @UsePipes(new TrimBodyPipe())
   async update(
     @Param('id') id: number,
     @Body() updateSupplierDto: UpdateSupplierDto,
