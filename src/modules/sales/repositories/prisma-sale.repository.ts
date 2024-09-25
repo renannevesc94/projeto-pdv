@@ -2,10 +2,10 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 import { SaleItemDto } from '../dto/sale-item.dto';
 import { SaleDto, StatusSale } from '../dto/sale.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ISaleItemsRepository } from './interface-sale-items.repository';
+import { ISaleRepository } from './interface-sale.repository';
 
 @Injectable()
-export class PrismaSaleItemsRepository implements ISaleItemsRepository {
+export class PrismaSaleRepository implements ISaleRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async getProductById(productId: string): Promise<boolean> {

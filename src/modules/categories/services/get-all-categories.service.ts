@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { IFindAllCategoriesRepository } from '../repositories/interface-find-all-categories.repository';
+import { ICategoryRepository } from '../repositories/interface-category.repository';
 
 @Injectable()
 export class FindAllCategoriesService {
-  constructor(
-    readonly findAllCategoriesRepository: IFindAllCategoriesRepository,
-  ) {}
+  constructor(readonly categoryRepository: ICategoryRepository) {}
 
   async findAll() {
-    return await this.findAllCategoriesRepository.findAll();
+    return await this.categoryRepository.findAll();
   }
 }

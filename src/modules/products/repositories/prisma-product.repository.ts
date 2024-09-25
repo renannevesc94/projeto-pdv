@@ -1,9 +1,13 @@
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from '../dto/CreateProduct.dto';
+import { IProductRepository } from './interface-product.repository';
+import { Product } from '../products.entity';
+import { UUID } from 'crypto';
+import { UpdateProductDto } from '../dto/UpdateProductDto';
 
 @Injectable()
-export class PrismaCreateProductRepository {
+export class PrismaProductRepository implements IProductRepository {
   constructor(private prisma: PrismaService) {}
 
   async create(productData: CreateProductDto): Promise<any> {
@@ -23,5 +27,27 @@ export class PrismaCreateProductRepository {
         imageUrl: productData.imageUrl || '',
       },
     });
+  }
+
+  update(
+    productId: UUID,
+    updateProductDto: UpdateProductDto,
+  ): Promise<Product> {
+    return this.prisma.products.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        ...updateProductDto,
+      },
+    });
+  }
+
+  findAllProducts(): Promise<Product[]> {
+    return this.prisma.products.findMany();
+  }
+
+  async delete(productId: UUID): Promise<Product> {
+    return await this.prisma.products.delete({ where: { id: productId } });
   }
 }

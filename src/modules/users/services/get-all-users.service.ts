@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { IGetAllRepository } from '../repositories/interface-get-all.repository';
+import { IUserRepository } from '../repositories/interface-user.repository';
 
 @Injectable()
 export class GetAllUsersService {
-  constructor(private readonly getAllUsersRepository: IGetAllRepository) {}
+  constructor(private readonly userRepository: IUserRepository) {}
   async findAll() {
-    return await this.getAllUsersRepository.findAll();
+    return await this.userRepository.findAll();
   }
 }

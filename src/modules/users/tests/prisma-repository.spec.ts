@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { CreateUserDto } from '../dto/create-user-dto';
 import { Roles, User } from '../user.entity';
-import { PrismaCreateuserRepository } from '../repositories/prisma-create-user';
+import { PrismaCreateuserRepository } from '../repositories/prisma-user.repository';
 
 describe('PrismaCreateuserRepository', () => {
   let repository: PrismaCreateuserRepository;

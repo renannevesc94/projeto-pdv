@@ -1,7 +1,7 @@
 import { SaleItemDto } from '../dto/sale-item.dto';
 import { SaleDto } from '../dto/sale.dto';
 
-export abstract class ISaleItemsRepository {
+export abstract class ISaleRepository {
   abstract addProduct(
     saleId: number,
     saleItemDto: SaleItemDto,

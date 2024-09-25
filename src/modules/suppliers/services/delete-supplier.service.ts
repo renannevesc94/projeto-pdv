@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { IDeleteSupplierRepository } from '../repositories/interface-delete-supplier.repository';
+import { ISupplierRepository } from '../repositories/interface-supplier.repository';
 
 @Injectable()
 export class DeleteSupplierService {
-  constructor(private deleteSupplierRepository: IDeleteSupplierRepository) {}
+  constructor(private supplierRepository: ISupplierRepository) {}
 
   async delete(id: number) {
-    return await this.deleteSupplierRepository.delete(id);
+    return await this.supplierRepository.delete(id);
   }
 }

@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { LoginService } from './services/login.service';
-import { ILoginRepository } from './repositories/interface-login.repository';
-import { PrismaLoginRepository } from './repositories/prisma-login.repository';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { LocalStrategy } from './guards/local.strategy';
+import { PrismaAuthRepository } from './repositories/prisma-auth.repository';
+import { IAuthRepository } from './repositories/interface-auth.repository';
 
 @Module({
   imports: [
@@ -20,8 +20,8 @@ import { LocalStrategy } from './guards/local.strategy';
     LoginService,
 
     {
-      provide: ILoginRepository,
-      useClass: PrismaLoginRepository,
+      provide: IAuthRepository,
+      useClass: PrismaAuthRepository,
     },
   ],
 })

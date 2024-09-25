@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { SalesController } from './sales.controller';
-import { ISaleItemsRepository } from './repositories/interface-sale-items.repository';
-import { PrismaSaleItemsRepository } from './repositories/prisma-sale-items.repository';
+
 import { SalesManagementService } from './services/sales-management.service';
 import { SaleItemsService } from './services/sale-items.service';
+import { ISaleRepository } from './repositories/interface-sale.repository';
+import { PrismaSaleRepository } from './repositories/prisma-sale.repository';
 
 @Module({
   controllers: [SalesController],
@@ -12,8 +13,8 @@ import { SaleItemsService } from './services/sale-items.service';
     SaleItemsService,
 
     {
-      provide: ISaleItemsRepository,
-      useClass: PrismaSaleItemsRepository,
+      provide: ISaleRepository,
+      useClass: PrismaSaleRepository,
     },
   ],
 })

@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { ILoginRepository } from '../repositories/interface-login.repository';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/modules/users/user.entity';
+import { IAuthRepository } from '../repositories/interface-auth.repository';
 
 @Injectable()
 export class LoginService {
   constructor(
-    private readonly loginRepository: ILoginRepository,
+    private readonly authRepository: IAuthRepository,
     private readonly jwtService: JwtService,
   ) {}
 
   async authenticateUser(email: string, password: string) {
-    const user = await this.loginRepository.getByEmail(email.trim());
+    const user = await this.authRepository.getByEmail(email.trim());
 
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);

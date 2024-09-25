@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSupplierDto } from '../dto/create-supplier.dto';
-import { ICreateSupplierRepository } from '../repositories/interface-create-supplier.repository';
+import { ISupplierRepository } from '../repositories/interface-supplier.repository';
 
 @Injectable()
 export class CreateSupplierService {
-  constructor(private createSupplierRepository: ICreateSupplierRepository) {}
+  constructor(private supplierRepository: ISupplierRepository) {}
   async create(createSupplierDto: CreateSupplierDto) {
-    return this.createSupplierRepository.create(createSupplierDto);
+    return this.supplierRepository.create(createSupplierDto);
   }
 }

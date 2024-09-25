@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { IFindAllSuppliersRepository } from '../repositories/interface-find-all-suppliers.repository';
+import { ISupplierRepository } from '../repositories/interface-supplier.repository';
 
 @Injectable()
 export class FindAllSuppliersService {
-  constructor(
-    private findAllSuppliersRepository: IFindAllSuppliersRepository,
-  ) {}
+  constructor(private supplierRepository: ISupplierRepository) {}
 
   async findAll() {
-    return await this.findAllSuppliersRepository.findAll();
+    return await this.supplierRepository.findAll();
   }
 }

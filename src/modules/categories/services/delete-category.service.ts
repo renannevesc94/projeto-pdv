@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { IDeleteCategoryRepository } from '../repositories/interface-delete-category.repository';
+import { ICategoryRepository } from '../repositories/interface-category.repository';
 
 @Injectable()
 export class DeleteCategoryService {
-  constructor(
-    private readonly deleteCategoryRepository: IDeleteCategoryRepository,
-  ) {}
+  constructor(private readonly categoryRepository: ICategoryRepository) {}
 
   async delete(id: number) {
-    return await this.deleteCategoryRepository.delete(id);
+    return await this.categoryRepository.delete(id);
   }
 }

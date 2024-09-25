@@ -1,17 +1,11 @@
 import { Module } from '@nestjs/common';
 import { CategoriesController } from './categories.controller';
-import { PrismaCreateCategoryRepository } from './repositories/prisma-create-category.repository';
-import { ICreateCategoryRepository } from './repositories/interface-create-category.repository';
-import { PrismaFindAllCategoriesRepository } from './repositories/prisma-find-all-categories.repository';
-import { IFindAllCategoriesRepository } from './repositories/interface-find-all-categories.repository';
-import { IUpdateCategoryRepository } from './repositories/interface-update-category.repository';
-import { PrismaUpdateCategoryRepository } from './repositories/prisma-update-category.repository';
-import { IDeleteCategoryRepository } from './repositories/interface-delete-category.repository';
-import { PrismaDeleteCategoryRepository } from './repositories/prisma-delete-category.repository';
 import { CreateCategoriesService } from './services/create-category.service';
 import { FindAllCategoriesService } from './services/get-all-categories.service';
 import { UpdateCategoryService } from './services/update-category.service';
 import { DeleteCategoryService } from './services/delete-category.service';
+import { ICategoryRepository } from './repositories/interface-category.repository';
+import { PrismaCategoryRepository } from './repositories/prisma-category.repository';
 
 @Module({
   controllers: [CategoriesController],
@@ -22,22 +16,8 @@ import { DeleteCategoryService } from './services/delete-category.service';
     DeleteCategoryService,
 
     {
-      provide: ICreateCategoryRepository,
-      useClass: PrismaCreateCategoryRepository,
-    },
-    {
-      provide: IFindAllCategoriesRepository,
-      useClass: PrismaFindAllCategoriesRepository,
-    },
-
-    {
-      provide: IUpdateCategoryRepository,
-      useClass: PrismaUpdateCategoryRepository,
-    },
-
-    {
-      provide: IDeleteCategoryRepository,
-      useClass: PrismaDeleteCategoryRepository,
+      provide: ICategoryRepository,
+      useClass: PrismaCategoryRepository,
     },
   ],
 })

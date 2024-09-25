@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { IcreateProductRepository } from '../repositories/interface-create-product.repository';
+import { IProductRepository } from '../repositories/interface-product.repository';
 import { CreateProductDto } from '../dto/CreateProduct.dto';
 
 @Injectable()
 export class CreateProductService {
-  constructor(
-    private readonly createProductRepository: IcreateProductRepository,
-  ) {}
+  constructor(private readonly productRepository: IProductRepository) {}
 
   async create(createProductDto: CreateProductDto) {
-    return await this.createProductRepository.create(createProductDto);
+    return await this.productRepository.create(createProductDto);
   }
 }

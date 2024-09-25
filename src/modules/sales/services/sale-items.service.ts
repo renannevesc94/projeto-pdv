@@ -3,16 +3,17 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ISaleItemsRepository } from '../repositories/interface-sale-items.repository';
+
 import { SaleDto } from '../dto/sale.dto';
 import { SaleItemDto } from '../dto/sale-item.dto';
+import { ISaleRepository } from '../repositories/interface-sale.repository';
 
 @Injectable()
 export class SaleItemsService {
-  constructor(private readonly saleItemsRepository: ISaleItemsRepository) {}
+  constructor(private readonly saleRepository: ISaleRepository) {}
 
   private async getSalesWithItems(saleId: number): Promise<SaleDto> {
-    const sale = await this.saleItemsRepository.getSalesWithItems(saleId);
+    const sale = await this.saleRepository.getSalesWithItems(saleId);
     if (sale.status != 'OPEN') {
       throw new BadRequestException('Sale already closed');
     }
@@ -30,16 +31,16 @@ export class SaleItemsService {
       (itemOnSale.totalPrice / itemOnSale.quantity).toFixed(2),
     );
 
-    return await this.saleItemsRepository.updateItemOnSale(itemOnSale);
+    return await this.saleRepository.updateItemOnSale(itemOnSale);
   }
 
   async startSaleWithProduct(userId: string, saleItemDto: SaleItemDto) {
-    const sale = await this.saleItemsRepository.startSaleWithProduct(userId);
+    const sale = await this.saleRepository.startSaleWithProduct(userId);
     return await this.addItem(sale.id, saleItemDto);
   }
 
   async addItem(saleId: number, saleItemDto: SaleItemDto) {
-    const productExist = await this.saleItemsRepository.getProductById(
+    const productExist = await this.saleRepository.getProductById(
       saleItemDto.productsId,
     );
     if (!productExist) {
@@ -54,7 +55,7 @@ export class SaleItemsService {
     if (saleItem) {
       await this.updateItemOnSale(saleItem, saleItemDto);
     } else {
-      await this.saleItemsRepository.addProduct(saleId, saleItemDto);
+      await this.saleRepository.addProduct(saleId, saleItemDto);
     }
 
     return await this.getSalesWithItems(saleId);
