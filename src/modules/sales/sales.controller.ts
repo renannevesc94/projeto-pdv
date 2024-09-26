@@ -9,18 +9,20 @@ import {
 } from '@nestjs/common';
 
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
-import { SaleItemsService } from './services/sale-items.service';
 import { SaleItemDto } from './dto/sale-item.dto';
+import { SalesMediatorServiceService } from './services/sales-mediator-service.service';
 
 @Controller('sales')
 export class SalesController {
-  constructor(private readonly saleItemsService: SaleItemsService) {}
+  constructor(
+    private readonly salesMediatorServiceService: SalesMediatorServiceService,
+  ) {}
 
   @Post()
   @UsePipes(new TrimBodyPipe())
   async openSale(@Request() req, @Body() saleItemDto: SaleItemDto) {
     const { userId } = req.user;
-    return await this.saleItemsService.startSaleWithProduct(
+    return await this.salesMediatorServiceService.startSale(
       userId,
       saleItemDto,
     );
@@ -32,6 +34,6 @@ export class SalesController {
     @Body() saleItemDto: SaleItemDto,
     @Param('saleId') saleId: number,
   ) {
-    return await this.saleItemsService.addItem(+saleId, saleItemDto);
+    return await this.salesMediatorServiceService.addItem(+saleId, saleItemDto);
   }
 }

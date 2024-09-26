@@ -39,11 +39,12 @@ describe('Create Sale (e2e)', () => {
     return await request(app.getHttpServer())
       .patch(`/sales/${saleId}`)
       .set('Authorization', token)
-      .send({ ...saleData, unitPrice: 50 })
+      .send({ ...saleData, quantity: 50 })
       .expect(200)
       .expect((res) => {
         expect(res.body).toHaveProperty('SalesItems');
-        expect(res.body.SalesItems[0]).toHaveProperty('unitPrice');
+        expect(res.body.SalesItems[0]).toHaveProperty('quantity');
+        expect(res.body.SalesItems[0].quantity).toEqual(50);
       });
   });
 
