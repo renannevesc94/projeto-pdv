@@ -1,10 +1,13 @@
 import {
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsPositive,
   IsUUID,
 } from 'class-validator';
+
+import { discountTypeEnum } from '../enums/discount-type.enum';
 
 export class SaleItemDto {
   @IsNotEmpty()
@@ -20,6 +23,13 @@ export class SaleItemDto {
   @IsPositive()
   @IsNotEmpty()
   quantity: number;
+
+  @IsOptional()
+  @IsEnum(discountTypeEnum)
+  discountType?: discountTypeEnum;
+
+  @IsOptional()
+  discount?: number;
 
   @IsNumber()
   @IsPositive()

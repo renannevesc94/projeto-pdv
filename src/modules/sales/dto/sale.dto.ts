@@ -1,11 +1,8 @@
 import { IsEnum, IsOptional, IsNumber } from 'class-validator';
 import { SaleItemDto } from './sale-item.dto';
+import { discountTypeEnum } from '../enums/discount-type.enum';
+import { statusSaleEnum } from '../enums/satus-sale.enum';
 
-export enum StatusSale {
-  OPEN = 'OPEN',
-  CLOSED = 'CLOSED',
-  CANCELED = 'CANCELED',
-}
 export class SaleDto {
   @IsOptional()
   @IsNumber()
@@ -18,8 +15,15 @@ export class SaleDto {
   @IsOptional()
   paymentMethod?: string;
 
-  @IsEnum(StatusSale)
-  status: StatusSale;
+  @IsEnum(statusSaleEnum)
+  status: statusSaleEnum;
+
+  @IsOptional()
+  @IsEnum(discountTypeEnum)
+  discountType?: discountTypeEnum;
+
+  @IsOptional()
+  discount?: number;
 
   @IsOptional()
   created_at?: Date;

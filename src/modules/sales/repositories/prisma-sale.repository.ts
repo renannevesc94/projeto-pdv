@@ -1,8 +1,10 @@
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { SaleItemDto } from '../dto/sale-item.dto';
-import { SaleDto, StatusSale } from '../dto/sale.dto';
+import { SaleDto } from '../dto/sale.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ISaleRepository } from './interface-sale.repository';
+import { discountTypeEnum } from '../enums/discount-type.enum';
+import { statusSaleEnum } from '../enums/satus-sale.enum';
 
 @Injectable()
 export class PrismaSaleRepository implements ISaleRepository {
@@ -19,6 +21,8 @@ export class PrismaSaleRepository implements ISaleRepository {
     const saleWithItems = await this.prisma.sales.findUnique({
       select: {
         id: true,
+        discountType: true,
+        discount: true,
         total: true,
         paymentMethod: true,
         status: true,
@@ -29,6 +33,8 @@ export class PrismaSaleRepository implements ISaleRepository {
             quantity: true,
             unitPrice: true,
             totalPrice: true,
+            discount: true,
+            discountType: true,
           },
         },
       },
@@ -40,9 +46,15 @@ export class PrismaSaleRepository implements ISaleRepository {
     if (!saleWithItems) {
       throw new NotFoundException('Sale not found');
     }
+
     return {
       ...saleWithItems,
-      status: saleWithItems.status as StatusSale,
+      discountType: saleWithItems.discountType as discountTypeEnum,
+      status: saleWithItems.status as statusSaleEnum,
+      SalesItems: saleWithItems.SalesItems.map((item) => ({
+        ...item,
+        discountType: item.discountType as discountTypeEnum,
+      })),
     };
   }
 
@@ -50,7 +62,7 @@ export class PrismaSaleRepository implements ISaleRepository {
     saleId: number,
     saleItemDto: SaleItemDto,
   ): Promise<SaleItemDto> {
-    return await this.prisma.salesItems.create({
+    const itemAdded = await this.prisma.salesItems.create({
       data: {
         sales: {
           connect: { id: saleId },
@@ -60,9 +72,13 @@ export class PrismaSaleRepository implements ISaleRepository {
         },
         quantity: saleItemDto.quantity,
         unitPrice: saleItemDto.unitPrice,
+        discountType: saleItemDto.discountType,
+        discount: saleItemDto.discount,
         totalPrice: saleItemDto.totalPrice,
       },
     });
+
+    return itemAdded as SaleItemDto;
   }
 
   async startSaleWithProduct(userId: string): Promise<SaleDto> {
@@ -76,22 +92,21 @@ export class PrismaSaleRepository implements ISaleRepository {
       },
     });
 
-    return {
-      ...saleCreated,
-      status: saleCreated.status as StatusSale,
-    };
+    return saleCreated as SaleDto;
   }
 
-  async updateItemOnSale(product: SaleItemDto): Promise<SaleItemDto> {
-    return await this.prisma.salesItems.update({
+  async updateItemOnSale(saleItem: SaleItemDto): Promise<SaleItemDto> {
+    const updateItem = await this.prisma.salesItems.update({
       where: {
-        id: product.id,
+        id: saleItem.id,
       },
       data: {
-        quantity: product.quantity,
-        unitPrice: product.unitPrice,
-        totalPrice: product.totalPrice,
+        quantity: saleItem.quantity,
+        unitPrice: saleItem.unitPrice,
+        totalPrice: saleItem.totalPrice,
       },
     });
+
+    return updateItem as SaleItemDto;
   }
 }
