@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { StartSaleServiceService } from './start-sale-service.service';
+import { StartSaleServiceService } from './start-sale.service';
 import { SaleItemDto } from '../dto/sale-item.dto';
-import { AddItemServiceService } from './add-item-service.service';
+import { AddItemServiceService } from './add-item.service';
 import { SaleDto } from '../dto/sale.dto';
-import { GetSaleByIdServiceService } from './get-sale-by-id-service.service';
-import { UpdateItemServiceService } from './update-item-service.service';
+import { GetSaleByIdServiceService } from './get-sale-by-id.service';
+import { UpdateItemServiceService } from './update-item.service';
 import { GetItemOnSaleService } from './get-item-on-sale.service';
 
 @Injectable()
@@ -36,10 +36,7 @@ export class SalesMediatorServiceService {
     );
 
     if (itemSale) {
-      await this.updateItemServiceService.updateItemOnSale(
-        itemSale,
-        saleItemDto,
-      );
+      await this.updateItemServiceService.updateItemOnSale(saleItemDto);
       return this.getSalesWithItems(saleId);
     }
     await this.addItemServiceService.addItem(saleId, saleItemDto);
