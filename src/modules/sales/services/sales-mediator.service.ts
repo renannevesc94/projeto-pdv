@@ -8,7 +8,7 @@ import { UpdateItemServiceService } from './update-item.service';
 import { GetItemOnSaleService } from './get-item-on-sale.service';
 
 @Injectable()
-export class SalesMediatorServiceService {
+export class SalesMediatorServie {
   constructor(
     private readonly startSaleServiceService: StartSaleServiceService,
     private readonly addItemServiceService: AddItemServiceService,
@@ -36,7 +36,10 @@ export class SalesMediatorServiceService {
     );
 
     if (itemSale) {
-      await this.updateItemServiceService.updateItemOnSale(saleItemDto);
+      await this.updateItemServiceService.updateItemOnSale(
+        itemSale.id,
+        saleItemDto,
+      );
       return this.getSalesWithItems(saleId);
     }
     await this.addItemServiceService.addItem(saleId, saleItemDto);

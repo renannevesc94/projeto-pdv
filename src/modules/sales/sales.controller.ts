@@ -10,12 +10,12 @@ import {
 
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
 import { SaleItemDto } from './dto/sale-item.dto';
-import { SalesMediatorServiceService } from './services/sales-mediator-service.service';
+import { SalesMediatorServie } from './services/sales-mediator.service';
 
 @Controller('sales')
 export class SalesController {
   constructor(
-    private readonly salesMediatorServiceService: SalesMediatorServiceService,
+    private readonly salesMediatorServiceService: SalesMediatorServie,
   ) {}
 
   @Post()
