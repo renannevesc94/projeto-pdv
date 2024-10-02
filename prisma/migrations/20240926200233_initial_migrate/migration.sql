@@ -2,7 +2,10 @@
 CREATE TYPE "Role" AS ENUM ('OPERADOR', 'SUPERVISOR', 'ADMINISTRADOR');
 
 -- CreateEnum
-CREATE TYPE "StatusSale" AS ENUM ('OPEN', 'CLOSED', 'CANCELED');
+CREATE TYPE "statusSaleEnum" AS ENUM ('OPEN', 'CLOSED', 'CANCELED');
+
+-- CreateEnum
+CREATE TYPE "discountTypeEnum" AS ENUM ('FIXED', 'PERCENT');
 
 -- CreateTable
 CREATE TABLE "users" (
@@ -59,9 +62,11 @@ CREATE TABLE "sales" (
     "usersId" TEXT NOT NULL,
     "total" DOUBLE PRECISION,
     "paymentMethod" TEXT,
+    "discountType" "discountTypeEnum",
+    "discount" DOUBLE PRECISION,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "status" "StatusSale" NOT NULL DEFAULT 'OPEN',
+    "status" "statusSaleEnum" NOT NULL DEFAULT 'OPEN',
 
     CONSTRAINT "sales_pkey" PRIMARY KEY ("id")
 );
@@ -71,6 +76,8 @@ CREATE TABLE "sales_items" (
     "id" TEXT NOT NULL,
     "salesId" INTEGER NOT NULL,
     "quantity" DOUBLE PRECISION NOT NULL,
+    "discountType" "discountTypeEnum",
+    "discount" DOUBLE PRECISION,
     "unitPrice" DOUBLE PRECISION NOT NULL,
     "totalPrice" DOUBLE PRECISION NOT NULL,
     "productsId" TEXT NOT NULL,

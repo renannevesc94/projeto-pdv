@@ -1,0 +1,100 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table users {
+  id String [pk]
+  name String [not null]
+  email String [unique, not null]
+  password String [not null]
+  role Role [not null, default: 'OPERADOR']
+  Sales sales [not null]
+}
+
+Table products {
+  id String [pk]
+  description String [not null]
+  ean String [unique, not null]
+  category categories [not null]
+  unit String [not null]
+  cost Float [not null]
+  price Float [not null]
+  stock Float [not null]
+  status Boolean [not null]
+  tags String [not null]
+  min_stock Float [not null]
+  supplier suppliers [not null]
+  updated_at DateTime [default: `now()`, not null]
+  created_at DateTime [default: `now()`, not null]
+  categoryId Int [not null]
+  supplierId Int [not null]
+  imageUrl String [not null]
+  SalesItems sales_items [not null]
+}
+
+Table categories {
+  id Int [pk, increment]
+  description String [unique, not null]
+  Products products [not null]
+}
+
+Table suppliers {
+  id Int [pk, increment]
+  name String [unique, not null]
+  description String [not null]
+  Products products [not null]
+}
+
+Table sales {
+  id Int [pk, increment]
+  user users [not null]
+  usersId String [not null]
+  SalesItems sales_items [not null]
+  total Float
+  paymentMethod String
+  discountType discountTypeEnum
+  discount Float
+  created_at DateTime [default: `now()`, not null]
+  updated_at DateTime [default: `now()`, not null]
+  status statusSaleEnum [not null, default: 'OPEN']
+}
+
+Table sales_items {
+  id String [pk]
+  sales sales [not null]
+  salesId Int [not null]
+  products products [not null]
+  quantity Float [not null]
+  discountType discountTypeEnum
+  discount Float
+  unitPrice Float [not null]
+  totalPrice Float [not null]
+  productsId String [not null]
+}
+
+Enum Role {
+  OPERADOR
+  SUPERVISOR
+  ADMINISTRADOR
+}
+
+Enum statusSaleEnum {
+  OPEN
+  CLOSED
+  CANCELED
+}
+
+Enum discountTypeEnum {
+  FIXED
+  PERCENT
+}
+
+Ref: products.categoryId > categories.id
+
+Ref: products.supplierId > suppliers.id
+
+Ref: sales.usersId > users.id
+
+Ref: sales_items.salesId > sales.id
+
+Ref: sales_items.productsId > products.id

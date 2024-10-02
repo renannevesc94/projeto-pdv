@@ -8,6 +8,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -71,34 +75,43 @@ model Suppliers {
 }
 
 model Sales {
-  id            Int          @id @default(autoincrement())
-  user          Users        @relation(fields: [usersId], references: [id])
+  id            Int               @id @default(autoincrement())
+  user          Users             @relation(fields: [usersId], references: [id])
   usersId       String
   SalesItems    SalesItems[]
   total         Float?
   paymentMethod String?
-  created_at    DateTime     @default(now())
-  updated_at    DateTime     @default(now()) @updatedAt
-  status        StatusSale   @default(OPEN)
+  discountType  discountTypeEnum?
+  discount      Float?
+  created_at    DateTime          @default(now())
+  updated_at    DateTime          @default(now()) @updatedAt
+  status        statusSaleEnum    @default(OPEN)
 
   @@map("sales")
 }
 
-enum StatusSale {
+enum statusSaleEnum {
   OPEN
   CLOSED
   CANCELED
 }
 
+enum discountTypeEnum {
+  FIXED
+  PERCENT
+}
+
 model SalesItems {
-  id         String   @id @default(uuid())
-  sales      Sales    @relation(fields: [salesId], references: [id])
-  salesId    Int
-  products   Products @relation(fields: [productsId], references: [id])
-  quantity   Float
-  unitPrice  Float
-  totalPrice Float
-  productsId String
+  id           String            @id @default(uuid())
+  sales        Sales             @relation(fields: [salesId], references: [id])
+  salesId      Int
+  products     Products          @relation(fields: [productsId], references: [id])
+  quantity     Float
+  discountType discountTypeEnum?
+  discount     Float?
+  unitPrice    Float
+  totalPrice   Float
+  productsId   String
 
   @@map("sales_items")
 }
