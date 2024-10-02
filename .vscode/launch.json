@@ -5,13 +5,14 @@
       "name": "Docker: Attach to Node",
       "type": "node",
       "request": "attach",
-      "port": 9229,
-      "address": "0.0.0.0",
+      "port": 9230,
+      "address": "localhost",
       "localRoot": "${workspaceFolder}",
-      "remoteRoot": "/app",
-      "protocol": "inspector",
+      "remoteRoot": "/usr/app",
       "restart": true,
-      "sourceMaps": true
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**", "node_modules/**"]
     }
   ]
 }
