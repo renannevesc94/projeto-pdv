@@ -30,7 +30,8 @@ services:
     ports:
       - '3000:3000'
       - '5555:5555'
-      - '9229:9229'
+      - '9230:9230'
+
     volumes:
       - .:/usr/app
       - /usr/app/node_modules
