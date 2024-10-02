@@ -95,10 +95,13 @@ export class PrismaSaleRepository implements ISaleRepository {
     return saleCreated as SaleDto;
   }
 
-  async updateItemOnSale(saleItem: SaleItemDto): Promise<SaleItemDto> {
+  async updateItemOnSale(
+    id: string,
+    saleItem: SaleItemDto,
+  ): Promise<SaleItemDto> {
     const updateItem = await this.prisma.salesItems.update({
       where: {
-        id: saleItem.id,
+        id: id,
       },
       data: {
         quantity: saleItem.quantity,

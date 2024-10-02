@@ -6,7 +6,7 @@ import { SaleItemDto } from '../dto/sale-item.dto';
 export class UpdateItemServiceService {
   constructor(private readonly saleRepository: ISaleRepository) {}
 
-  async updateItemOnSale(updateDataItem: SaleItemDto) {
-    return await this.saleRepository.updateItemOnSale(updateDataItem);
+  async updateItemOnSale(id: string, updateDataItem: SaleItemDto) {
+    return await this.saleRepository.updateItemOnSale(id, updateDataItem);
   }
 }

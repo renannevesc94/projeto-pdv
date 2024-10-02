@@ -9,7 +9,10 @@ export abstract class ISaleRepository {
 
   abstract getSalesWithItems(saleId: number): Promise<SaleDto> | null;
 
-  abstract updateItemOnSale(product: SaleItemDto): Promise<SaleItemDto>;
+  abstract updateItemOnSale(
+    id: string,
+    product: SaleItemDto,
+  ): Promise<SaleItemDto>;
 
   abstract startSaleWithProduct(userId: string): Promise<SaleDto>;
 
