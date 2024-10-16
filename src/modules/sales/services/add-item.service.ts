@@ -1,19 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { SaleItemDto } from '../dto/sale-item.dto';
 import { ISaleRepository } from '../repositories/interface-sale.repository';
+import { IAddItem } from '../interfaces/interface-add-tem';
 
 @Injectable()
-export class AddItemServiceService {
+export class AddItemService implements IAddItem {
   constructor(private readonly saleRepository: ISaleRepository) {}
 
   async addItem(saleId: number, saleItemDto: SaleItemDto) {
-    const productExist = await this.saleRepository.getProductById(
-      saleItemDto.productsId,
-    );
-    if (!productExist) {
-      throw new NotFoundException('Product not found');
-    }
-
     return await this.saleRepository.addProduct(saleId, saleItemDto);
   }
 }
