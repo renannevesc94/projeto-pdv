@@ -26,7 +26,7 @@ describe('Update User Tests (e2e)', () => {
       })
       .expect(404)
       .expect((res) => {
-        expect(res.body.message).toContain('Data not found');
+        expect(res.body.message).toContain('Record to update not found.');
       });
   });
 });

@@ -2,11 +2,14 @@ import * as request from 'supertest';
 import { app, prisma, token } from 'tests/helpers/create-test-app';
 
 const saleData = {
-  productsId: '2c520c10-3a13-4a6a-a8a0-f020dcde20a8',
+  productsId: '7ceff610-b6e4-46fb-bf55-45e9fc719d7e',
   quantity: 10,
   unitPrice: 10,
+  discountType: 'FIXED',
   totalPrice: 100,
+  discount: 10,
 };
+
 describe('Create Sale (e2e)', () => {
   let saleId: number;
 
@@ -57,6 +60,14 @@ describe('Create Sale (e2e)', () => {
       .expect((res) => {
         expect(res.body.message).toEqual('Sale not found');
       });
+  });
+
+  it('(PATCH) APPLY DISCOUNT AFTER POST should return success and 200 status code when success updating a sale', async () => {
+    return await request(app.getHttpServer())
+      .patch(`/sales/${saleId}`)
+      .set('Authorization', token)
+      .send({ ...saleData, discount: 50 })
+      .expect(200);
   });
 
   afterAll(async () => {

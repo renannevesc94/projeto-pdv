@@ -32,7 +32,7 @@ describe('Delete User Tests (e2e)', () => {
       .set('Authorization', `${token}`)
       .expect(404)
       .expect((res) => {
-        expect(res.body.message).toContain('Data not found');
+        expect(res.body.message).toContain('Record to delete does not exist.');
       });
   });
 });
