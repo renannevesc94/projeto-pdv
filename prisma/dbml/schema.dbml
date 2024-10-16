@@ -50,13 +50,14 @@ Table sales {
   user users [not null]
   usersId String [not null]
   SalesItems sales_items [not null]
-  total Float
   paymentMethod String
   discountType discountTypeEnum
-  discount Float
+  discount Float [not null, default: 0]
+  total Float [not null, default: 0]
+  discountValue Float [not null, default: 0]
+  status statusSaleEnum [not null, default: 'OPEN']
   created_at DateTime [default: `now()`, not null]
   updated_at DateTime [default: `now()`, not null]
-  status statusSaleEnum [not null, default: 'OPEN']
 }
 
 Table sales_items {
@@ -65,9 +66,10 @@ Table sales_items {
   salesId Int [not null]
   products products [not null]
   quantity Float [not null]
-  discountType discountTypeEnum
-  discount Float
   unitPrice Float [not null]
+  discountType discountTypeEnum
+  discount Float [not null, default: 0]
+  descountValue Float [not null, default: 0]
   totalPrice Float [not null]
   productsId String [not null]
 }

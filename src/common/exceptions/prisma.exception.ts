@@ -23,7 +23,7 @@ export class DataValidationException extends HttpException {
 
 export class RecordNotFoundException extends HttpException {
   constructor(cause: string) {
-    super(`Data not found in ${cause}`, HttpStatus.NOT_FOUND);
+    super(`${cause}`, HttpStatus.NOT_FOUND);
   }
 }
 

@@ -10,22 +10,17 @@ import {
 
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
 import { SaleItemDto } from './dto/sale-item.dto';
-import { SalesMediatorServie } from './services/sales-mediator.service';
+import { MediatorSalesService } from './services/mediator-sales.service';
 
 @Controller('sales')
 export class SalesController {
-  constructor(
-    private readonly salesMediatorServiceService: SalesMediatorServie,
-  ) {}
+  constructor(private readonly mediatorSalesService: MediatorSalesService) {}
 
   @Post()
   @UsePipes(new TrimBodyPipe())
   async openSale(@Request() req, @Body() saleItemDto: SaleItemDto) {
     const { userId } = req.user;
-    return await this.salesMediatorServiceService.startSale(
-      userId,
-      saleItemDto,
-    );
+    return await this.mediatorSalesService.startSale(userId, saleItemDto);
   }
 
   @Patch(':saleId')
@@ -34,6 +29,6 @@ export class SalesController {
     @Body() saleItemDto: SaleItemDto,
     @Param('saleId') saleId: number,
   ) {
-    return await this.salesMediatorServiceService.addItem(+saleId, saleItemDto);
+    return await this.mediatorSalesService.addItem(+saleId, saleItemDto);
   }
 }

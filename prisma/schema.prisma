@@ -79,13 +79,14 @@ model Sales {
   user          Users             @relation(fields: [usersId], references: [id])
   usersId       String
   SalesItems    SalesItems[]
-  total         Float?
   paymentMethod String?
   discountType  discountTypeEnum?
-  discount      Float?
+  discount      Float             @default(0)
+  total         Float             @default(0)
+  discountValue Float             @default(0)
+  status        statusSaleEnum    @default(OPEN)
   created_at    DateTime          @default(now())
   updated_at    DateTime          @default(now()) @updatedAt
-  status        statusSaleEnum    @default(OPEN)
 
   @@map("sales")
 }
@@ -102,16 +103,17 @@ enum discountTypeEnum {
 }
 
 model SalesItems {
-  id           String            @id @default(uuid())
-  sales        Sales             @relation(fields: [salesId], references: [id])
-  salesId      Int
-  products     Products          @relation(fields: [productsId], references: [id])
-  quantity     Float
-  discountType discountTypeEnum?
-  discount     Float?
-  unitPrice    Float
-  totalPrice   Float
-  productsId   String
+  id            String            @id @default(uuid())
+  sales         Sales             @relation(fields: [salesId], references: [id])
+  salesId       Int
+  products      Products          @relation(fields: [productsId], references: [id])
+  quantity      Float
+  unitPrice     Float
+  discountType  discountTypeEnum?
+  discount      Float             @default(0)
+  descountValue Float             @default(0)
+  totalPrice    Float
+  productsId    String
 
   @@map("sales_items")
 }

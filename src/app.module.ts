@@ -24,6 +24,7 @@ import { APP_GUARD, APP_PIPE } from '@nestjs/core';
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
+
     {
       provide: APP_PIPE,
 

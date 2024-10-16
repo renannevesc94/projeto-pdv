@@ -9,6 +9,7 @@ import { PrismaUserRepository } from './repositories/prisma-user.repository';
 import { IUserRepository } from './repositories/interface-user.repository';
 
 @Module({
+  controllers: [UsersController],
   providers: [
     CreateUserService,
     UpdateUserService,
@@ -21,6 +22,5 @@ import { IUserRepository } from './repositories/interface-user.repository';
     },
   ],
   imports: [],
-  controllers: [UsersController],
 })
 export class UsersModule {}

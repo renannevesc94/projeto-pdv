@@ -9,6 +9,7 @@ import { UpdateSupplierService } from './services/update-supplier.service';
 
 @Module({
   controllers: [SupplierController],
+  imports: [],
   providers: [
     CreateSupplierService,
     FindAllSuppliersService,
