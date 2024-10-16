@@ -15,6 +15,4 @@ export abstract class ISaleRepository {
   ): Promise<SaleItemDto>;
 
   abstract startSaleWithProduct(userId: string): Promise<SaleDto>;
-
-  abstract getProductById(productId: string): Promise<boolean>;
 }

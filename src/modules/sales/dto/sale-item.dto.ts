@@ -24,21 +24,27 @@ export class SaleItemDto {
   @IsNotEmpty()
   quantity: number;
 
-  @IsOptional()
-  @IsEnum(discountTypeEnum)
-  discountType?: discountTypeEnum;
-
-  @IsOptional()
-  discount?: number;
-
   @IsNumber()
   @IsPositive()
   @IsNotEmpty()
-  unitPrice: number;
+  @IsOptional()
+  unitPrice?: number;
+
+  @IsEnum(discountTypeEnum)
+  discountType: discountTypeEnum;
+
+  @IsNumber()
+  discount: number;
 
   @IsNumber()
   @IsPositive()
-  totalPrice: number;
+  @IsOptional()
+  discountValue?: number;
+
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  totalPrice?: number;
 
   @IsUUID()
   @IsNotEmpty()

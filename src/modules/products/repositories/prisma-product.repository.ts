@@ -5,6 +5,7 @@ import { IProductRepository } from './interface-product.repository';
 import { Product } from '../products.entity';
 import { UUID } from 'crypto';
 import { UpdateProductDto } from '../dto/UpdateProductDto';
+import { ProductDto } from 'src/common/dtos/product.dto';
 
 @Injectable()
 export class PrismaProductRepository implements IProductRepository {
@@ -29,11 +30,11 @@ export class PrismaProductRepository implements IProductRepository {
     });
   }
 
-  update(
+  async update(
     productId: UUID,
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
-    return this.prisma.products.update({
+    return await this.prisma.products.update({
       where: {
         id: productId,
       },
@@ -43,8 +44,12 @@ export class PrismaProductRepository implements IProductRepository {
     });
   }
 
-  findAllProducts(): Promise<Product[]> {
-    return this.prisma.products.findMany();
+  async findAllProducts(): Promise<Product[]> {
+    return await this.prisma.products.findMany();
+  }
+
+  async getProductById(id: string): Promise<ProductDto> {
+    return await this.prisma.products.findFirst({ where: { id } });
   }
 
   async delete(productId: UUID): Promise<Product> {

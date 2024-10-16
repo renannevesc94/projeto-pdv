@@ -10,13 +10,6 @@ import { statusSaleEnum } from '../enums/satus-sale.enum';
 export class PrismaSaleRepository implements ISaleRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getProductById(productId: string): Promise<boolean> {
-    const product = await this.prisma.products.findFirst({
-      where: { id: productId },
-    });
-    return !!product;
-  }
-
   async getSalesWithItems(saleId: number): Promise<SaleDto> | null {
     const saleWithItems = await this.prisma.sales.findUnique({
       select: {
@@ -33,8 +26,9 @@ export class PrismaSaleRepository implements ISaleRepository {
             quantity: true,
             unitPrice: true,
             totalPrice: true,
-            discount: true,
             discountType: true,
+            discount: true,
+            descountValue: true,
           },
         },
       },
@@ -75,6 +69,7 @@ export class PrismaSaleRepository implements ISaleRepository {
         discountType: saleItemDto.discountType,
         discount: saleItemDto.discount,
         totalPrice: saleItemDto.totalPrice,
+        descountValue: saleItemDto.discountValue,
       },
     });
 
@@ -104,9 +99,15 @@ export class PrismaSaleRepository implements ISaleRepository {
         id: id,
       },
       data: {
+        products: {
+          connect: { id: saleItem.productsId },
+        },
         quantity: saleItem.quantity,
         unitPrice: saleItem.unitPrice,
+        discountType: saleItem.discountType,
+        discount: saleItem.discount,
         totalPrice: saleItem.totalPrice,
+        descountValue: saleItem.discountValue,
       },
     });
 
