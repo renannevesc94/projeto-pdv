@@ -17,6 +17,7 @@ import { ItemSaleHandlerService } from './services/item-sale-handler.service';
 import { ICalculateTotalPrice } from './interfaces/interface-calculate-total-price';
 import { IAddItem } from './interfaces/interface-add-tem';
 import { IUpdateItem } from './interfaces/interface-update-item';
+import { FinalizeSaleService } from './services/finalize-sale.service';
 
 @Module({
   controllers: [SalesController],
@@ -26,6 +27,7 @@ import { IUpdateItem } from './interfaces/interface-update-item';
     StartSaleService,
     GetSaleByIdService,
     ItemSaleHandlerService,
+    FinalizeSaleService,
 
     {
       provide: ISaleRepository,

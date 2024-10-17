@@ -1,3 +1,4 @@
+import { FinalizeSaleDto } from '../dto/finalize-sale.dto';
 import { SaleItemDto } from '../dto/sale-item.dto';
 import { SaleDto } from '../dto/sale.dto';
 
@@ -15,4 +16,9 @@ export abstract class ISaleRepository {
   ): Promise<SaleItemDto>;
 
   abstract startSaleWithProduct(userId: string): Promise<SaleDto>;
+
+  abstract finalizeSale(
+    saleId: number,
+    finalizeSaleDto: FinalizeSaleDto,
+  ): Promise<SaleDto>;
 }

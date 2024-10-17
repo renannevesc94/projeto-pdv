@@ -5,6 +5,8 @@ import { SaleDto } from '../dto/sale.dto';
 import { GetSaleByIdService } from './get-sale-by-id.service';
 import { ItemSaleHandlerService } from './item-sale-handler.service';
 import { GetItemOnSaleService } from './get-item-on-sale.service';
+import { FinalizeSaleService } from './finalize-sale.service';
+import { FinalizeSaleDto } from '../dto/finalize-sale.dto';
 
 @Injectable()
 export class MediatorSalesService {
@@ -13,6 +15,7 @@ export class MediatorSalesService {
     private readonly getSaleByIdServiceService: GetSaleByIdService,
     private readonly itemSaleHandlerService: ItemSaleHandlerService,
     private readonly getItemOnSaleService: GetItemOnSaleService,
+    private readonly finalizeSaleService: FinalizeSaleService,
   ) {}
 
   private async getSalesWithItems(saleId: number): Promise<SaleDto> {
@@ -32,5 +35,10 @@ export class MediatorSalesService {
     );
     await this.itemSaleHandlerService.handle(sale.id, saleItemDto, itemOnSale);
     return await this.getSalesWithItems(saleId);
+  }
+
+  async finalizeSale(saleId: number, finalizeSaleDto: FinalizeSaleDto) {
+    const sale = await this.getSalesWithItems(saleId);
+    return await this.finalizeSaleService.finalizeSale(sale, finalizeSaleDto);
   }
 }

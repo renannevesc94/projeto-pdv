@@ -5,6 +5,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ISaleRepository } from './interface-sale.repository';
 import { discountTypeEnum } from '../enums/discount-type.enum';
 import { statusSaleEnum } from '../enums/satus-sale.enum';
+import { FinalizeSaleDto } from '../dto/finalize-sale.dto';
 
 @Injectable()
 export class PrismaSaleRepository implements ISaleRepository {
@@ -28,7 +29,7 @@ export class PrismaSaleRepository implements ISaleRepository {
             totalPrice: true,
             discountType: true,
             discount: true,
-            descountValue: true,
+            discountValue: true,
           },
         },
       },
@@ -52,30 +53,6 @@ export class PrismaSaleRepository implements ISaleRepository {
     };
   }
 
-  async addProduct(
-    saleId: number,
-    saleItemDto: SaleItemDto,
-  ): Promise<SaleItemDto> {
-    const itemAdded = await this.prisma.salesItems.create({
-      data: {
-        sales: {
-          connect: { id: saleId },
-        },
-        products: {
-          connect: { id: saleItemDto.productsId },
-        },
-        quantity: saleItemDto.quantity,
-        unitPrice: saleItemDto.unitPrice,
-        discountType: saleItemDto.discountType,
-        discount: saleItemDto.discount,
-        totalPrice: saleItemDto.totalPrice,
-        descountValue: saleItemDto.discountValue,
-      },
-    });
-
-    return itemAdded as SaleItemDto;
-  }
-
   async startSaleWithProduct(userId: string): Promise<SaleDto> {
     const saleCreated = await this.prisma.sales.create({
       data: {
@@ -89,28 +66,55 @@ export class PrismaSaleRepository implements ISaleRepository {
 
     return saleCreated as SaleDto;
   }
+  async addProduct(
+    saleId: number,
+    saleItemDto: SaleItemDto,
+  ): Promise<SaleItemDto> {
+    const { productsId, ...data } = saleItemDto;
+
+    return (await this.prisma.salesItems.create({
+      data: {
+        sales: { connect: { id: saleId } },
+        products: { connect: { id: productsId } },
+        ...data,
+      },
+    })) as SaleItemDto;
+  }
 
   async updateItemOnSale(
     id: string,
-    saleItem: SaleItemDto,
+    saleItemDto: SaleItemDto,
   ): Promise<SaleItemDto> {
-    const updateItem = await this.prisma.salesItems.update({
+    const { productsId, ...data } = saleItemDto;
+    return (await this.prisma.salesItems.update({
       where: {
         id: id,
       },
       data: {
         products: {
-          connect: { id: saleItem.productsId },
+          connect: { id: productsId },
         },
-        quantity: saleItem.quantity,
-        unitPrice: saleItem.unitPrice,
-        discountType: saleItem.discountType,
-        discount: saleItem.discount,
-        totalPrice: saleItem.totalPrice,
-        descountValue: saleItem.discountValue,
+        ...data,
       },
-    });
+    })) as SaleItemDto;
+  }
 
-    return updateItem as SaleItemDto;
+  async finalizeSale(
+    saleId: number,
+    finalizeSaleDto: FinalizeSaleDto,
+  ): Promise<SaleDto> {
+    return (await this.prisma.sales.update({
+      where: {
+        id: saleId,
+      },
+      data: {
+        discountType: finalizeSaleDto.discountType,
+        status: finalizeSaleDto.status,
+        ...finalizeSaleDto,
+      },
+      include: {
+        SalesItems: true,
+      },
+    })) as SaleDto;
   }
 }

@@ -11,6 +11,7 @@ import {
 import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
 import { SaleItemDto } from './dto/sale-item.dto';
 import { MediatorSalesService } from './services/mediator-sales.service';
+import { FinalizeSaleDto } from './dto/finalize-sale.dto';
 
 @Controller('sales')
 export class SalesController {
@@ -24,6 +25,15 @@ export class SalesController {
   }
 
   @Patch(':saleId')
+  @UsePipes(new TrimBodyPipe())
+  async updateSale(
+    @Param('saleId') saleId: number,
+    @Body() finalizeDto: FinalizeSaleDto,
+  ) {
+    return await this.mediatorSalesService.finalizeSale(+saleId, finalizeDto);
+  }
+
+  @Patch(':saleId/items')
   @UsePipes(new TrimBodyPipe())
   async addProduct(
     @Body() saleItemDto: SaleItemDto,
