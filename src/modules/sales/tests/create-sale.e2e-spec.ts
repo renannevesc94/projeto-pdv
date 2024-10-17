@@ -4,9 +4,7 @@ import { app, prisma, token } from 'tests/helpers/create-test-app';
 const saleData = {
   productsId: '7ceff610-b6e4-46fb-bf55-45e9fc719d7e',
   quantity: 10,
-  unitPrice: 10,
   discountType: 'FIXED',
-  totalPrice: 100,
   discount: 10,
 };
 
@@ -66,7 +64,7 @@ describe('Create Sale (e2e)', () => {
     return await request(app.getHttpServer())
       .patch(`/sales/${saleId}/items`)
       .set('Authorization', token)
-      .send({ ...saleData, discount: 50 })
+      .send({ ...saleData, discountType: 'FIXED', discount: 50 })
       .expect(200);
   });
 
