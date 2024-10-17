@@ -14,7 +14,17 @@ export class FinalizeSaleService {
   ) {}
 
   private calculateTotalAmount(saleItems: SaleItemDto[]) {
-    return saleItems.reduce((acc, item) => acc + item.totalPrice, 0);
+    const productDiscount = saleItems.reduce(
+      (acc, item) => acc + item.discountValue,
+      0,
+    );
+
+    const totalPrice = saleItems.reduce(
+      (acc, item) => acc + item.totalPrice,
+      0,
+    );
+
+    return { productDiscount, totalPrice };
   }
 
   async finalizeSale(sale: SaleDto, finalizeSaleDto: FinalizeSaleDto) {
@@ -22,9 +32,11 @@ export class FinalizeSaleService {
       throw new BadRequestException(`Sale already ${sale.status}`);
     }
 
-    const totalPrice = this.calculateTotalAmount(sale.SalesItems);
+    const { productDiscount, totalPrice } = this.calculateTotalAmount(
+      sale.SalesItems,
+    );
 
-    const saleWithDiscount = await this.applyDiscountService.apllyDiscount(
+    const saleWithDiscount = await this.applyDiscountService.applyDiscount(
       finalizeSaleDto.discountType,
       finalizeSaleDto.discount,
       totalPrice,
@@ -35,6 +47,8 @@ export class FinalizeSaleService {
     }
 
     finalizeSaleDto.status = statusSaleEnum.CLOSED;
+    finalizeSaleDto.discountValue =
+      saleWithDiscount.discountValue + productDiscount;
 
     return await this.saleRepository.finalizeSale(sale.id, finalizeSaleDto);
   }
