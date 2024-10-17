@@ -3,7 +3,7 @@ import { IApplyDiscount } from '../interfaces/interface-apply-discount';
 
 @Injectable()
 export class ApllyDiscountService implements IApplyDiscount {
-  async apllyDiscount(
+  async applyDiscount(
     discountType: string,
     discount: number,
     totalPrice: number,

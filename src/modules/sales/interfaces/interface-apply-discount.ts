@@ -1,5 +1,5 @@
 export abstract class IApplyDiscount {
-  abstract apllyDiscount(
+  abstract applyDiscount(
     discountType: string,
     discount: number,
     totalPrice: number,
