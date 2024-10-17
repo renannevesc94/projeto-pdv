@@ -111,7 +111,7 @@ model SalesItems {
   unitPrice     Float
   discountType  discountTypeEnum?
   discount      Float             @default(0)
-  descountValue Float             @default(0)
+  discountValue Float             @default(0)
   totalPrice    Float
   productsId    String
 

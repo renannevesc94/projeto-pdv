@@ -69,7 +69,7 @@ Table sales_items {
   unitPrice Float [not null]
   discountType discountTypeEnum
   discount Float [not null, default: 0]
-  descountValue Float [not null, default: 0]
+  discountValue Float [not null, default: 0]
   totalPrice Float [not null]
   productsId String [not null]
 }
