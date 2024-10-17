@@ -13,18 +13,16 @@ export class FinalizeSaleService {
     private saleRepository: ISaleRepository,
   ) {}
 
-  private sumTotalPrice(saleItems: SaleItemDto[]) {
-    return saleItems.reduce((acc, item) => {
-      return acc + item.totalPrice;
-    }, 0);
+  private calculateTotalAmount(saleItems: SaleItemDto[]) {
+    return saleItems.reduce((acc, item) => acc + item.totalPrice, 0);
   }
 
   async finalizeSale(sale: SaleDto, finalizeSaleDto: FinalizeSaleDto) {
-    if (sale.status != 'OPEN') {
+    if (sale.status !== statusSaleEnum.OPEN) {
       throw new BadRequestException(`Sale already ${sale.status}`);
     }
 
-    const totalPrice = this.sumTotalPrice(sale.SalesItems);
+    const totalPrice = this.calculateTotalAmount(sale.SalesItems);
 
     const saleWithDiscount = await this.applyDiscountService.apllyDiscount(
       finalizeSaleDto.discountType,
