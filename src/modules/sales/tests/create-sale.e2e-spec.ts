@@ -15,7 +15,7 @@ describe('Create Sale (e2e)', () => {
 
   it('(POST) should return success and 201 status code', async () => {
     return await request(app.getHttpServer())
-      .post('/sales')
+      .post('/sales/')
       .set('Authorization', token)
       .send(saleData)
       .expect(201)
@@ -27,7 +27,7 @@ describe('Create Sale (e2e)', () => {
 
   it('(POST) should return error and 400 status code when sending incomplete or incorrect data in the body', async () => {
     return await request(app.getHttpServer())
-      .post('/sales')
+      .post('/sales/')
       .set('Authorization', token)
       .send({ ...saleData, quantity: '10,5' })
       .expect(400)
@@ -40,7 +40,7 @@ describe('Create Sale (e2e)', () => {
 
   it('(PATCH) AFTER POST should return success and 200 status code when success updating a sale', async () => {
     return await request(app.getHttpServer())
-      .patch(`/sales/${saleId}`)
+      .patch(`/sales/${saleId}/items`)
       .set('Authorization', token)
       .send({ ...saleData, quantity: 50 })
       .expect(200)
@@ -53,7 +53,7 @@ describe('Create Sale (e2e)', () => {
 
   it('(PATCH) AFTER POST should return error and 404 status code when sending an id that does not exist', async () => {
     return await request(app.getHttpServer())
-      .patch(`/sales/9999`)
+      .patch(`/sales/9999/items`)
       .set('Authorization', token)
       .send(saleData)
       .expect(404)
@@ -64,7 +64,7 @@ describe('Create Sale (e2e)', () => {
 
   it('(PATCH) APPLY DISCOUNT AFTER POST should return success and 200 status code when success updating a sale', async () => {
     return await request(app.getHttpServer())
-      .patch(`/sales/${saleId}`)
+      .patch(`/sales/${saleId}/items`)
       .set('Authorization', token)
       .send({ ...saleData, discount: 50 })
       .expect(200);
