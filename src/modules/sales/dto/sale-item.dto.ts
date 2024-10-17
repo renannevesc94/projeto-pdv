@@ -16,10 +16,6 @@ export class SaleItemDto {
   id: string;
 
   @IsNumber()
-  @IsOptional()
-  salesId?: number;
-
-  @IsNumber()
   @IsPositive()
   @IsNotEmpty()
   quantity: number;
@@ -28,7 +24,7 @@ export class SaleItemDto {
   @IsPositive()
   @IsNotEmpty()
   @IsOptional()
-  unitPrice?: number;
+  unitPrice: number;
 
   @IsEnum(discountTypeEnum)
   discountType: discountTypeEnum;
@@ -44,7 +40,7 @@ export class SaleItemDto {
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  totalPrice?: number;
+  totalPrice: number;
 
   @IsUUID()
   @IsNotEmpty()
