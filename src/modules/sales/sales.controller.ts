@@ -12,10 +12,14 @@ import { TrimBodyPipe } from 'src/common/utils/trim-body.pipe';
 import { SaleItemDto } from './dto/sale-item.dto';
 import { MediatorSalesService } from './services/mediator-sales.service';
 import { FinalizeSaleDto } from './dto/finalize-sale.dto';
+import { CancelSaleService } from './services/cancel-sale.service';
 
 @Controller('sales')
 export class SalesController {
-  constructor(private readonly mediatorSalesService: MediatorSalesService) {}
+  constructor(
+    private readonly mediatorSalesService: MediatorSalesService,
+    private readonly cancelSaleService: CancelSaleService,
+  ) {}
 
   @Post()
   @UsePipes(new TrimBodyPipe())
@@ -40,5 +44,12 @@ export class SalesController {
     @Param('saleId') saleId: number,
   ) {
     return await this.mediatorSalesService.addItem(+saleId, saleItemDto);
+  }
+
+  @Patch(':saleId/cancel')
+  @UsePipes(new TrimBodyPipe())
+  async cancelSale(@Request() req, @Param('saleId') saleId: number) {
+    const { role } = req.user;
+    return this.cancelSaleService.cancelSale(+saleId, role);
   }
 }

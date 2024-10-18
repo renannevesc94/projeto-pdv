@@ -16,7 +16,8 @@ export class SaleDto {
   paymentMethod?: string;
 
   @IsEnum(statusSaleEnum)
-  status: statusSaleEnum;
+  @IsOptional()
+  status?: statusSaleEnum;
 
   @IsOptional()
   @IsEnum(discountTypeEnum)

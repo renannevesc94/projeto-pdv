@@ -18,6 +18,7 @@ import { ICalculateTotalPrice } from './interfaces/interface-calculate-total-pri
 import { IAddItem } from './interfaces/interface-add-tem';
 import { IUpdateItem } from './interfaces/interface-update-item';
 import { FinalizeSaleService } from './services/finalize-sale.service';
+import { CancelSaleService } from './services/cancel-sale.service';
 
 @Module({
   controllers: [SalesController],
@@ -28,6 +29,7 @@ import { FinalizeSaleService } from './services/finalize-sale.service';
     GetSaleByIdService,
     ItemSaleHandlerService,
     FinalizeSaleService,
+    CancelSaleService,
 
     {
       provide: ISaleRepository,
