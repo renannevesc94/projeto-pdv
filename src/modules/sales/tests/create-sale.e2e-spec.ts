@@ -18,8 +18,9 @@ describe('Create Sale (e2e)', () => {
       .send(saleData)
       .expect(201)
       .expect((res) => {
-        saleId = res.body.id;
-        expect(res.body).toHaveProperty('SalesItems');
+        saleId = res.body.salesId;
+        expect(res.body).toHaveProperty('salesId');
+        expect(res.body.productsId).toContain(saleData.productsId);
       });
   });
 
@@ -43,9 +44,9 @@ describe('Create Sale (e2e)', () => {
       .send({ ...saleData, quantity: 50 })
       .expect(200)
       .expect((res) => {
-        expect(res.body).toHaveProperty('SalesItems');
-        expect(res.body.SalesItems[0]).toHaveProperty('quantity');
-        expect(res.body.SalesItems[0].quantity).toEqual(50);
+        expect(res.body).toHaveProperty('salesId');
+        expect(res.body).toHaveProperty('quantity');
+        expect(res.body.quantity).toEqual(50);
       });
   });
 
