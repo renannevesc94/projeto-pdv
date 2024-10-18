@@ -65,6 +65,7 @@ export class PrismaSaleRepository implements ISaleRepository {
 
     return saleCreated as SaleDto;
   }
+
   async addProduct(
     saleId: number,
     saleItemDto: SaleItemDto,
@@ -113,5 +114,18 @@ export class PrismaSaleRepository implements ISaleRepository {
         SalesItems: true,
       },
     })) as SaleDto;
+  }
+
+  async getSalesByParam(
+    param,
+  ): Promise<Partial<Omit<SaleDto, 'SalesItems'>>[]> {
+    return (await this.prisma.sales.findMany({
+      where: {
+        ...param,
+      },
+      include: {
+        SalesItems: false,
+      },
+    })) as Partial<Omit<SaleDto, 'SalesItems'>>[];
   }
 }

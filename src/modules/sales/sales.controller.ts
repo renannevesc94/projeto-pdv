@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Patch,
   Post,
+  Query,
   Request,
   UsePipes,
 } from '@nestjs/common';
@@ -13,12 +15,15 @@ import { SaleItemDto } from './dto/sale-item.dto';
 import { MediatorSalesService } from './services/mediator-sales.service';
 import { FinalizeSaleDto } from './dto/finalize-sale.dto';
 import { CancelSaleService } from './services/cancel-sale.service';
+import { GetSalesByParamService } from './services/get-sales-by-param.service';
+import { SaleDto } from './dto/sale.dto';
 
 @Controller('sales')
 export class SalesController {
   constructor(
     private readonly mediatorSalesService: MediatorSalesService,
     private readonly cancelSaleService: CancelSaleService,
+    private readonly getAllSalesService: GetSalesByParamService,
   ) {}
 
   @Post()
@@ -51,5 +56,10 @@ export class SalesController {
   async cancelSale(@Request() req, @Param('saleId') saleId: number) {
     const { role } = req.user;
     return this.cancelSaleService.cancelSale(+saleId, role);
+  }
+
+  @Get()
+  async getSales(@Query() params: Partial<SaleDto>) {
+    return await this.getAllSalesService.getSalesByParams(params);
   }
 }

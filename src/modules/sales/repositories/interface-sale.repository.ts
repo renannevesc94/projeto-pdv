@@ -20,4 +20,8 @@ export abstract class ISaleRepository {
     saleId: number,
     updateData: Partial<Omit<SaleDto, 'SalesItems' | 'id'>>,
   ): Promise<SaleDto>;
+
+  abstract getSalesByParam(
+    param: Partial<SaleDto>,
+  ): Promise<Partial<Omit<SaleDto, 'SalesItems'>>[]>;
 }

@@ -19,6 +19,7 @@ import { IAddItem } from './interfaces/interface-add-tem';
 import { IUpdateItem } from './interfaces/interface-update-item';
 import { FinalizeSaleService } from './services/finalize-sale.service';
 import { CancelSaleService } from './services/cancel-sale.service';
+import { GetSalesByParamService } from './services/get-sales-by-param.service';
 
 @Module({
   controllers: [SalesController],
@@ -30,6 +31,7 @@ import { CancelSaleService } from './services/cancel-sale.service';
     ItemSaleHandlerService,
     FinalizeSaleService,
     CancelSaleService,
+    GetSalesByParamService,
 
     {
       provide: ISaleRepository,
