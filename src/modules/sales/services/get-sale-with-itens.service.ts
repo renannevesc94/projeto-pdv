@@ -3,7 +3,7 @@ import { ISaleRepository } from '../repositories/interface-sale.repository';
 import { SaleDto } from '../dto/sale.dto';
 
 @Injectable()
-export class GetSaleByIdService {
+export class GetSalesWithItemsService {
   constructor(private readonly saleRepository: ISaleRepository) {}
 
   async getSalesWithItems(saleId: number): Promise<SaleDto> {

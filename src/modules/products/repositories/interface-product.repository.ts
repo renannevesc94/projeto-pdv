@@ -13,5 +13,6 @@ export abstract class IProductRepository {
     productId: UUID,
     updateProductDto: UpdateProductDto,
   ): Promise<Product>;
+
   abstract getProductById(id: string): Promise<ProductDto>;
 }

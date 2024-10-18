@@ -8,6 +8,6 @@ export class AddItemService implements IAddItem {
   constructor(private readonly saleRepository: ISaleRepository) {}
 
   async addItem(saleId: number, saleItemDto: SaleItemDto) {
-    return await this.saleRepository.addProduct(saleId, saleItemDto);
+    return await this.saleRepository.addItem(saleId, saleItemDto);
   }
 }

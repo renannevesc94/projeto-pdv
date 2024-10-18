@@ -2,7 +2,7 @@ import { SaleItemDto } from '../dto/sale-item.dto';
 import { SaleDto } from '../dto/sale.dto';
 
 export abstract class ISaleRepository {
-  abstract addProduct(
+  abstract addItem(
     saleId: number,
     saleItemDto: SaleItemDto,
   ): Promise<SaleItemDto>;
@@ -24,4 +24,6 @@ export abstract class ISaleRepository {
   abstract getSalesByParam(
     param: Partial<SaleDto>,
   ): Promise<Partial<Omit<SaleDto, 'SalesItems'>>[]>;
+
+  abstract getSaleById(id: number): Promise<Partial<SaleDto>>;
 }

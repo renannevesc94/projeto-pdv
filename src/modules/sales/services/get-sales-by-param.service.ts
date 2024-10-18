@@ -9,7 +9,7 @@ export class GetSalesByParamService {
   async getSalesByParams(param: Partial<SaleDto>) {
     if (param.id) {
       const saleId = +param.id;
-      return await this.salesRepository.getSalesByParam({ id: saleId });
+      return await this.salesRepository.getSaleById(saleId);
     }
     return await this.salesRepository.getSalesByParam(param);
   }

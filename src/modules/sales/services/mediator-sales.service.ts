@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { StartSaleService } from './start-sale.service';
 import { SaleItemDto } from '../dto/sale-item.dto';
 import { SaleDto } from '../dto/sale.dto';
-import { GetSaleByIdService } from './get-sale-by-id.service';
+import { GetSalesWithItemsService } from './get-sale-with-itens.service';
 import { ItemSaleHandlerService } from './item-sale-handler.service';
 import { GetItemOnSaleService } from './get-item-on-sale.service';
 import { FinalizeSaleService } from './finalize-sale.service';
@@ -12,14 +12,14 @@ import { FinalizeSaleDto } from '../dto/finalize-sale.dto';
 export class MediatorSalesService {
   constructor(
     private readonly startSaleService: StartSaleService,
-    private readonly getSaleByIdServiceService: GetSaleByIdService,
+    private readonly getSalesWithItemsService: GetSalesWithItemsService,
     private readonly itemSaleHandlerService: ItemSaleHandlerService,
     private readonly getItemOnSaleService: GetItemOnSaleService,
     private readonly finalizeSaleService: FinalizeSaleService,
   ) {}
 
   private async getSalesWithItems(saleId: number): Promise<SaleDto> {
-    return await this.getSaleByIdServiceService.getSalesWithItems(saleId);
+    return await this.getSalesWithItemsService.getSalesWithItems(saleId);
   }
 
   async startSale(userId: string, saleItemDto: SaleItemDto) {

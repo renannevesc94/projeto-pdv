@@ -66,7 +66,7 @@ export class PrismaSaleRepository implements ISaleRepository {
     return saleCreated as SaleDto;
   }
 
-  async addProduct(
+  async addItem(
     saleId: number,
     saleItemDto: SaleItemDto,
   ): Promise<SaleItemDto> {
@@ -77,6 +77,13 @@ export class PrismaSaleRepository implements ISaleRepository {
         sales: { connect: { id: saleId } },
         products: { connect: { id: productsId } },
         ...data,
+      },
+      include: {
+        sales: {
+          select: {
+            id: true,
+          },
+        },
       },
     })) as SaleItemDto;
   }
@@ -95,6 +102,13 @@ export class PrismaSaleRepository implements ISaleRepository {
           connect: { id: productsId },
         },
         ...data,
+      },
+      include: {
+        sales: {
+          select: {
+            id: true,
+          },
+        },
       },
     })) as SaleItemDto;
   }
@@ -127,5 +141,16 @@ export class PrismaSaleRepository implements ISaleRepository {
         SalesItems: false,
       },
     })) as Partial<Omit<SaleDto, 'SalesItems'>>[];
+  }
+
+  async getSaleById(id: number): Promise<Partial<SaleDto>> {
+    return (await this.prisma.sales.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        SalesItems: false,
+      },
+    })) as Partial<SaleDto>;
   }
 }

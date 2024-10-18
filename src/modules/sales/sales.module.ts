@@ -5,7 +5,7 @@ import { ISaleRepository } from './repositories/interface-sale.repository';
 import { PrismaSaleRepository } from './repositories/prisma-sale.repository';
 import { UpdateItemService } from './services/update-item.service';
 import { StartSaleService } from './services/start-sale.service';
-import { GetSaleByIdService } from './services/get-sale-by-id.service';
+import { GetSalesWithItemsService } from './services/get-sale-with-itens.service';
 import { AddItemService } from './services/add-item.service';
 import { MediatorSalesService } from './services/mediator-sales.service';
 import { GetItemOnSaleService } from './services/get-item-on-sale.service';
@@ -27,7 +27,7 @@ import { GetSalesByParamService } from './services/get-sales-by-param.service';
     GetItemOnSaleService,
     MediatorSalesService,
     StartSaleService,
-    GetSaleByIdService,
+    GetSalesWithItemsService,
     ItemSaleHandlerService,
     FinalizeSaleService,
     CancelSaleService,
