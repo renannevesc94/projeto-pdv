@@ -17,7 +17,7 @@ export class CalculateTotalPriceService implements ICalculateTotalPrice {
     );
 
     const totalPrice = product.price * saleItemDto.quantity;
-    const discount = await this.apllyDiscountService.apllyDiscount(
+    const discount = await this.apllyDiscountService.applyDiscount(
       saleItemDto.discountType,
       saleItemDto.discount,
       totalPrice,
