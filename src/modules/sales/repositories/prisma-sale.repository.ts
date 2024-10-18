@@ -5,7 +5,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ISaleRepository } from './interface-sale.repository';
 import { discountTypeEnum } from '../enums/discount-type.enum';
 import { statusSaleEnum } from '../enums/satus-sale.enum';
-import { FinalizeSaleDto } from '../dto/finalize-sale.dto';
 
 @Injectable()
 export class PrismaSaleRepository implements ISaleRepository {
@@ -99,18 +98,16 @@ export class PrismaSaleRepository implements ISaleRepository {
     })) as SaleItemDto;
   }
 
-  async finalizeSale(
+  async updateSale(
     saleId: number,
-    finalizeSaleDto: FinalizeSaleDto,
+    updateData: Partial<Omit<SaleDto, 'SalesItems' | 'id'>>,
   ): Promise<SaleDto> {
     return (await this.prisma.sales.update({
       where: {
         id: saleId,
       },
       data: {
-        discountType: finalizeSaleDto.discountType,
-        status: finalizeSaleDto.status,
-        ...finalizeSaleDto,
+        ...updateData,
       },
       include: {
         SalesItems: true,

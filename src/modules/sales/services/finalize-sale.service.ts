@@ -50,6 +50,6 @@ export class FinalizeSaleService {
     finalizeSaleDto.discountValue =
       saleWithDiscount.discountValue + productDiscount;
 
-    return await this.saleRepository.finalizeSale(sale.id, finalizeSaleDto);
+    return await this.saleRepository.updateSale(sale.id, finalizeSaleDto);
   }
 }

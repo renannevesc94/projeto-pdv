@@ -1,4 +1,3 @@
-import { FinalizeSaleDto } from '../dto/finalize-sale.dto';
 import { SaleItemDto } from '../dto/sale-item.dto';
 import { SaleDto } from '../dto/sale.dto';
 
@@ -17,8 +16,8 @@ export abstract class ISaleRepository {
 
   abstract startSaleWithProduct(userId: string): Promise<SaleDto>;
 
-  abstract finalizeSale(
+  abstract updateSale(
     saleId: number,
-    finalizeSaleDto: FinalizeSaleDto,
+    updateData: Partial<Omit<SaleDto, 'SalesItems' | 'id'>>,
   ): Promise<SaleDto>;
 }
