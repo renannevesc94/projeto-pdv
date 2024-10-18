@@ -33,8 +33,11 @@ export class MediatorSalesService {
       sale.SalesItems,
       saleItemDto.productsId,
     );
-    await this.itemSaleHandlerService.handle(sale.id, saleItemDto, itemOnSale);
-    return await this.getSalesWithItems(saleId);
+    return await this.itemSaleHandlerService.handle(
+      sale.id,
+      saleItemDto,
+      itemOnSale,
+    );
   }
 
   async finalizeSale(saleId: number, finalizeSaleDto: FinalizeSaleDto) {
