@@ -1,0 +1,22 @@
+.navbarItem {
+  cursor: pointer;
+  padding: 0.3rem;
+  color: var(--primary-faded);
+  font-weight: 600;
+}
+
+.navbarItemSelected {
+  background-color: #fff2e8;
+  border: 1px solid var(--primary-orange);
+  color: var(--primary-orange);
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  overflow: hidden;
+  padding: 0.3rem;
+}
+
+.navbarItem:hover {
+  border-bottom: 2px solid var(--primary-orange);
+  border-radius: 5px;
+}

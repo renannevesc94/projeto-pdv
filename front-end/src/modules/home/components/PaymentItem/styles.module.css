@@ -1,0 +1,73 @@
+.paymentItem {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.22), 0 1px 5px rgba(0, 0, 0, 0.18);
+  padding-bottom: 0.3rem;
+  color: var(--primary-black);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.paymentItemContainer {
+  display: flex;
+  align-items: center;
+}
+.arrow {
+  font-size: 1.2rem;
+  margin-left: 1%;
+  width: 5%;
+  cursor: pointer;
+}
+
+.paymentItemInfo {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  justify-content: space-between;
+  padding-right: 2.5rem;
+  padding-left: 1rem;
+  flex-wrap: wrap;
+  cursor: pointer;
+}
+
+#paymentItemValue {
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  background-color: var(--primary-white);
+  min-width: 60px;
+}
+
+.paymentItemDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 8vh;
+}
+
+.paymentItemDetailsInput {
+  width: 90%;
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary-faded);
+}
+
+.paymentItemDescription {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
+}
+
+.paymentItemDescription span {
+}
+
+.paymentItemDescription span:hover {
+  overflow: visible;
+  white-space: normal;
+  width: auto;
+}
