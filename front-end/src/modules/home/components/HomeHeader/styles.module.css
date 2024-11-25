@@ -1,0 +1,48 @@
+.header {
+  width: 93vw;
+  height: 14vh;
+  min-height: 122px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1), 0 0px 2px 0 rgba(0, 0, 0, 0.18);
+  background-color: var(--primary-white);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.topHeader {
+  padding: 1%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: none;
+  position: relative;
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+}
+
+.titleArea > h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary-black);
+}
+.titleArea > p {
+  font-size: 0.85rem;
+  color: var(--primary-faded);
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* display: flex;
+gap: 1rem;
+position: absolute;
+left: 50%;
+top: 82%;
+transform: translate(-50%, -50%); */

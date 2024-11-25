@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.container select {
+  border: 2px solid var(--primary-faded);
+  background-color: var(--primary-white);
+  color: var(--primary-faded);
+  font-weight: 700;
+  font-size: 0.8rem;
+  width: 100%;
+  min-width: 40px;
+  height: 30px;
+}
+
+.container select:focus {
+  outline: none;
+  border: 2px solid var(--primary-faded);
+}

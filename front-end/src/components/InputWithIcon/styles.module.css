@@ -1,0 +1,30 @@
+.inputWithImage {
+  position: relative;
+  width: 25vw;
+}
+
+.inputWithImage input {
+  width: 100%;
+  height: 5vh;
+  padding: 3%;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  background-color: var(--primary-separator);
+  color: var(--primary-black);
+}
+
+.inputWithImage input:focus {
+  outline: none;
+  border: none;
+}
+
+.inputWithImage img {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 25px;
+  height: 25px;
+}
