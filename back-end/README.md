@@ -1,14 +1,27 @@
-<h1>API Sistema PDV</h1>
+<h1>API Sistema PDV - Ponto de Venda</h1>
 
 <img src="https://img.shields.io/badge/VERSION-0.01-orange"> <img src="https://img.shields.io/badge/STATUS-EM%20DESENVOLVIMENTO-brightgreen">
 
-##
+# Índice
+
+1. [Visão Geral](#sobre-o-projeto)
+2. [Funcionalidades Implantadas](#funcionalidades-implantadas)
+3. [Como Rodar o Projeto](#como-rodar-o-projeto)
+4. [Executar Testes e2e](#executar-testes-e2e)
+5. [Documentação](#documentação)
+6. [Tecnologias Utilizadas](#tecnologias-utilizadas)
+
+---
+
+#
+
+### Sobre o projeto
 
 Desenvolvimento de uma API utilizando NestJS para um sistema de Ponto de Venda (PDV). O projeto segue práticas de código limpo, organização modular e princípios de arquitetura limpa.
 
 A API está integrada com o PostgreSQL utilizando Prisma ORM, é totalmente dockerizada para facilitar a implantação e possui testes unitários com Jest.
 
-<h2>Funcionalidades implantadas </h2>
+### Funcionalidades implantadas
 
 - **`Estrutura monolítica modular`:** A estrutura é modular e desacoplada com implementação de interfaces para reduzir dependências externas e permitir reaproveitamento de código, uso do sistema de DI do NestJS.
 
@@ -22,13 +35,15 @@ A API está integrada com o PostgreSQL utilizando Prisma ORM, é totalmente dock
 
 - **`Autenticação e autorização`:** Implementação de autenticação com Passport.js e controle de acesso baseado em roles.
 
-- **`Serviços implementados`:** \*Auth, Users, Products, Sales, Suppliers, Caegories.
+- **`Serviços implementados`:** Auth, Users, Products, Sales, Suppliers, Categories.
 
 - **`Documentação da API`:** A API está documentada com Swagger.
 
-##
+---
 
-## Como Rodar o Projeto
+---
+
+### Como Rodar o Projeto
 
 Para rodar o projeto utilizando Docker Compose, siga os passos abaixo:
 
@@ -54,9 +69,9 @@ Certifique-se de ter o Docker e Docker Compose instalados em sua máquina. Se ai
 Crie um arquivo .env e .env.production na raiz do projeto com as seguintes variáveis:
 
 ```sh
-DATABASE_URL="postgresql://"
-PORT_API=
-SECRET_JWT=""
+DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+PORT_API=3000
+SECRET_JWT="my_secret_jwt_key"
 ```
 
 <b>Nota:</b>
@@ -74,9 +89,9 @@ SECRET_JWT=""
 
 4. **Acessar a Aplicação:**
 
-Após a conclusão do comando anterior, a API estará rodando e acessível na porta definida nas variáveis de ambiente.
+## Após a conclusão do comando anterior, a API estará rodando e acessível na porta definida nas variáveis de ambiente.
 
-#### Rodando testes e2e
+### Executar testes e2e
 
 1. **Populando o banco de dados:**
 
@@ -93,17 +108,21 @@ npx prisma studio
 Copie o userId criado na tabela Users e o productId da tabela Products. Utilize essas IDs para preencher o arquivo
 `src/modules/sales/tests/saleData.mock.ts`
 
-2. **Rodando os testes**
+3. **Rodando os testes**
 
 ```sh
    npm run test:e2e
 ```
 
-#### Documentação
+---
+
+### Documentação
 
 A documentação pode ser acessada com o projeto em execução pela url: `http://localhost:[PORTA]/api`
 
-#### Tecnologias utilizadas:
+---
+
+### Tecnologias utilizadas:
 
 - NestJS
 - PostgreSQL
