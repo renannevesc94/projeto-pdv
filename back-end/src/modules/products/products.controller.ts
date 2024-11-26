@@ -16,8 +16,11 @@ import { CreateProductService } from './services/create-product.service';
 import { FindAllProductsService } from './services/find-all-products.service';
 import { UpdateProductService } from './services/update-product.service';
 import { DeleteProductService } from './services/delete-product.service';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('products')
+@ApiTags('Products')
+@ApiBearerAuth()
 export class ProductsController {
   constructor(
     private readonly createProductService: CreateProductService,
@@ -26,17 +29,20 @@ export class ProductsController {
     private readonly deleteProductService: DeleteProductService,
   ) {}
 
+  /** Cria um novo produto */
   @Post()
   @UsePipes(new TrimBodyPipe())
   async create(@Body() createProductDto: CreateProductDto) {
     return this.createProductService.create(createProductDto);
   }
 
+  /** Busca todos os produtos */
   @Get()
   async findAllProducts() {
     return await this.findAllProductsService.findAllProducts();
   }
 
+  /** Atualiza um produto */
   @Patch(':id')
   @UsePipes(new TrimBodyPipe())
   async updateProduct(
@@ -46,6 +52,7 @@ export class ProductsController {
     return await this.updateProductService.updateProduct(id, updateProductDto);
   }
 
+  /** Deleta um produto */
   @Delete(':id')
   async delete(@Param('id') id: UUID) {
     return await this.deleteProductService.deleteProduct(id);

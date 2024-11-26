@@ -16,10 +16,15 @@ async function bootstrap() {
     .setTitle('API PDV')
     .setDescription('Rotas API PDV')
     .setVersion('1.0')
-    .addTag('Users')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    })
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  await app.listen(3000);
+
+  await app.listen(process.env.PORT_API ?? 3000);
 }
 bootstrap();

@@ -1,16 +1,13 @@
 import * as request from 'supertest';
 import { app, prisma, token } from 'tests/helpers/create-test-app';
 import { discountTypeEnum } from '../enums/discount-type.enum';
-
-const productsId = '7ceff610-b6e4-46fb-bf55-45e9fc719d7e';
-const userId = '573413d7-1438-4926-9413-89d36ccb01f6';
-
+import { saleDataMock } from './saleData.mock';
 const salesItemMock = (saleId: number) => ({
   sales: {
     connect: { id: saleId },
   },
   products: {
-    connect: { id: productsId },
+    connect: { id: saleDataMock.productsId },
   },
   quantity: 1,
   discountType: 'FIXED',
@@ -25,7 +22,7 @@ describe('Finalize Sale (e2e)', () => {
   beforeAll(async () => {
     const saleCreated = await prisma.sales.create({
       data: {
-        user: { connect: { id: userId } },
+        user: { connect: { id: saleDataMock.userId } },
       },
       include: {
         SalesItems: true,
