@@ -1,12 +1,9 @@
 import * as request from 'supertest';
 import { app, prisma, token } from 'tests/helpers/create-test-app';
+import { saleDataMock } from './saleData.mock';
 
-const saleData = {
-  productsId: '7ceff610-b6e4-46fb-bf55-45e9fc719d7e',
-  quantity: 10,
-  discountType: 'FIXED',
-  discount: 10,
-};
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const { userId, ...saleData } = saleDataMock;
 
 describe('Create Sale (e2e)', () => {
   let saleId: number;
