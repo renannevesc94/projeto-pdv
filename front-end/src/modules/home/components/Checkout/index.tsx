@@ -1,7 +1,7 @@
-import { PaymentItem } from "../PaymentItem";
+import { CheckoutProduct } from "../CheckoutProduct";
 import styles from "./styles.module.css";
 
-export const PaymentSection = () => {
+export const Checkout = () => {
   const items = [
     {
       description: "Coca-Cola 2L",
@@ -34,7 +34,7 @@ export const PaymentSection = () => {
 
       <ul className={styles.paymentList}>
         {items.map((item) => (
-          <PaymentItem key={item.description} {...item} />
+          <CheckoutProduct key={item.description} {...item} />
         ))}
       </ul>
     </aside>

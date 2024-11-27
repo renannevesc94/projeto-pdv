@@ -1,5 +1,5 @@
 import { HomeHeader } from "./components/HomeHeader";
-import { PaymentSection } from "./components/PaymentSection";
+import { Checkout } from "./components/Checkout";
 import { SideBar } from "../../components/Sidebar";
 import styles from "./styles.module.css";
 
@@ -10,7 +10,7 @@ export const Home = () => {
         <SideBar />
       </nav>
       <HomeHeader />
-      <PaymentSection />
+      <Checkout />
     </div>
   );
 };
