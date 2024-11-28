@@ -1,26 +1,16 @@
 .header {
-  width: 93vw;
-  height: 14vh;
-  min-height: 122px;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 3rem;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1), 0 0px 2px 0 rgba(0, 0, 0, 0.18);
   background-color: var(--primary-white);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 60% 40%;
 }
 
-.topHeader {
-  padding: 1%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  border: none;
-  position: relative;
-}
-
-.titleArea {
-  display: flex;
-  flex-direction: column;
+.inputSearch {
+  grid-column: 3;
 }
 
 .titleArea > h1 {
@@ -34,15 +24,10 @@
 }
 
 .navbar {
+  grid-column: 2;
+  grid-row: 2;
   display: flex;
   justify-content: center;
   gap: 1rem;
   width: 100%;
 }
-
-/* display: flex;
-gap: 1rem;
-position: absolute;
-left: 50%;
-top: 82%;
-transform: translate(-50%, -50%); */

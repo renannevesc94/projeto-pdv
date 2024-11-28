@@ -1,7 +1,24 @@
 .homeContainer {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  gap: 1%;
+  display: grid;
+  grid-template-columns: 5fr 70fr 25fr;
+  grid-template-rows: 15% 85%;
+
   background-color: var(--primary-separator);
+}
+
+.sideBarContainer {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.headerContainer {
+  grid-column: 1 / span 2;
+  margin-bottom: 0.2rem;
+}
+
+.checkoutContainer {
+  grid-column: 3;
+  margin-left: 0.5rem;
 }

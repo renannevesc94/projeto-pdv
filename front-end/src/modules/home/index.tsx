@@ -6,11 +6,17 @@ import styles from "./styles.module.css";
 export const Home = () => {
   return (
     <div className={styles.homeContainer}>
-      <nav className={styles.sidebar}>
+      <div className={styles.sideBarContainer}>
         <SideBar />
-      </nav>
-      <HomeHeader />
-      <Checkout />
+      </div>
+
+      <div className={styles.headerContainer}>
+        <HomeHeader />
+      </div>
+
+      <div className={styles.checkoutContainer}>
+        <Checkout />
+      </div>
     </div>
   );
 };
