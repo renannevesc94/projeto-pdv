@@ -8,13 +8,14 @@ export const HomeHeader = () => {
   const [selected, setSelected] = useState(categories[0]);
   return (
     <header className={styles.header}>
-      <div className={styles.topHeader}>
-        <div className={styles.titleArea}>
-          <h2>Meu PDV 1.0</h2>
-          <p>22 de Out de 2024</p>
-        </div>
+      <div className={styles.titleArea}>
+        <h2>Meu PDV 1.0</h2>
+        <p>22 de Out de 2024</p>
+      </div>
+      <div className={styles.inputSearch}>
         <InputWithIcon />
       </div>
+
       <nav className={styles.navbar}>
         {categories.map((category) => (
           <NavBarItem

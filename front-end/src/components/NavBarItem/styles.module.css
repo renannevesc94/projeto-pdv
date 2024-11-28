@@ -3,6 +3,9 @@
   padding: 0.3rem;
   color: var(--primary-faded);
   font-weight: 600;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .navbarItemSelected {
@@ -14,6 +17,8 @@
   display: flex;
   overflow: hidden;
   padding: 0.3rem;
+  display: flex;
+  align-items: center;
 }
 
 .navbarItem:hover {
