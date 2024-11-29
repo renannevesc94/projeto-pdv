@@ -8,14 +8,27 @@
   background-color: var(--primary-separator);
 }
 
-.sideBarContainer {
-  grid-column: 1;
-  grid-row: 2;
-}
-
 .headerContainer {
   grid-column: 1 / span 2;
   margin-bottom: 0.2rem;
+}
+
+.productsCardContainer {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-content: flex-start;
+  overflow: scroll;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.sideBarContainer {
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .checkoutContainer {
