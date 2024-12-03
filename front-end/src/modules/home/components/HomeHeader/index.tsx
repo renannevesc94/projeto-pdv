@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { InputWithIcon } from "../../../../components/InputWithIcon";
+import { NavBar } from "../NavBar";
 import styles from "./styles.module.css";
-import { NavBarItem } from "../../../../components/NavBarItem";
 
 export const HomeHeader = () => {
-  const categories = ["Bebidas", "Carnes", "Doces", "Salgados", "Padaria"];
-  const [selected, setSelected] = useState(categories[0]);
   return (
     <header className={styles.header}>
       <div className={styles.titleArea}>
@@ -15,17 +12,9 @@ export const HomeHeader = () => {
       <div className={styles.inputSearch}>
         <InputWithIcon />
       </div>
-
-      <nav className={styles.navbar}>
-        {categories.map((category) => (
-          <NavBarItem
-            key={category}
-            label={category}
-            selected={selected}
-            setSelected={setSelected}
-          />
-        ))}
-      </nav>
+      <div className={styles.navBar}>
+        <NavBar />
+      </div>
     </header>
   );
 };

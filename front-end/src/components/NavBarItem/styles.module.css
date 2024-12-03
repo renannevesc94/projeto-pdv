@@ -1,27 +1,25 @@
-.navbarItem {
-  cursor: pointer;
-  padding: 0.3rem;
-  color: var(--primary-faded);
-  font-weight: 600;
-  height: 100%;
+.navbarItem,
+.navbarItemSelected {
+  text-align: center;
   display: flex;
+  color: var(--primary-faded);
+  white-space: inherit;
   align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  padding: 0.3rem;
+  cursor: pointer;
+  min-width: 120px;
 }
-
 .navbarItemSelected {
   background-color: #fff2e8;
   border: 1px solid var(--primary-orange);
   color: var(--primary-orange);
   border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  overflow: hidden;
-  padding: 0.3rem;
-  display: flex;
-  align-items: center;
 }
 
 .navbarItem:hover {
   border-bottom: 2px solid var(--primary-orange);
   border-radius: 5px;
+  transition: border-color 0.3s ease;
 }
