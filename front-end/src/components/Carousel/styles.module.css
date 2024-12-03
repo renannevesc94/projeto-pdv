@@ -1,0 +1,37 @@
+.prevButton,
+.nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  background-color: var(--primary-orange);
+  border-radius: 50%;
+}
+
+.prevButton {
+  left: -50px;
+}
+
+.nextButton {
+  right: -50px;
+}
+
+.prevButton svg {
+  transform: rotate(180deg);
+  font-weight: 900;
+}
+
+.prevButton:hover,
+.nextButton:hover {
+  opacity: 0.8;
+}
+
+.buttonDisabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}

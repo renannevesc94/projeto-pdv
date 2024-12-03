@@ -4,6 +4,9 @@ import { Home } from "./modules/home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./styles/reset.css";
 import "./styles/global.module.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -14,6 +17,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </StrictMode>
 );
