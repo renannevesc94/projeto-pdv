@@ -35,3 +35,8 @@
   pointer-events: none;
   cursor: not-allowed;
 }
+
+.buttonHidden {
+  display: none;
+  background-color: red;
+}
