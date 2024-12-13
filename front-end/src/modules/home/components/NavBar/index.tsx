@@ -1,29 +1,19 @@
-import { useState } from "react";
-import { NavBarItem } from "../../../../components/NavBarItem";
+import { Suspense } from "react";
 import styles from "./styles.module.css";
-import { useGetCategories } from "./hooks/use-getCategories";
-import { Carousel } from "../../../../components/Carousel";
+import { ErrorBoundary } from "react-error-boundary";
+import { fallbackError } from "../../../../components/ErrorBoundary/fallbackError";
+import { NavBarContent } from "../NavBarContent";
+import { useQueryErrorResetBoundary } from "@tanstack/react-query";
 
-export const NavBar = () => {
-  const { data: categories } = useGetCategories();
-  const [selected, setSelected] = useState("Todos");
-
+export const NavBar: React.FC = () => {
+  const { reset } = useQueryErrorResetBoundary();
   return (
     <nav className={styles.navbar}>
-      {categories ? (
-        <Carousel>
-          {categories.map((category) => (
-            <NavBarItem
-              key={category.id}
-              label={category.description}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          ))}
-        </Carousel>
-      ) : (
-        <div>Carregando...</div>
-      )}
+      <ErrorBoundary fallbackRender={fallbackError} onReset={reset}>
+        <Suspense fallback={<div>Loading categories...</div>}>
+          <NavBarContent />
+        </Suspense>
+      </ErrorBoundary>
     </nav>
   );
 };
