@@ -7,10 +7,11 @@ import styles from "./styles.module.css";
 import { ArrowIcon } from "../icons";
 
 type PropsCarousel = {
-  children: React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[];
 };
 
 export const Carousel = ({ children }: PropsCarousel) => {
+  const childrenArray = Array.isArray(children) ? children : [children];
   return (
     <>
       <Swiper
@@ -19,11 +20,12 @@ export const Carousel = ({ children }: PropsCarousel) => {
           nextEl: `.${styles.nextButton}`,
           prevEl: `.${styles.prevButton}`,
           disabledClass: `${styles.buttonDisabled}`,
+          hiddenClass: `${styles.buttonHidden}`,
         }}
-        slidesPerView={children.length > 5 ? 5 : children.length}
+        slidesPerView={childrenArray.length > 5 ? 5 : childrenArray.length}
         spaceBetween={0}
       >
-        {children.map((child, index) => (
+        {childrenArray.map((child, index) => (
           <SwiperSlide key={index} className={styles.swiperSlide}>
             {child}
           </SwiperSlide>
