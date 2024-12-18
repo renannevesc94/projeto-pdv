@@ -1,6 +1,7 @@
-import { InputWithIcon } from "../../../../components/InputWithIcon";
+import { FaSearch } from "react-icons/fa";
 import { NavBar } from "../NavBar";
 import styles from "./styles.module.css";
+import { LabeledInput } from "../../../../components/LabeledInput";
 
 export const HomeHeader = () => {
   return (
@@ -10,7 +11,7 @@ export const HomeHeader = () => {
         <p>22 de Out de 2024</p>
       </div>
       <div className={styles.inputSearch}>
-        <InputWithIcon />
+        <LabeledInput icon={<FaSearch />} inputWithLine={true} placeholder="Pesquisar produtos" />
       </div>
       <div className={styles.navBar}>
         <NavBar />
