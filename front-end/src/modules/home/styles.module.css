@@ -35,3 +35,9 @@
   grid-column: 3;
   margin-left: 0.5rem;
 }
+
+@media only screen and (max-width: 1600px) {
+  .headerContainer {
+    min-height: 100px;
+  }
+}
