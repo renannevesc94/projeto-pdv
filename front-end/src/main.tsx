@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./styles/reset.css";
 import "./styles/global.module.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Login } from "./modules/auth";
 
 const queryClient = new QueryClient();
 
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <Home />,
+  },
+  {
+    path: "/",
+    element: <Login />,
   },
 ]);
 
