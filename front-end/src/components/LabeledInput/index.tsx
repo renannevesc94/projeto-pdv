@@ -7,6 +7,7 @@ type LabeledInputProps = {
   label?: string;
   icon?: React.ReactNode;
   inputWithLine?: boolean;
+  hasError: boolean;
 } & ComponentPropsWithoutRef<"input">;
 
 export const LabeledInput = ({
@@ -14,6 +15,8 @@ export const LabeledInput = ({
   inputRef,
   icon,
   inputWithLine,
+  hasError,
+
   ...props
 }: LabeledInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -25,7 +28,10 @@ export const LabeledInput = ({
       )}
 
       <input
-        className={clsx(styles.input, { [styles.inputWithLine]: inputWithLine })}
+        className={clsx(styles.input, {
+          [styles.inputWithLine]: inputWithLine,
+          [styles.hasError]: hasError,
+        })}
         placeholder={isFocused ? "" : label}
         onFocus={() => setIsFocused(true)}
         onBlur={(e) => {

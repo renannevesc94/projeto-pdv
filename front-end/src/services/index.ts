@@ -1,9 +1,20 @@
 import { api } from "../clients/axiosClient";
 
-type Categories = {
+type CategoriesType = {
   id: string;
   description: string;
 };
+type CredentialsType = {
+  email: string;
+  password: string;
+};
 export const getCategories = async () => {
-  return await api.get<Categories[]>("/categories");
+  return await api.get<CategoriesType[]>("/categories");
+};
+
+export const postAuth = async ({ email, password }: CredentialsType) => {
+  return await api.post("/auth/login", {
+    email,
+    password,
+  });
 };

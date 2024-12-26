@@ -94,3 +94,9 @@ input[type="checkbox"] {
   align-items: center;
   justify-content: center;
 }
+
+.error {
+  font-size: 0.8rem;
+  color: red;
+  line-height: 1;
+}

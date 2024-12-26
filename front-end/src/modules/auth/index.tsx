@@ -3,11 +3,14 @@ import { Button } from "../../components/Button";
 import { LabeledInput } from "../../components/LabeledInput";
 import styles from "./styles.module.css";
 
-import { CiKeyboard } from "react-icons/ci";
 import { InputPassword } from "../../components/InputPassword";
+import { useLogin } from "./hooks/useLogin";
+import { MdOutlineEmail } from "react-icons/md";
 
 export const Login = () => {
   const inputRef = useRef(null);
+  const { register, handleSubmit, errors, error } = useLogin();
+
   return (
     <>
       <main className={styles.main}>
@@ -20,9 +23,20 @@ export const Login = () => {
               <h2>Bem vindo!</h2>
               <span>Faça login para continuar</span>
             </div>
-            <form action="" className={styles.loginForm}>
-              <LabeledInput label="E-mail" inputRef={inputRef} icon={<CiKeyboard />} />
-              <InputPassword label="Senha" />
+            <form onSubmit={handleSubmit} className={styles.loginForm}>
+              {error && <span className={styles.error}>{error.message}</span>}
+              {errors.email && <span className={styles.error}>{errors.email.message}</span>}
+              {errors.password && <span className={styles.error}>{errors.password.message}</span>}
+
+              <LabeledInput
+                {...register("email")}
+                label="E-mail"
+                type="email"
+                inputRef={inputRef}
+                hasError={!!error || !!errors.email}
+                icon={<MdOutlineEmail />}
+              />
+              <InputPassword {...register("password")} label="Senha" />
 
               <div className={styles.loginRemember}>
                 <div>
@@ -34,6 +48,7 @@ export const Login = () => {
               </div>
               <Button variant="primary">Entrar</Button>
             </form>
+
             <div className={styles.loginFooter}>
               Desenvolvido por:
               <a href="https://github.com/renannevesc94">Renan Neves</a>
