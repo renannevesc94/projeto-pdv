@@ -6,17 +6,27 @@ import "./styles/reset.css";
 import "./styles/global.module.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Login } from "./modules/auth";
+import { AuthContextProvider } from "./providers/AuthProvider";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     path: "/home",
-    element: <Home />,
+    element: (
+      <AuthContextProvider>
+        <Home />
+      </AuthContextProvider>
+    ),
   },
   {
     path: "/",
-    element: <Login />,
+
+    element: (
+      <AuthContextProvider>
+        <Login />
+      </AuthContextProvider>
+    ),
   },
 ]);
 

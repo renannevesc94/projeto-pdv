@@ -33,7 +33,10 @@ export class AuthController {
   @SkipAuth()
   async login(@Req() req: any, @Res({ passthrough: true }) res: Response) {
     const token = await this.loginService.login(req.user);
-    res.set('Authorization', `Bearer ${token}`);
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'lax',
+    });
     return { message: 'Login Successful' };
   }
 }

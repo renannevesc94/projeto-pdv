@@ -39,6 +39,7 @@ export class CategoriesController {
   }
 
   /** Busca todas as categorias */
+
   @Get()
   findAll() {
     return this.findAllCategoriesService.findAll();
