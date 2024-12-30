@@ -48,9 +48,3 @@ export default tseslint.config({
   },
 });
 ```
-
-docker run -it --rm \
--e OPENAI_API_KEY=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 \
--v "$(pwd)":/app zeroxeli/readme-ai:latest \
--r https://github.com/renannevesc94/projeto-pdv \
---api openai
