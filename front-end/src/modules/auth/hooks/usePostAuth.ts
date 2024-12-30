@@ -9,6 +9,7 @@ type Params = {
 
 type SuccessResposne = AxiosResponse<{
   message: string;
+  role: string;
 }>;
 
 type ErrorResponse = AxiosError<{
