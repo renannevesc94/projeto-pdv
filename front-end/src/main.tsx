@@ -7,26 +7,38 @@ import "./styles/global.module.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Login } from "./modules/auth";
 import { AuthContextProvider } from "./providers/AuthProvider";
-
+import { ProtectedRouter } from "./components/ProtectedRouter";
+import Cookies from "js-cookie";
 const queryClient = new QueryClient();
 
+async function getAccessToken() {
+  const token = Cookies.get();
+  console.log(token);
+  return token;
+}
+
+getAccessToken();
 const router = createBrowserRouter([
   {
-    path: "/home",
-    element: (
-      <AuthContextProvider>
-        <Home />
-      </AuthContextProvider>
-    ),
-  },
-  {
     path: "/",
-
     element: (
       <AuthContextProvider>
         <Login />
       </AuthContextProvider>
     ),
+  },
+  {
+    element: (
+      <AuthContextProvider>
+        <ProtectedRouter />
+      </AuthContextProvider>
+    ),
+    children: [
+      {
+        path: "/home",
+        element: <Home />,
+      },
+    ],
   },
 ]);
 
