@@ -35,6 +35,6 @@ export class LoginService {
       expiresIn: '1d',
     });
 
-    return jwtToken;
+    return { token: jwtToken, role: user.role };
   }
 }
