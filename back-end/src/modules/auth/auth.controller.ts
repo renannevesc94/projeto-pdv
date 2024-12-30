@@ -32,11 +32,12 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @SkipAuth()
   async login(@Req() req: any, @Res({ passthrough: true }) res: Response) {
-    const token = await this.loginService.login(req.user);
+    const { token, role } = await this.loginService.login(req.user);
+
     res.cookie('token', token, {
       httpOnly: true,
       sameSite: 'lax',
     });
-    return { message: 'Login Successful' };
+    return { message: 'Login Successful', role };
   }
 }
