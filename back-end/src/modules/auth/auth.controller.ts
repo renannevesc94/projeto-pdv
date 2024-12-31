@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -14,11 +15,15 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Response } from 'express';
 import { SkipAuth } from 'src/common/decorators/skipAuth.decorator';
 import { AuthCredentialsDto } from './dto/auth-credentials-dto';
+import { ValidLoginServise } from './services/validate-login.service';
 
 @Controller('auth')
 @ApiTags('Auth')
 export class AuthController {
-  constructor(private loginService: LoginService) {}
+  constructor(
+    private loginService: LoginService,
+    private validLoginServise: ValidLoginServise,
+  ) {}
 
   /** Realiza o login do usuário e retorna o token JWT.
    * @throws {401} Unauthorized
@@ -39,5 +44,11 @@ export class AuthController {
       sameSite: 'lax',
     });
     return { message: 'Login Successful', role };
+  }
+
+  @Get('/validate')
+  async validate(@Req() req: any) {
+    const token = req.cookies.token;
+    return await this.validLoginServise.validarLogin(token);
   }
 }
