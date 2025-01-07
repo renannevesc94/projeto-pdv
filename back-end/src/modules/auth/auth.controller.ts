@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -38,6 +39,26 @@ export class AuthController {
       httpOnly: true,
       sameSite: 'lax',
     });
+
+    res.cookie('authData', JSON.stringify({ role, userId: req.user.id }), {
+      httpOnly: false,
+      sameSite: 'lax',
+      maxAge: 120 * 60 * 1000,
+    });
+
     return { message: 'Login Successful', role };
+  }
+
+  @Get('/validate')
+  async validate(@Req() req: any, @Res({ passthrough: true }) res: Response) {
+    res.cookie(
+      'authData',
+      JSON.stringify({ role: req.user.role, userId: req.user.id }),
+      {
+        httpOnly: false,
+        sameSite: 'lax',
+        maxAge: 120 * 60 * 1000,
+      },
+    );
   }
 }

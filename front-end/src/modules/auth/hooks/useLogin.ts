@@ -2,10 +2,10 @@ import { useForm } from "react-hook-form";
 import { AuthSchema, AuthType } from "../types/AuthTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePostAuth } from "./usePostAuth";
-
-import { useAuth } from "../../../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,12 +14,9 @@ export const useLogin = () => {
     resolver: zodResolver(AuthSchema),
   });
 
-  const { login } = useAuth();
-
   const { mutate, error } = usePostAuth({
-    onSuccess: (response) => {
-      console.log(response.data);
-      login(response.data.role);
+    onSuccess: () => {
+      navigate("/home", { replace: true });
     },
 
     onError: (err) => {

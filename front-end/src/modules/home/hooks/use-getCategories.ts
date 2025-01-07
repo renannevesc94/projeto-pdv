@@ -6,8 +6,8 @@ export const useGetCategories = () => {
     queryKey: ["CATEGORIES"],
     queryFn: async () => {
       const { data } = await getCategories();
-
       return data;
     },
+    retry: 0,
   });
 };
