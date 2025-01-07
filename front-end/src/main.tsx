@@ -8,16 +8,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Login } from "./modules/auth";
 import { AuthContextProvider } from "./providers/AuthProvider";
 import { ProtectedRouter } from "./components/ProtectedRouter";
-import Cookies from "js-cookie";
 const queryClient = new QueryClient();
 
-async function getAccessToken() {
-  const token = Cookies.get();
-  console.log(token);
-  return token;
-}
-
-getAccessToken();
+export const Teste = () => {
+  return <div>AQUI NÂO PODE</div>;
+};
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +34,11 @@ const router = createBrowserRouter([
         element: <Home />,
       },
     ],
+  },
+
+  {
+    element: <ProtectedRouter role="ADMINISTRADOR" />,
+    children: [{ path: "/sales", element: <Teste /> }],
   },
 ]);
 

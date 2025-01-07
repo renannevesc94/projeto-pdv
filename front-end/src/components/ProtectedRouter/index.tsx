@@ -1,13 +1,23 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../../providers/AuthProvider";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useGetStateLogin } from "../../providers/AuthProvider/hooks/useGetValidateLogin";
 
-export const ProtectedRouter = () => {
-  const isAuthenticated = useAuth();
-  console.log(isAuthenticated);
+type ProtectedRouterProps = {
+  role?: string;
+};
 
-  if (!isAuthenticated) {
-    return <Navigate to={"/"} replace />;
+export const ProtectedRouter = ({ role }: ProtectedRouterProps) => {
+  const navigate = useNavigate();
+  const { data, isLoading } = useGetStateLogin(() => {
+    navigate(-1);
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
+  if (data && role && data.role !== role) {
+    navigate(-1);
+    return null;
+  }
   return <Outlet />;
 };

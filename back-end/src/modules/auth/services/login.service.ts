@@ -30,9 +30,9 @@ export class LoginService {
     if (!user) {
       throw new UnauthorizedException('Acess permission denied');
     }
-    const payload = { userId: user.id, role: user.role };
+    const payload = { id: user.id, role: user.role };
     const jwtToken = this.jwtService.sign(payload, {
-      expiresIn: '1d',
+      expiresIn: '1h',
     });
 
     return { token: jwtToken, role: user.role };

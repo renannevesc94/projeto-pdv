@@ -18,3 +18,7 @@ export const postAuth = async ({ email, password }: CredentialsType) => {
     password,
   });
 };
+
+export const getValidateLogin = async () => {
+  return await api.get<{ role: string; userId: string }>("/auth/validate");
+};

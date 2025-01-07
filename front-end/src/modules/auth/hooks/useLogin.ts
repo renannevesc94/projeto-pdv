@@ -18,7 +18,6 @@ export const useLogin = () => {
 
   const { mutate, error } = usePostAuth({
     onSuccess: (response) => {
-      console.log(response.data);
       login(response.data.role);
     },
 
