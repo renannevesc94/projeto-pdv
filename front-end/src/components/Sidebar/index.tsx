@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import {
   ClientesIcon,
   DashboardIcon,
@@ -7,12 +8,12 @@ import {
   VendasIcon,
 } from "../icons";
 import { SideBarItem } from "../SideBarItem";
-
 import styles from "./styles.module.css";
-import { useState } from "react";
 
 export const SideBar = () => {
-  const [selected, setSelected] = useState("Home");
+  const local = useLocation();
+  const pathname = local.pathname.split("/").pop() || "";
+  const label = pathname[0].toUpperCase() + pathname.substring(1);
 
   const menuItems = [
     { label: "Home", IconComponent: PdvIcon },
@@ -29,8 +30,7 @@ export const SideBar = () => {
             key={item.label}
             label={item.label}
             IconComponent={item.IconComponent}
-            selected={selected}
-            setSelected={setSelected}
+            selected={label === item.label}
           />
         ))}
       </div>
