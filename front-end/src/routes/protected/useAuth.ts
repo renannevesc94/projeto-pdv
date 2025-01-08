@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getValidateLogin } from "../../services";
 import { getAuthData } from "./utils";
 import { AxiosError } from "axios";
@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 export const useAuth = (requiredRole?: string) => {
   const navigate = useNavigate();
+  const local = useLocation();
 
   const { data, isLoading } = useQuery({
     queryKey: ["STATELOGIN"],
@@ -16,8 +17,8 @@ export const useAuth = (requiredRole?: string) => {
         return getAuthData();
       } catch (error: unknown) {
         if ((error as AxiosError).response?.status === 401) {
-          console.log(error);
-          navigate(-1);
+          console.log("Não autorizado");
+          return null;
         }
         throw error;
       }
@@ -29,9 +30,15 @@ export const useAuth = (requiredRole?: string) => {
 
   useEffect(() => {
     if (!isLoading && !hasAccess) {
+      if (local.pathname === "/home") {
+        navigate("/");
+        return;
+      }
+      alert("Acesso não autorizado");
+
       navigate(-1);
     }
-  }, [isLoading, hasAccess, navigate]);
+  }, [isLoading, hasAccess, navigate, local.pathname]);
 
   return {
     hasAccess,

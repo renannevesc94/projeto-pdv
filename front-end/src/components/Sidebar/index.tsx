@@ -12,7 +12,7 @@ import styles from "./styles.module.css";
 import { useState } from "react";
 
 export const SideBar = () => {
-  const [selected, setSelected] = useState("PDV");
+  const [selected, setSelected] = useState("Home");
 
   const menuItems = [
     { label: "Home", IconComponent: PdvIcon },
