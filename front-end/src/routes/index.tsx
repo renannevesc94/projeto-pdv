@@ -1,12 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ProtectedRouter } from "./protected/ProtectedRouter.tsx";
+import { ProtectedRouter } from "./protected/ProtectedRouter";
 import { Home } from "../modules/home";
-
 import { Login } from "../modules/auth";
-
-export const Teste = () => {
-  return <div>AQUI NÂO PODE</div>;
-};
+import { Layout } from "../components/Layout";
 
 export const Routes = createBrowserRouter([
   {
@@ -17,18 +13,31 @@ export const Routes = createBrowserRouter([
     element: <ProtectedRouter />,
     children: [
       {
-        path: "/home",
-        element: <Home />,
+        element: <Layout />,
+        children: [
+          {
+            path: "/home",
+            element: <Home />,
+          },
+          {
+            path: "/produtos",
+            element: <div>Produtos</div>,
+          },
+        ],
       },
     ],
   },
-
   {
-    element: <ProtectedRouter role="ADMINISTRADOR" />,
+    element: <ProtectedRouter role="ADM" />,
     children: [
       {
-        path: "/sales",
-        element: <Teste />,
+        element: <Layout />,
+        children: [
+          {
+            path: "/Vendas",
+            element: <div>Vendas</div>,
+          },
+        ],
       },
     ],
   },
