@@ -11,7 +11,12 @@ export const HomeHeader = () => {
         <p>22 de Out de 2024</p>
       </div>
       <div className={styles.inputSearch}>
-        <LabeledInput icon={<FaSearch />} inputWithLine={true} placeholder="Pesquisar produtos" />
+        <LabeledInput
+          icon={<FaSearch />}
+          inputWithLine={true}
+          placeholder="Pesquisar produtos"
+          hasError={false}
+        />
       </div>
       <div className={styles.navBar}>
         <NavBar />

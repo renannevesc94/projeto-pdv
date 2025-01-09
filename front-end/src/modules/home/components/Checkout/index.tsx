@@ -14,51 +14,6 @@ export const Checkout = () => {
       description: "Coca Cola 350ML",
       value: 10,
     },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
   ];
   return (
     <aside className={styles.paymentSection}>

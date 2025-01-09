@@ -5,69 +5,28 @@ import { ProductCard } from "../../components/ProductCard";
 
 export const Home = () => {
   return (
-    <div className={styles.homeContainer}>
-      <div className={styles.headerContainer}>
-        <HomeHeader />
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <div className={styles.headerContainer}>
+          <HomeHeader />
+        </div>
+
+        <div className={styles.productsCardContainer}>
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+        </div>
       </div>
 
-      <div className={styles.productsCardContainer}>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-      </div>
-
-      <div className={styles.checkoutContainer}>
-        <Checkout />
-      </div>
+      {isOpen && (
+        <div className={styles.checkoutContainer}>
+          <Checkout />
+        </div>
+      )}
     </div>
   );
 };

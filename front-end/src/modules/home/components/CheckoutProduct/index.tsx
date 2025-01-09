@@ -4,7 +4,7 @@ import { usePaymentCalculator } from "../../hooks/usePaymentCalculator";
 
 type PaymentItemProps = {
   description: string;
-  valueUnit: number;
+  value: number;
 };
 
 export const CheckoutProduct = ({ description }: PaymentItemProps) => {
