@@ -3,6 +3,7 @@ import { ProtectedRouter } from "./protected/ProtectedRouter";
 import { Home } from "../modules/home";
 import { Login } from "../modules/auth";
 import { Layout } from "../components/Layout";
+import { CartProvider } from "../providers/CartProvider";
 
 export const Routes = createBrowserRouter([
   {
@@ -17,7 +18,11 @@ export const Routes = createBrowserRouter([
         children: [
           {
             path: "/home",
-            element: <Home />,
+            element: (
+              <CartProvider>
+                <Home />
+              </CartProvider>
+            ),
           },
           {
             path: "/produtos",

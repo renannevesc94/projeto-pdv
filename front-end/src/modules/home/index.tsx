@@ -2,8 +2,11 @@ import { HomeHeader } from "./components/HomeHeader";
 import { Checkout } from "./components/Checkout";
 import styles from "./styles.module.css";
 import { ProductCard } from "../../components/ProductCard";
+import { useCart } from "../../providers/CartProvider";
 
 export const Home = () => {
+  const { saleProducts } = useCart();
+  console.log(saleProducts);
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -22,7 +25,7 @@ export const Home = () => {
         </div>
       </div>
 
-      {isOpen && (
+      {saleProducts && (
         <div className={styles.checkoutContainer}>
           <Checkout />
         </div>
