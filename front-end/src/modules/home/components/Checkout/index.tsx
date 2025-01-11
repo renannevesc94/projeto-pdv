@@ -1,65 +1,10 @@
 import { Button } from "../../../../components/Button";
+import { useCurrentSale } from "../../../../providers/CurrentSaleProvider";
 import { CheckoutProduct } from "../CheckoutProduct";
 import styles from "./styles.module.css";
 
 export const Checkout = () => {
-  const items = [
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-    {
-      quantity: 1,
-      description: "Coca Cola 350ML",
-      value: 10,
-    },
-  ];
+  const { currentSaleItems } = useCurrentSale();
   return (
     <aside className={styles.paymentSection}>
       <div className={styles.paymentHeader}>
@@ -74,9 +19,16 @@ export const Checkout = () => {
       </div>
 
       <ul className={styles.paymentList}>
-        {items.map((item) => (
-          <CheckoutProduct key={item.description} {...item} />
-        ))}
+        {currentSaleItems.map((item) => {
+          return (
+            <CheckoutProduct
+              key={item.id}
+              description={item.title}
+              value={item.value}
+              quantity={item.quatity}
+            />
+          );
+        })}
       </ul>
 
       <div className={styles.paymentFooter}>

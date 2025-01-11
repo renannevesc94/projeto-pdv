@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 6vw 95vw;
+  grid-template-columns: 6vw 94vw;
   background-color: var(--primary-separator);
 }
 
