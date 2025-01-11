@@ -4,10 +4,11 @@ import { usePaymentCalculator } from "../../hooks/usePaymentCalculator";
 
 type PaymentItemProps = {
   description: string;
-  value: number;
+  value: string;
+  quantity: number;
 };
 
-export const CheckoutProduct = ({ description }: PaymentItemProps) => {
+export const CheckoutProduct = ({ description, value, quantity }: PaymentItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { formData } = usePaymentCalculator();
 
@@ -15,11 +16,11 @@ export const CheckoutProduct = ({ description }: PaymentItemProps) => {
     <li className={styles.paymentItem}>
       <div className={styles.paymentItemContainer} onClick={() => setIsOpen(!isOpen)}>
         <div className={styles.paymentItemInfo}>
-          <span>{formData.quantity}</span>
+          <span>{quantity}</span>
           <div className={styles.paymentItemDescription}>
             <span>{description}</span>
           </div>
-          <p>{formData.totalValue}</p>
+          <p>{value}</p>
         </div>
       </div>
     </li>

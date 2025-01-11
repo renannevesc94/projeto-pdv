@@ -25,7 +25,7 @@ export class CreateProductDto {
   @IsPositive()
   cost: number;
 
-  @IsInt()
+  @IsNumber()
   @IsNotEmpty()
   @IsPositive()
   price: number;

@@ -2,11 +2,13 @@ import { HomeHeader } from "./components/HomeHeader";
 import { Checkout } from "./components/Checkout";
 import styles from "./styles.module.css";
 import { ProductCard } from "../../components/ProductCard";
-import { useCart } from "../../providers/CartProvider";
+import { useGetProducts } from "./hooks/use-getProducts";
+import { useCurrentSale } from "../../providers/CurrentSaleProvider";
 
 export const Home = () => {
-  const { saleProducts } = useCart();
-  console.log(saleProducts);
+  const { currentSaleItems } = useCurrentSale();
+  const { data } = useGetProducts();
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -15,17 +17,21 @@ export const Home = () => {
         </div>
 
         <div className={styles.productsCardContainer}>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {data?.map((el) => {
+            return (
+              <ProductCard
+                id={el.id}
+                description={el.description}
+                price={el.price}
+                stock={el.stock}
+                key={el.id}
+              />
+            );
+          })}
         </div>
       </div>
 
-      {saleProducts && (
+      {currentSaleItems.length !== 0 && (
         <div className={styles.checkoutContainer}>
           <Checkout />
         </div>
