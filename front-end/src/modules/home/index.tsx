@@ -3,10 +3,10 @@ import { Checkout } from "./components/Checkout";
 import styles from "./styles.module.css";
 import { ProductCard } from "../../components/ProductCard";
 import { useGetProducts } from "./hooks/use-getProducts";
-import { useCurrentSale } from "../../providers/CurrentSaleProvider";
+import { useSale } from "../../providers/CurrentSaleProvider";
 
 export const Home = () => {
-  const { currentSaleItems } = useCurrentSale();
+  const { itemsWithTotalPrice } = useSale();
   const { data } = useGetProducts();
 
   return (
@@ -31,7 +31,7 @@ export const Home = () => {
         </div>
       </div>
 
-      {currentSaleItems.length !== 0 && (
+      {itemsWithTotalPrice.length !== 0 && (
         <div className={styles.checkoutContainer}>
           <Checkout />
         </div>

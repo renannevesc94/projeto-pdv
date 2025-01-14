@@ -1,4 +1,4 @@
-import { useCurrentSale } from "../../providers/CurrentSaleProvider";
+import { useSale } from "../../providers/CurrentSaleProvider";
 import { StepperInput } from "../StepperInput";
 import styles from "./styles.module.css";
 
@@ -10,16 +10,15 @@ type ProductCardProps = {
 };
 
 export const ProductCard = (product: ProductCardProps) => {
-  const { addItemToSale, salesItemsMap } = useCurrentSale();
-  const initialValue = salesItemsMap.get(product.id) || 0;
+  const { addOrUpdateSaleItem, itemQuantityMap } = useSale();
+  const initialValue = itemQuantityMap.get(product.id) || 0;
 
   const handleChangeProduct = (newQuantity: number) => {
-    const totalPrice = newQuantity * product.price;
-    addItemToSale({
+    addOrUpdateSaleItem({
       id: product.id,
       title: product.description,
       quatity: newQuantity,
-      value: totalPrice.toString(),
+      value: product.price,
     });
   };
 

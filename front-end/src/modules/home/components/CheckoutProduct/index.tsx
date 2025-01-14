@@ -1,26 +1,22 @@
-import { useState } from "react";
 import styles from "./styles.module.css";
-import { usePaymentCalculator } from "../../hooks/usePaymentCalculator";
 
 type PaymentItemProps = {
   description: string;
-  value: string;
+  value?: number;
   quantity: number;
+  totalPrice: number;
 };
 
-export const CheckoutProduct = ({ description, value, quantity }: PaymentItemProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { formData } = usePaymentCalculator();
-
+export const CheckoutProduct = ({ description, quantity, totalPrice }: PaymentItemProps) => {
   return (
     <li className={styles.paymentItem}>
-      <div className={styles.paymentItemContainer} onClick={() => setIsOpen(!isOpen)}>
+      <div className={styles.paymentItemContainer}>
         <div className={styles.paymentItemInfo}>
           <span>{quantity}</span>
           <div className={styles.paymentItemDescription}>
             <span>{description}</span>
           </div>
-          <p>{value}</p>
+          <p>{totalPrice}</p>
         </div>
       </div>
     </li>

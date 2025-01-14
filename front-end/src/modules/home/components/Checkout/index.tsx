@@ -1,10 +1,11 @@
 import { Button } from "../../../../components/Button";
-import { useCurrentSale } from "../../../../providers/CurrentSaleProvider";
+import { useSale } from "../../../../providers/CurrentSaleProvider";
 import { CheckoutProduct } from "../CheckoutProduct";
 import styles from "./styles.module.css";
 
 export const Checkout = () => {
-  const { currentSaleItems } = useCurrentSale();
+  const { itemsWithTotalPrice, TotalSale } = useSale();
+
   return (
     <aside className={styles.paymentSection}>
       <div className={styles.paymentHeader}>
@@ -19,20 +20,36 @@ export const Checkout = () => {
       </div>
 
       <ul className={styles.paymentList}>
-        {currentSaleItems.map((item) => {
+        {itemsWithTotalPrice.map((item) => {
           return (
             <CheckoutProduct
               key={item.id}
               description={item.title}
               value={item.value}
               quantity={item.quatity}
+              totalPrice={item.totalPrice}
             />
           );
         })}
       </ul>
 
       <div className={styles.paymentFooter}>
-        <div className={styles.paymentTotal}></div>
+        <div className={styles.paymentSummaryContainer}>
+          <div className={styles.paymentSummary}>
+            <span>Subtotal:</span>
+            <span>Desconto:</span>
+            <span>Acrésimo:</span>
+            <span className={styles.paymentSubTitleTotal}>Total:</span>
+          </div>
+
+          <div className={styles.paymentSummary}>
+            <span className={styles.paymentSubTitle}>R$ {TotalSale.toFixed(2)}</span>
+            <span className={styles.paymentSubTitle}> R$ {TotalSale.toFixed(2)}</span>
+            <span className={styles.paymentSubTitle}>R$ {TotalSale.toFixed(2)}</span>
+            <span className={styles.paymentSubTitleTotal}>R$ {TotalSale.toFixed(2)}</span>
+          </div>
+        </div>
+
         <div className={styles.containerButtons}>
           <Button variant="primary">Desconto</Button>
           <Button variant="outlined">Acréscimo</Button>
