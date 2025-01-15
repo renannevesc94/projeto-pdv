@@ -5,80 +5,95 @@
 import useLocalStorage from "@rehooks/local-storage";
 import { createContext, useCallback, useContext, useMemo } from "react";
 
-type CurrentSaleProviderType = {
-  addItemToSale: (saleItem: SaleItemType) => void;
-  salesItemsMap: Map<string, number>;
-  currentSaleItems: SaleItemType[];
+type SaleContextType = {
+  addOrUpdateSaleItem: (saleItem: SaleItemType) => void;
+  itemQuantityMap: Map<string, number>;
+  saleItems: SaleItemType[];
+  itemsWithTotalPrice: (SaleItemType & { totalPrice: number })[];
+  TotalSale: number;
 };
 
 type SaleItemType = {
   id: string;
   title: string;
-  value: string;
   quatity: number;
+  value: number;
+  discount?: number;
 };
 
-export const CurrentSaleContext = createContext<CurrentSaleProviderType>({
-  addItemToSale: () => {},
-  salesItemsMap: new Map<string, number>(),
-  currentSaleItems: [],
+export const SaleContext = createContext<SaleContextType>({
+  addOrUpdateSaleItem: () => {},
+  itemQuantityMap: new Map<string, number>(),
+  saleItems: [],
+  itemsWithTotalPrice: [],
+  TotalSale: 0,
 });
 
-export const CurrentSaleProviderBase = () => {
-  const [currentSaleItems, setcurrentSaleItems] = useLocalStorage<SaleItemType[] | []>(
-    "saleItems",
-    []
-  );
+export const SaleProviderBase = () => {
+  const [saleItems, setSaleItems] = useLocalStorage<SaleItemType[] | []>("saleItems", []);
 
-  const addItemToSale = useCallback(
+  const addOrUpdateSaleItem = useCallback(
     (itemToSale: SaleItemType) => {
-      setcurrentSaleItems(() => {
-        const itemExistIndex = currentSaleItems.findIndex((el) => el.id === itemToSale.id);
-        const updatedItemsSale = currentSaleItems;
+      setSaleItems(() => {
+        const itemExistIndex = saleItems.findIndex((el) => el.id === itemToSale.id);
+        const updatedItemsSale = [...saleItems];
 
         if (itemExistIndex !== -1) {
           if (itemToSale.quatity === 0) {
-            return currentSaleItems.filter((_, ind) => itemExistIndex !== ind);
+            return saleItems.filter((_, ind) => itemExistIndex !== ind);
           }
           updatedItemsSale[itemExistIndex] = itemToSale;
           return updatedItemsSale;
         }
 
         if (itemToSale.quatity === 0) {
-          return currentSaleItems;
+          return saleItems;
         }
-        return [itemToSale, ...currentSaleItems];
+        return [itemToSale, ...saleItems];
       });
     },
-    [setcurrentSaleItems, currentSaleItems]
+    [setSaleItems, saleItems]
   );
 
-  const salesItemsMap = useMemo(() => {
+  const itemsWithTotalPrice = useMemo(() => {
+    return saleItems.map((item) => ({
+      ...item,
+      totalPrice: item.quatity * item.value,
+    }));
+  }, [saleItems]);
+
+  const itemQuantityMap = useMemo(() => {
     const map = new Map<string, number>();
-    currentSaleItems.forEach((item) => {
+    saleItems.forEach((item) => {
       map.set(item.id, item.quatity);
     });
 
     return map;
-  }, [currentSaleItems]);
+  }, [saleItems]);
+
+  const TotalSale = useMemo(() => {
+    return itemsWithTotalPrice.reduce((acc, item) => acc + item.totalPrice, 0);
+  }, [itemsWithTotalPrice]);
 
   return {
-    addItemToSale,
-    salesItemsMap,
-    currentSaleItems,
+    addOrUpdateSaleItem,
+    itemQuantityMap,
+    saleItems,
+    itemsWithTotalPrice,
+    TotalSale,
   };
 };
 
-export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const value = CurrentSaleProviderBase();
-  return <CurrentSaleContext.Provider value={value}>{children}</CurrentSaleContext.Provider>;
+export const SaleProvider = ({ children }: { children: React.ReactNode }) => {
+  const value = SaleProviderBase();
+  return <SaleContext.Provider value={value}>{children}</SaleContext.Provider>;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useCurrentSale = () => {
-  const context = useContext(CurrentSaleContext);
+export const useSale = () => {
+  const context = useContext(SaleContext);
   if (!context) {
-    throw new Error("useAuth must be used within an CartProvider");
+    throw new Error("useSale must be used within a SaleProvider");
   }
 
   return context;

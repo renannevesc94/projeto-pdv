@@ -45,7 +45,7 @@
 }
 
 .paymentList li:nth-child(even) {
-  background-color: var(--secondary-faded);
+  background-color: var(--light-gray);
 }
 
 .paymentFooter {
@@ -65,4 +65,28 @@
 
 .paymentButton {
   grid-column: 1 / span 2;
+}
+
+.paymentSummaryContainer {
+  width: 100%;
+  background-color: var(--light-gray);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--primary-faded);
+  font-weight: 900;
+}
+
+.paymentSummary {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+.paymentSubTitleTotal {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-black);
 }

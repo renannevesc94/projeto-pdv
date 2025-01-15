@@ -3,10 +3,12 @@ import { Checkout } from "./components/Checkout";
 import styles from "./styles.module.css";
 import { ProductCard } from "../../components/ProductCard";
 import { useGetProducts } from "./hooks/use-getProducts";
-import { useCurrentSale } from "../../providers/CurrentSaleProvider";
+import { useSale } from "../../providers/CurrentSaleProvider";
+import { AnimatePresence } from "motion/react";
+import * as motion from "motion/react-client";
 
 export const Home = () => {
-  const { currentSaleItems } = useCurrentSale();
+  const { saleItems } = useSale();
   const { data } = useGetProducts();
 
   return (
@@ -31,11 +33,19 @@ export const Home = () => {
         </div>
       </div>
 
-      {currentSaleItems.length !== 0 && (
-        <div className={styles.checkoutContainer}>
-          <Checkout />
-        </div>
-      )}
+      <AnimatePresence>
+        {saleItems.length !== 0 && (
+          <motion.div
+            className={styles.checkoutContainer}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Checkout />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
