@@ -2,6 +2,7 @@ import { Button } from "../../../../components/Button";
 import { useSale } from "../../../../providers/CurrentSaleProvider";
 import { CheckoutProduct } from "../CheckoutProduct";
 import styles from "./styles.module.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Checkout = () => {
   const { itemsWithTotalPrice, TotalSale } = useSale();
@@ -20,17 +21,24 @@ export const Checkout = () => {
       </div>
 
       <ul className={styles.paymentList}>
-        {itemsWithTotalPrice.map((item) => {
-          return (
-            <CheckoutProduct
+        <AnimatePresence>
+          {itemsWithTotalPrice.map((item) => (
+            <motion.li
               key={item.id}
-              description={item.title}
-              value={item.value}
-              quantity={item.quatity}
-              totalPrice={item.totalPrice}
-            />
-          );
-        })}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CheckoutProduct
+                description={item.title}
+                value={item.value}
+                quantity={item.quatity}
+                totalPrice={item.totalPrice}
+              />
+            </motion.li>
+          ))}
+        </AnimatePresence>
       </ul>
 
       <div className={styles.paymentFooter}>
