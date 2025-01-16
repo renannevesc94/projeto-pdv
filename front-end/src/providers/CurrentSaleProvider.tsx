@@ -1,7 +1,3 @@
-// carregar os dados do carrinho de compras
-// atualizar os dados do carrinho de compras
-// remover os dados do carrinho de compras
-
 import useLocalStorage from "@rehooks/local-storage";
 import { createContext, useCallback, useContext, useMemo } from "react";
 
@@ -11,6 +7,7 @@ type SaleContextType = {
   saleItems: SaleItemType[];
   itemsWithTotalPrice: (SaleItemType & { totalPrice: number })[];
   TotalSale: number;
+  cancelSale: () => void;
 };
 
 type SaleItemType = {
@@ -27,6 +24,7 @@ export const SaleContext = createContext<SaleContextType>({
   saleItems: [],
   itemsWithTotalPrice: [],
   TotalSale: 0,
+  cancelSale: () => {},
 });
 
 export const SaleProviderBase = () => {
@@ -35,25 +33,25 @@ export const SaleProviderBase = () => {
   const addOrUpdateSaleItem = useCallback(
     (itemToSale: SaleItemType) => {
       setSaleItems(() => {
-        const itemExistIndex = saleItems.findIndex((el) => el.id === itemToSale.id);
-        const updatedItemsSale = [...saleItems];
-
-        if (itemExistIndex !== -1) {
-          if (itemToSale.quatity === 0) {
-            return saleItems.filter((_, ind) => itemExistIndex !== ind);
-          }
-          updatedItemsSale[itemExistIndex] = itemToSale;
-          return updatedItemsSale;
-        }
-
         if (itemToSale.quatity === 0) {
-          return saleItems;
+          return saleItems.filter((item) => item.id !== itemToSale.id);
         }
+        const itemIndex = saleItems.findIndex((el) => el.id === itemToSale.id);
+        const isExistingItem = itemIndex !== -1;
+
+        if (isExistingItem) {
+          return saleItems.map((item, index) => (index === itemIndex ? itemToSale : item));
+        }
+
         return [itemToSale, ...saleItems];
       });
     },
     [setSaleItems, saleItems]
   );
+
+  const cancelSale = useCallback(() => {
+    setSaleItems([]);
+  }, [setSaleItems]);
 
   const itemsWithTotalPrice = useMemo(() => {
     return saleItems.map((item) => ({
@@ -81,6 +79,7 @@ export const SaleProviderBase = () => {
     saleItems,
     itemsWithTotalPrice,
     TotalSale,
+    cancelSale,
   };
 };
 

@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
+import { useSale } from "../../providers/CurrentSaleProvider";
 
 type StepperInputProps = {
   onChangeProduct: (newQuantity: number) => void;
-  initialValue: number;
+  initialValue?: number;
+  productId: string;
 };
-export const StepperInput = ({ onChangeProduct, initialValue }: StepperInputProps) => {
-  const [quantity, setQuantity] = useState(initialValue);
+
+export const StepperInput = ({ onChangeProduct, productId }: StepperInputProps) => {
+  const { itemQuantityMap } = useSale();
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    setQuantity(itemQuantityMap.get(productId) || 0);
+  }, [itemQuantityMap, productId]);
 
   const handleIncrementDecrement = (option: boolean) => {
     setQuantity((prevQuantity) => {

@@ -9,7 +9,7 @@ type PaymentItemProps = {
 
 export const CheckoutProduct = ({ description, quantity, totalPrice }: PaymentItemProps) => {
   return (
-    <li className={styles.paymentItem}>
+    <div className={styles.paymentItem}>
       <div className={styles.paymentItemContainer}>
         <div className={styles.paymentItemInfo}>
           <span>{quantity}</span>
@@ -19,6 +19,6 @@ export const CheckoutProduct = ({ description, quantity, totalPrice }: PaymentIt
           <p>{totalPrice}</p>
         </div>
       </div>
-    </li>
+    </div>
   );
 };

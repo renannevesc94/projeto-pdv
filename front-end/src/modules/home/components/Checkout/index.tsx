@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const Checkout = () => {
-  const { itemsWithTotalPrice, TotalSale } = useSale();
+  const { itemsWithTotalPrice, TotalSale, cancelSale } = useSale();
 
   return (
     <aside className={styles.paymentSection}>
@@ -62,6 +62,14 @@ export const Checkout = () => {
           <Button variant="primary">Desconto</Button>
           <Button variant="outlined">Acréscimo</Button>
           <div className={styles.paymentButton}>
+            <Button
+              onClick={() => {
+                cancelSale();
+              }}
+              variant="alert"
+            >
+              Cancelar
+            </Button>
             <Button variant="secondary">Finalizar</Button>
           </div>
         </div>
