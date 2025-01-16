@@ -27,3 +27,8 @@
   background-color: transparent;
   color: var(--primary-orange);
 }
+
+.alert {
+  background-color: rgb(241, 49, 49);
+  color: white;
+}

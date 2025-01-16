@@ -10,8 +10,7 @@ type ProductCardProps = {
 };
 
 export const ProductCard = (product: ProductCardProps) => {
-  const { addOrUpdateSaleItem, itemQuantityMap } = useSale();
-  const initialValue = itemQuantityMap.get(product.id) || 0;
+  const { addOrUpdateSaleItem } = useSale();
 
   const handleChangeProduct = (newQuantity: number) => {
     addOrUpdateSaleItem({
@@ -40,7 +39,7 @@ export const ProductCard = (product: ProductCardProps) => {
             <span className={styles.currencySymbol}>R$</span> {product.price}
           </div>
           <div className={styles.productCardQuantity}>
-            <StepperInput onChangeProduct={handleChangeProduct} initialValue={initialValue} />
+            <StepperInput onChangeProduct={handleChangeProduct} productId={product.id} />
           </div>
         </div>
       </div>

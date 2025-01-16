@@ -65,6 +65,9 @@
 
 .paymentButton {
   grid-column: 1 / span 2;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.5rem;
 }
 
 .paymentSummaryContainer {

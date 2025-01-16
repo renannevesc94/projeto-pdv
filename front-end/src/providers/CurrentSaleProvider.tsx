@@ -1,7 +1,3 @@
-// carregar os dados do carrinho de compras
-// atualizar os dados do carrinho de compras
-// remover os dados do carrinho de compras
-
 import useLocalStorage from "@rehooks/local-storage";
 import { createContext, useCallback, useContext, useMemo } from "react";
 
@@ -11,6 +7,7 @@ type SaleContextType = {
   saleItems: SaleItemType[];
   itemsWithTotalPrice: (SaleItemType & { totalPrice: number })[];
   TotalSale: number;
+  cancelSale: () => void;
 };
 
 type SaleItemType = {
@@ -27,6 +24,7 @@ export const SaleContext = createContext<SaleContextType>({
   saleItems: [],
   itemsWithTotalPrice: [],
   TotalSale: 0,
+  cancelSale: () => {},
 });
 
 export const SaleProviderBase = () => {
@@ -50,6 +48,10 @@ export const SaleProviderBase = () => {
     },
     [setSaleItems, saleItems]
   );
+
+  const cancelSale = useCallback(() => {
+    setSaleItems([]);
+  }, [setSaleItems]);
 
   const itemsWithTotalPrice = useMemo(() => {
     return saleItems.map((item) => ({
@@ -77,6 +79,7 @@ export const SaleProviderBase = () => {
     saleItems,
     itemsWithTotalPrice,
     TotalSale,
+    cancelSale,
   };
 };
 
