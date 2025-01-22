@@ -16,7 +16,7 @@ export const ProductCard = (product: ProductCardProps) => {
     addOrUpdateSaleItem({
       id: product.id,
       title: product.description,
-      quatity: newQuantity,
+      quantity: newQuantity,
       value: product.price,
     });
   };

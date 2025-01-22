@@ -8,7 +8,7 @@ import { AnimatePresence } from "motion/react";
 import * as motion from "motion/react-client";
 
 export const Home = () => {
-  const { saleItems } = useSale();
+  const { sale } = useSale();
   const { data } = useGetProducts();
 
   return (
@@ -34,7 +34,7 @@ export const Home = () => {
       </div>
 
       <AnimatePresence>
-        {saleItems.length !== 0 && (
+        {sale.items.length !== 0 && (
           <motion.div
             className={styles.checkoutContainer}
             initial={{ opacity: 0, scale: 0 }}
