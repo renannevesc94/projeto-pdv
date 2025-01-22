@@ -1,85 +1,105 @@
 import useLocalStorage from "@rehooks/local-storage";
 import { createContext, useCallback, useContext, useMemo } from "react";
-
-type SaleContextType = {
-  addOrUpdateSaleItem: (saleItem: SaleItemType) => void;
-  itemQuantityMap: Map<string, number>;
-  saleItems: SaleItemType[];
-  itemsWithTotalPrice: (SaleItemType & { totalPrice: number })[];
-  TotalSale: number;
-  cancelSale: () => void;
-};
-
-type SaleItemType = {
-  id: string;
-  title: string;
-  quatity: number;
-  value: number;
-  discount?: number;
-};
+import { sale, SaleContextType, SaleItemType } from "./types";
 
 export const SaleContext = createContext<SaleContextType>({
   addOrUpdateSaleItem: () => {},
   itemQuantityMap: new Map<string, number>(),
-  saleItems: [],
-  itemsWithTotalPrice: [],
-  TotalSale: 0,
+  sale: { discountType: "", discountValue: 0, subTotal: 0, total: 0, items: [] },
+  itemsWithTotal: [],
   cancelSale: () => {},
+  setAdjustmentToSale: () => {},
 });
 
 export const SaleProviderBase = () => {
-  const [saleItems, setSaleItems] = useLocalStorage<SaleItemType[] | []>("saleItems", []);
+  const [sale, setSale] = useLocalStorage<sale>("saleItems", {
+    items: [],
+    discountType: "",
+    discountValue: 0,
+    subTotal: 0,
+    total: 0,
+  });
+
+  const calculateItemsWithTotal = useCallback((items: SaleItemType[]) => {
+    return items.map((item) => ({
+      ...item,
+      totalPrice: item.quantity * item.value,
+    }));
+  }, []);
+
+  const itemsWithTotal = useMemo(() => {
+    return calculateItemsWithTotal(sale.items);
+  }, [calculateItemsWithTotal, sale.items]);
 
   const addOrUpdateSaleItem = useCallback(
     (itemToSale: SaleItemType) => {
-      setSaleItems(() => {
-        if (itemToSale.quatity === 0) {
-          return saleItems.filter((item) => item.id !== itemToSale.id);
+      setSale(() => {
+        const currentSale = structuredClone(sale);
+        if (itemToSale.quantity === 0) {
+          const newItems = currentSale?.items.filter((item) => item.id !== itemToSale.id) || [];
+          return {
+            discountType: currentSale.discountType,
+            discountValue: currentSale.discountValue,
+            subTotal: currentSale.total,
+            total: currentSale.total - itemToSale.value,
+            items: newItems,
+          };
         }
-        const itemIndex = saleItems.findIndex((el) => el.id === itemToSale.id);
-        const isExistingItem = itemIndex !== -1;
 
-        if (isExistingItem) {
-          return saleItems.map((item, index) => (index === itemIndex ? itemToSale : item));
+        const itemExist = currentSale.items.findIndex((item) => item.id === itemToSale.id);
+
+        if (itemExist === -1) {
+          currentSale?.items.push(itemToSale);
         }
 
-        return [itemToSale, ...saleItems];
+        const itemsWithTotalSale = calculateItemsWithTotal(currentSale.items);
+        const totalPriceSale = itemsWithTotalSale.reduce((acc, item) => acc + item.totalPrice, 0);
+
+        currentSale.items[itemExist] = itemToSale;
+        return { ...currentSale, subTotal: totalPriceSale, total: totalPriceSale };
       });
     },
-    [setSaleItems, saleItems]
+    [setSale, sale, calculateItemsWithTotal]
   );
 
-  const cancelSale = useCallback(() => {
-    setSaleItems([]);
-  }, [setSaleItems]);
+  const setAdjustmentToSale = (adjustmentType: string, adjustmentFormat: string, value: number) => {
+    if (adjustmentType !== "discount") return;
+    if (value < 0) return;
+    if (adjustmentFormat === "percentage" && value > 100) return;
 
-  const itemsWithTotalPrice = useMemo(() => {
-    return saleItems.map((item) => ({
-      ...item,
-      totalPrice: item.quatity * item.value,
-    }));
-  }, [saleItems]);
+    const currentSale = structuredClone(sale);
+    const discountValue = adjustmentFormat === "fixed" ? value : (currentSale.total * value) / 100;
+
+    setSale(() => {
+      return {
+        ...currentSale,
+        total: currentSale.total - discountValue,
+        discountType: adjustmentFormat,
+        discountValue: discountValue,
+      };
+    });
+  };
+
+  const cancelSale = useCallback(() => {
+    setSale({ discountType: "", discountValue: 0, subTotal: 0, total: 0, items: [] });
+  }, [setSale]);
 
   const itemQuantityMap = useMemo(() => {
     const map = new Map<string, number>();
-    saleItems.forEach((item) => {
-      map.set(item.id, item.quatity);
+    sale.items.forEach((item) => {
+      map.set(item.id, item.quantity);
     });
 
     return map;
-  }, [saleItems]);
-
-  const TotalSale = useMemo(() => {
-    return itemsWithTotalPrice.reduce((acc, item) => acc + item.totalPrice, 0);
-  }, [itemsWithTotalPrice]);
+  }, [sale]);
 
   return {
     addOrUpdateSaleItem,
     itemQuantityMap,
-    saleItems,
-    itemsWithTotalPrice,
-    TotalSale,
+    sale,
+    itemsWithTotal,
     cancelSale,
+    setAdjustmentToSale,
   };
 };
 

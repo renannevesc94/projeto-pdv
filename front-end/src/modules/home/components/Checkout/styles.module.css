@@ -54,20 +54,79 @@
   width: 100%;
 }
 
-.containerButtons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  height: 13%;
-  min-height: 110px;
+.containerActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem;
+  height: 10vh;
+  max-height: 70px;
+  width: 100%;
 }
 
-.paymentButton {
-  grid-column: 1 / span 2;
+.containerActions div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 50%;
+  padding: 3px 0;
+  border-top: 2px solid var(--primary-faded);
+  border-bottom: 2px solid var(--primary-faded);
+}
+
+.actionsIcons {
+  width: 25%;
+  height: 25%;
+}
+
+.containerActions div:hover {
+  color: var(--primary-orange);
+}
+
+.discountWrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.discountOptions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.discountOptions div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.discountOptions label {
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.discountInputWrapper input {
+  width: 75px;
+}
+
+.discountInputWrapper button {
+  width: 50px;
+  margin-left: 0.3rem;
+}
+
+.paymentButtons {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 0.5rem;
+  height: 7vh;
+  max-height: 70px;
 }
 
 .paymentSummaryContainer {
@@ -76,8 +135,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.9em;
   color: var(--primary-faded);
+  border-top: 1px dotted var(--primary-faded);
+
   font-weight: 900;
 }
 
@@ -91,5 +152,9 @@
   margin-top: 1rem;
   font-size: 1.2rem;
   font-weight: 700;
+  color: var(--primary-black);
+}
+
+.paymentSubTitle {
   color: var(--primary-black);
 }

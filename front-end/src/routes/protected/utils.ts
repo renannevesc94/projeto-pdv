@@ -2,7 +2,6 @@ import Cookies from "js-cookie";
 import { AuthData } from "./types";
 
 const validateAuthData = (data: unknown): data is AuthData => {
-  console.log("Chamou");
   if (!data || typeof data !== "object") return false;
   return typeof (data as { role?: string }).role === "string";
 };
