@@ -37,8 +37,8 @@ export class SalesController {
   @Post()
   @UsePipes(new TrimBodyPipe())
   async openSale(@Req() req, @Body() saleItemDto: SaleItemDto) {
-    const { userId } = req.user;
-    return await this.mediatorSalesService.startSale(userId, saleItemDto);
+    const { id } = req.user;
+    return await this.mediatorSalesService.startSale(id, saleItemDto);
   }
 
   /** Finalizar uma venda */
