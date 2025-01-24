@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UsePipes,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/CreateProduct.dto';
@@ -17,6 +18,8 @@ import { FindAllProductsService } from './services/find-all-products.service';
 import { UpdateProductService } from './services/update-product.service';
 import { DeleteProductService } from './services/delete-product.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ProductDto } from 'src/common/dtos/product.dto';
+import { GetProductByParamService } from './services/get-product-by-param.service';
 
 @Controller('products')
 @ApiTags('Products')
@@ -27,6 +30,7 @@ export class ProductsController {
     private readonly findAllProductsService: FindAllProductsService,
     private readonly updateProductService: UpdateProductService,
     private readonly deleteProductService: DeleteProductService,
+    private readonly getProductByParamService: GetProductByParamService,
   ) {}
 
   /** Cria um novo produto */
@@ -40,6 +44,11 @@ export class ProductsController {
   @Get()
   async findAllProducts() {
     return await this.findAllProductsService.findAllProducts();
+  }
+
+  @Get('/getproduct')
+  async getProductsByParam(@Query() query: Partial<ProductDto>) {
+    return await this.getProductByParamService.getProductByParam(query);
   }
 
   /** Atualiza um produto */

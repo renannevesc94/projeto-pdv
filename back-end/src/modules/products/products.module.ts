@@ -8,6 +8,7 @@ import { PrismaProductRepository } from './repositories/prisma-product.repositor
 import { IProductRepository } from './repositories/interface-product.repository';
 import { GetProductByIdService } from './services/get-product-by-id.service';
 import { IGetProductById } from 'src/common/interfaces/get-product-by-id.interface';
+import { GetProductByParamService } from './services/get-product-by-param.service';
 
 @Module({
   controllers: [ProductsController],
@@ -17,6 +18,7 @@ import { IGetProductById } from 'src/common/interfaces/get-product-by-id.interfa
     UpdateProductService,
     DeleteProductService,
     GetProductByIdService,
+    GetProductByParamService,
 
     {
       provide: IProductRepository,
