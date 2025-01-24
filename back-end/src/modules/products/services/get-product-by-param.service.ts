@@ -6,24 +6,61 @@ import { ProductDto } from 'src/common/dtos/product.dto';
 export class GetProductByParamService {
   constructor(private readonly productRepository: IProductRepository) {}
 
-  async getProductByParam(query: Partial<ProductDto>) {
+  async getProductByParam(
+    query: Partial<ProductDto> & {
+      minPrice: string;
+      maxPrice: string;
+    },
+  ) {
+    const searchParams = this.processSearchParams(query);
+
+    const response =
+      await this.productRepository.getProductByParam(searchParams);
+    if (!response) {
+      throw new HttpException('Products not found', HttpStatus.NOT_FOUND);
+    }
+
+    return response;
+  }
+
+  private processSearchParams(
+    query: Partial<ProductDto> & {
+      minPrice: string;
+      maxPrice: string;
+    },
+  ) {
     const paramsNumbers = [
       'cost',
       'price',
       'stock',
       'categoryId',
       'supplierId',
+      'minPrice',
+      'maxPrice',
     ];
+    let processedParams: any = {};
 
-    const param = Object.entries(query).reduce((acc, [key, value]) => {
-      acc[key] = paramsNumbers.includes(key) ? Number(value) : value;
-      return acc;
-    }, {});
-
-    const response = await this.productRepository.getProductByParam(param);
-    if (!response) {
-      throw new HttpException('Products not found', HttpStatus.NOT_FOUND);
+    if (query.description) {
+      processedParams.description = {
+        contains: query.description,
+        mode: 'insensitive',
+      };
     }
-    return response;
+
+    paramsNumbers.forEach((field) => {
+      if (query[field] !== undefined) {
+        processedParams[field] = Number(query[field]);
+      }
+    });
+
+    if (query.minPrice || query.maxPrice) {
+      processedParams = {};
+      processedParams.price = {
+        ...(query.minPrice && { gte: Number(query.minPrice) }),
+        ...(query.maxPrice && { lte: Number(query.maxPrice) }),
+      };
+    }
+
+    return processedParams;
   }
 }

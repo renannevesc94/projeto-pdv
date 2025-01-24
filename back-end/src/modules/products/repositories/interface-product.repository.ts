@@ -14,7 +14,7 @@ export abstract class IProductRepository {
     updateProductDto: UpdateProductDto,
   ): Promise<Product>;
 
-  abstract getProductById(id: string): Promise<Product>;
+  abstract getProductById(id: string): Promise<ProductDto>;
 
-  abstract getProductByParam(param: Partial<ProductDto>): Promise<Product[]>;
+  abstract getProductByParam(param: Partial<ProductDto>): Promise<ProductDto[]>;
 }
