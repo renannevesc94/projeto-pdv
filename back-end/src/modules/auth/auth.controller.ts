@@ -46,6 +46,9 @@ export class AuthController {
       maxAge: 120 * 60 * 1000,
     });
 
+    process.env.NODE_ENV !== 'production' &&
+      res.header('Authorization', `Bearer ${token}`);
+
     return { message: 'Login Successful', role };
   }
 

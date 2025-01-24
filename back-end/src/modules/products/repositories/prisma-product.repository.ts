@@ -48,8 +48,12 @@ export class PrismaProductRepository implements IProductRepository {
     return await this.prisma.products.findMany();
   }
 
-  async getProductById(id: string): Promise<ProductDto> {
+  async getProductById(id: string): Promise<Product> {
     return await this.prisma.products.findFirst({ where: { id } });
+  }
+
+  async getProductByParam(param: Partial<ProductDto>): Promise<Product[]> {
+    return await this.prisma.products.findMany({ where: { ...param } });
   }
 
   async delete(productId: UUID): Promise<Product> {
