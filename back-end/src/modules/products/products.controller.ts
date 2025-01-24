@@ -47,7 +47,13 @@ export class ProductsController {
   }
 
   @Get('/getproduct')
-  async getProductsByParam(@Query() query: Partial<ProductDto>) {
+  async getProductsByParam(
+    @Query()
+    query: Partial<ProductDto> & {
+      minPrice: string;
+      maxPrice: string;
+    },
+  ) {
     return await this.getProductByParamService.getProductByParam(query);
   }
 
