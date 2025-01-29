@@ -31,8 +31,8 @@ export const getCategories = async () => {
   return await api.get<CategoriesType[]>("/categories");
 };
 
-export const getProducts = async () => {
-  return await api.get<GetProductsType[]>("/products");
+export const getProducts = async (filter?: string) => {
+  return await api.get<GetProductsType[]>(`/products/getproduct?${filter}`);
 };
 
 export const postAuth = async ({ email, password }: CredentialsType) => {
