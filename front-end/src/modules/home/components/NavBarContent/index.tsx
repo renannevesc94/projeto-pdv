@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 
 export const NavBarContent: React.FC = () => {
   const { data: categories } = useGetCategories();
-  const [selected, setSelected] = useState("tags=luxo");
+  const [selected, setSelected] = useState("Todos");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchParams, setSearchParams] = useSearchParams();
 
