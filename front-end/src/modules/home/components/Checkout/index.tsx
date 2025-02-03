@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { RiDiscountPercentLine } from "react-icons/ri";
 import { TbReceiptTax } from "react-icons/tb";
+import { IoMdPersonAdd } from "react-icons/io";
 
 export const Checkout = () => {
   const { itemsWithTotal, sale, cancelSale, setAdjustmentToSale } = useSale();
@@ -16,7 +17,9 @@ export const Checkout = () => {
   return (
     <aside className={styles.paymentSection}>
       <div className={styles.paymentHeader}>
-        <Button variant="outlined">+ Cliente</Button>
+        <Button variant="outlined">
+          <IoMdPersonAdd /> Cliente
+        </Button>
         <h3>Venda: 0003</h3>
       </div>
 

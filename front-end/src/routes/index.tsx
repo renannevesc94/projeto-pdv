@@ -4,6 +4,7 @@ import { Home } from "../modules/home";
 import { Login } from "../modules/auth";
 import { Layout } from "../components/Layout";
 import { SaleProvider } from "../providers/CurrentSaleProvider";
+import { ProductsModule } from "../modules/products";
 
 export const Routes = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ export const Routes = createBrowserRouter([
           },
           {
             path: "/produtos",
-            element: <div>Produtos</div>,
+            element: <ProductsModule />,
           },
           {
             path: "/clientes",
