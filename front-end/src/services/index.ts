@@ -1,47 +1,23 @@
-import { api } from "../clients/axiosClient";
+import { apiPdv } from "@/clients/axiosClient";
+import { AuthType } from "@/modules/auth/types";
+import { NewProductType } from "@/modules/products/types";
 
-type CategoriesType = {
-  id: string;
-  description: string;
-};
-type CredentialsType = {
-  email: string;
-  password: string;
-};
+export async function postAuth({ email, password }: AuthType) {
+  return await apiPdv.post("/auth/login", { email, password });
+}
 
-type GetProductsType = {
-  id: string;
-  categoryId: number;
-  cost: number;
-  created_at: string;
-  description: string;
-  ean: string;
-  imageUrl: string;
-  min_stock: number;
-  price: number;
-  status: boolean;
-  stock: number;
-  supplierId: number;
-  tags: string;
-  unit: string;
-  updated_at: string;
-};
+export async function getProducts() {
+  return await apiPdv.get("/products");
+}
 
-export const getCategories = async () => {
-  return await api.get<CategoriesType[]>("/categories");
-};
+export async function getProductById(id: string) {
+  return await apiPdv.get(`/products/${id}`);
+}
 
-export const getProducts = async (filter?: string) => {
-  return await api.get<GetProductsType[]>(`/products/getproduct?${filter}`);
-};
+export async function postProduct(data: NewProductType) {
+  return await apiPdv.post("/products", data);
+}
 
-export const postAuth = async ({ email, password }: CredentialsType) => {
-  return await api.post("/auth/login", {
-    email,
-    password,
-  });
-};
-
-export const getValidateLogin = async () => {
-  return await api.get<{ role: string; userId: string }>("/auth/validate");
-};
+export async function deleteProduct(id: string) {
+  return await apiPdv.delete(`/products/${id}`);
+}
