@@ -20,6 +20,7 @@ import { DeleteProductService } from './services/delete-product.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProductDto } from 'src/common/dtos/product.dto';
 import { GetProductByParamService } from './services/get-product-by-param.service';
+import { GetProductByIdService } from './services/get-product-by-id.service';
 
 @Controller('products')
 @ApiTags('Products')
@@ -31,6 +32,7 @@ export class ProductsController {
     private readonly updateProductService: UpdateProductService,
     private readonly deleteProductService: DeleteProductService,
     private readonly getProductByParamService: GetProductByParamService,
+    private readonly getProductByIdService: GetProductByIdService,
   ) {}
 
   /** Cria um novo produto */
@@ -44,6 +46,11 @@ export class ProductsController {
   @Get()
   async findAllProducts() {
     return await this.findAllProductsService.findAllProducts();
+  }
+
+  @Get(':id')
+  async getProductById(@Param('id') id: UUID) {
+    return await this.getProductByIdService.getProductById(id);
   }
 
   @Get('/getproduct')
