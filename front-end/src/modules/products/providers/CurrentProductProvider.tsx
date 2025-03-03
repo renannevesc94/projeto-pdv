@@ -3,7 +3,6 @@
 
 import { createContext, useContext, useState } from "react";
 import { NewProductType } from "../types";
-import { useGetProducts } from "../hooks/useGetProducts";
 
 type ProductContextType = {
   currentProduct: NewProductType | null;

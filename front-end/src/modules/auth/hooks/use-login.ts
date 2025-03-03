@@ -17,7 +17,7 @@ export function useLogin() {
 
   const { mutate, error } = usePostLogin({
     onSuccess: () => {
-      navigate("/produtos");
+      navigate("/clientes");
     },
 
     onError: (error) => {

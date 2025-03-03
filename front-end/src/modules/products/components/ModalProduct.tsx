@@ -20,6 +20,7 @@ export function ModalProduct({
   dialogTrigger: boolean;
   setOpen?: (open: boolean) => void;
 }) {
+  console.log("CHAMOU O MODAL");
   return (
     <Dialog modal={true} open={isOpen} onOpenChange={setOpen && setOpen}>
       {dialogTrigger && (

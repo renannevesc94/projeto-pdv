@@ -6,26 +6,33 @@ import { ProductContextProvider } from "@/modules/products/providers/CurrentProd
 
 import { createBrowserRouter } from "react-router-dom";
 
-export const RoutesApp = createBrowserRouter([
+export const RoutesApp = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <LoginPage />,
+    },
+    {
+      element: <Layout />,
+      children: [
+        {
+          path: "/produtos",
+          element: (
+            <ProductContextProvider>
+              <ProductsPage />
+            </ProductContextProvider>
+          ),
+        },
+        {
+          path: "/clientes",
+          element: <ClientsPage />,
+        },
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: <LoginPage />,
-  },
-  {
-    element: <Layout />,
-    children: [
-      {
-        path: "/produtos",
-        element: (
-          <ProductContextProvider>
-            <ProductsPage />
-          </ProductContextProvider>
-        ),
-      },
-      {
-        path: "/clientes",
-        element: <ClientsPage />,
-      },
-    ],
-  },
-]);
+    future: {
+      v7_relativeSplatPath: true,
+    },
+  }
+);

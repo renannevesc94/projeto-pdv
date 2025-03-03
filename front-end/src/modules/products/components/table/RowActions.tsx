@@ -12,17 +12,23 @@ import ModalAlert from "@/components/modal-alert/ModalAlert";
 import { useEffect, useState } from "react";
 import { ModalProduct } from "../ModalProduct";
 import useGetProductById from "../../hooks/useGetProductById";
+import { useProductContext } from "../../providers/CurrentProductProvider";
 
 export default function RowActions({ productId }: { productId: string }) {
   const { onSubmit, isSuccess, error, data: deletedProduct } = useRemoveProduct();
-  const { refetch } = useGetProductById("8ed76024-f317-407f-b16f-be94e5504cb6");
+  const { refetch } = useGetProductById(productId);
+  const { setCurrentProduct, setIsEditing } = useProductContext();
 
   const [openModal, setOpenModal] = useState(false);
   const [stateModalProduct, setStateModalProduct] = useState(false);
 
   async function handleSubmit() {
-    const response = await refetch();
-    console.log(response);
+    const { data } = await refetch();
+    if (data) {
+      setCurrentProduct(data);
+      setIsEditing(true);
+      setStateModalProduct(true);
+    }
   }
 
   useEffect(() => {
@@ -66,11 +72,13 @@ export default function RowActions({ productId }: { productId: string }) {
             : error?.message || "Erro desconhecido"
         }
       />
-      <ModalProduct
-        dialogTrigger={false}
-        isOpen={stateModalProduct}
-        setOpen={setStateModalProduct}
-      />
+      {stateModalProduct && (
+        <ModalProduct
+          dialogTrigger={false}
+          isOpen={stateModalProduct}
+          setOpen={setStateModalProduct}
+        />
+      )}
     </DropdownMenu>
   );
 }
