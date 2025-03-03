@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const api = axios.create({
-  baseURL: "http://localhost:3000/",
+const urlApi = "http://localhost:3000/";
+
+export const apiPdv = axios.create({
+  baseURL: urlApi,
   withCredentials: true,
 });
