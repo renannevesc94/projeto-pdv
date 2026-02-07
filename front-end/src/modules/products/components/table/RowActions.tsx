@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { useRemoveProduct } from "../../hooks/useDeleteProduct";
 import ModalAlert from "@/components/modal-alert/ModalAlert";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ModalProduct } from "../ModalProduct";
 import useGetProductById from "../../hooks/useGetProductById";
 import { useProductContext } from "../../providers/CurrentProductProvider";
@@ -22,18 +22,19 @@ export default function RowActions({ productId }: { productId: string }) {
   const [openModal, setOpenModal] = useState(false);
   const [stateModalProduct, setStateModalProduct] = useState(false);
 
-  async function handleSubmit() {
+  const handleSubmit = useCallback(async () => {
     const { data } = await refetch();
     if (data) {
       setCurrentProduct(data);
       setIsEditing(true);
       setStateModalProduct(true);
     }
-  }
+  }, [refetch, setCurrentProduct, setIsEditing]);
 
   useEffect(() => {
     setOpenModal(!!error || isSuccess);
   }, [isSuccess, error]);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

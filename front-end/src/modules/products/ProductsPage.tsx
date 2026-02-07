@@ -1,15 +1,16 @@
 import { Input } from "@/components/ui/input";
-import { LoaderIcon, Search } from "lucide-react";
+import { LoaderIcon, Search, SquarePlus } from "lucide-react";
 import ProductOverviewCard from "./components/ProductOverviewCard";
 import { DataTable } from "./components/table/DataTable";
 import { columns } from "./components/table/colums";
 import { useGetProducts } from "./hooks/useGetProducts";
 import { ModalProduct } from "./components/ModalProduct";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export default function ProductsPage() {
   const { data: products, isLoading } = useGetProducts();
-
-  console.log("Renderizou a página principal");
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <>
@@ -35,8 +36,18 @@ export default function ProductsPage() {
                 <ProductOverviewCard title="Saldo financeiro" content="R$ 21.500,00" footer="+50" />
               </div>
               <div className="flex items-center justify-end mr-4">
-                <ModalProduct dialogTrigger />
+                <Button
+                  onClick={() => {
+                    setOpenModal(true);
+                  }}
+                >
+                  <SquarePlus />
+                  Novo Produto
+                </Button>
               </div>
+              {openModal && (
+                <ModalProduct dialogTrigger={true} isOpen={openModal} setOpen={setOpenModal} />
+              )}
             </header>
 
             <div className="p-4">

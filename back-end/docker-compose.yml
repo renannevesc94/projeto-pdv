@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  postgres:
+  DatabasePdv:
     container_name: postgres-pdv
     image: postgres:latest
     restart: always
@@ -22,6 +22,18 @@ services:
       timeout: 5s
       retries: 5
 
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: nest-pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin4
+    ports:
+      - '5050:80'
+    depends_on:
+      - DatabasePdv
+
   api:
     container_name: api-pdv
     build:
@@ -41,6 +53,6 @@ services:
       - .env.production
 
     depends_on:
-      - postgres
+      - DatabasePdv
 volumes:
   postgres:

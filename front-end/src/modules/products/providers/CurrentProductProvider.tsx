@@ -22,6 +22,7 @@ const useProductContextBase = () => {
   const [currentProduct, setCurrentProduct] = useState<NewProductType | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
+  console.log("CHAMOU O CONTEXT");
   return {
     currentProduct,
     setCurrentProduct,

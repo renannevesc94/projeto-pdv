@@ -4,15 +4,18 @@ import { DialogClose } from "@radix-ui/react-dialog";
 
 import { FormInputField } from "./FormInputField";
 import { useCreateProduct } from "../hooks/useCreateProduct";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import ModalAlert from "@/components/modal-alert/ModalAlert";
+import { useProductContext } from "../providers/CurrentProductProvider";
 
-export default function FormProduct() {
+export const FormProduct = memo(function () {
   const { onSubmit, newProductForm, error, isSuccess, isError } = useCreateProduct();
+  const { currentProduct } = useProductContext();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setOpen(isSuccess || isError);
+    console.log(currentProduct);
   }, [isError, isSuccess]);
 
   return (
@@ -147,4 +150,4 @@ export default function FormProduct() {
       </Form>
     </>
   );
-}
+});
